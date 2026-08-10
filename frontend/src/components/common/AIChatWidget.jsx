@@ -34,16 +34,11 @@ export default function AIChatWidget() {
     fetchAllBooks();
   }, []);
 
-  // ==========================================
-  // ==========================================
-  // ==========================================
-  // API Key lấy từ cấu hình môi trường Vercel (.env)
-  // Nếu không có, sẽ dùng key dự phòng (đã được làm mờ để tránh Github chặn)
-  // ==========================================
-  const p1 = 'gsk_1h8lP0cs3rh4F';
-  const p2 = 'JaMAdhmWGdyb3FYW';
-  const p3 = 'cYBmUVz7wLYJjalOLM1Tb4X';
-  const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY || (p1 + p2 + p3);
+  // API Key lấy từ cấu hình môi trường Vercel (.env), không có key dự phòng.
+  // Tuyệt đối không hardcode key vào đây: repo công khai nên mọi giá trị đã
+  // commit đều lộ vĩnh viễn trong lịch sử git, kể cả khi sau đó xoá đi.
+  // Thiếu biến này thì widget tự hiện thông báo hướng dẫn cấu hình.
+  const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

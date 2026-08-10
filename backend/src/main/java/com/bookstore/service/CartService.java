@@ -37,21 +37,26 @@ public class CartService {
 
     public Cart addToCart(String username, CartRequest request) {
         Cart cart = getCartByUser(username);
+        if (request == null || request.getBookId() == null) {
+            throw new RuntimeException("ID sách không hợp lệ!");
+        }
+        int quantityToAdd = (request.getQuantity() != null && request.getQuantity() > 0) ? request.getQuantity() : 1;
+
         Book book = bookRepository.findById(request.getBookId())
                 .orElseThrow(() -> new RuntimeException("Sách (ID: " + request.getBookId() + ") không tồn tại hoặc đã ngừng kinh doanh!"));
 
         Optional<CartItem> existingItem = cart.getItems().stream()
-                .filter(item -> item.getBook().getId().equals(book.getId()))
+                .filter(item -> item.getBook() != null && item.getBook().getId().equals(book.getId()))
                 .findFirst();
 
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
-            item.setQuantity(item.getQuantity() + request.getQuantity());
+            item.setQuantity(item.getQuantity() + quantityToAdd);
         } else {
             CartItem newItem = CartItem.builder()
                     .cart(cart)
                     .book(book)
-                    .quantity(request.getQuantity())
+                    .quantity(quantityToAdd)
                     .build();
             cart.getItems().add(newItem);
         }
@@ -61,17 +66,26 @@ public class CartService {
 
     public Cart updateCartItem(String username, Long bookId, CartRequest request) {
         Cart cart = getCartByUser(username);
-        cart.getItems().stream()
-                .filter(item -> item.getBook().getId().equals(bookId))
-                .findFirst()
-                .ifPresent(item -> item.setQuantity(request.getQuantity()));
+        if (bookId == null) {
+            return cart;
+        }
+        if (request == null || request.getQuantity() == null || request.getQuantity() <= 0) {
+            cart.getItems().removeIf(item -> item.getBook() != null && item.getBook().getId().equals(bookId));
+        } else {
+            cart.getItems().stream()
+                    .filter(item -> item.getBook() != null && item.getBook().getId().equals(bookId))
+                    .findFirst()
+                    .ifPresent(item -> item.setQuantity(request.getQuantity()));
+        }
         
         return cartRepository.save(cart);
     }
 
     public Cart removeCartItem(String username, Long bookId) {
         Cart cart = getCartByUser(username);
-        cart.getItems().removeIf(item -> item.getBook().getId().equals(bookId));
+        if (bookId != null) {
+            cart.getItems().removeIf(item -> item.getBook() != null && item.getBook().getId().equals(bookId));
+        }
         return cartRepository.save(cart);
     }
 

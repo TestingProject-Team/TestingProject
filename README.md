@@ -454,7 +454,38 @@ docker compose down -v
 
 ---
 
-## 🆕 VIII. Lịch Sử Cập Nhật Toàn Bộ
+## ✅ VIII. Jira, kiểm thử và tài liệu bàn giao
+
+Dự án dùng Jira project `YIYI`, Scrum board và quy ước commit có issue key để
+Jira tự liên kết phần Development. Khi bắt đầu một task, chuyển task sang
+`In Progress`; commit theo mẫu `YIYI-<số> mô tả ngắn`; chỉ chuyển `Done` sau khi
+đã có bằng chứng kiểm thử hoặc tài liệu bàn giao.
+
+| Nội dung | Tài liệu / file chạy |
+|---|---|
+| Jira, Scrum board và quyền nhóm | [`docs/JIRA_SCRUM_GUIDE.md`](docs/JIRA_SCRUM_GUIDE.md) |
+| Test plan | [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) |
+| Requirement Traceability Matrix | [`docs/REQUIREMENT_TRACEABILITY_MATRIX.md`](docs/REQUIREMENT_TRACEABILITY_MATRIX.md) |
+| Báo cáo Week 1 | [`docs/README_TUAN_1.md`](docs/README_TUAN_1.md) |
+| Báo cáo Week 2 | [`docs/README_TUAN_2.md`](docs/README_TUAN_2.md) |
+| Postman collection và Newman JSON | [`test-scripts/`](test-scripts/) |
+
+Chạy nhanh kiểm thử backend và Postman:
+
+```powershell
+cd backend
+.\mvnw.cmd test
+
+cd ..\postman
+npm ci
+npm test
+```
+
+Không commit token, API key hoặc mật khẩu thật vào collection/environment.
+
+---
+
+## 🆕 IX. Lịch Sử Cập Nhật Toàn Bộ
 
 ### 🤖 Phase 5 — AI Chatbot & Personalization (24/06/2026)
 
@@ -556,7 +587,7 @@ docker compose down -v
 
 ---
 
-## 📝 IX. Lời Kết
+## 📝 X. Lời Kết
 
 Dự án **YiYi Book** là giải pháp hoàn chỉnh cho một website bán sách trực tuyến hiện đại. Điểm nổi bật nhất là **YiYi AI** — trợ lý chatbot thông minh tích hợp LLM thực thụ, có khả năng đọc toàn bộ kho hàng, nhận diện ý định khách hàng, cá nhân hóa trải nghiệm cho từng người dùng và ghi nhớ lịch sử hội thoại lâu dài.
 

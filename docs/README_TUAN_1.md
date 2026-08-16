@@ -1,114 +1,47 @@
-# YiYi Bookstore Backend - README phan cong tuan 1
+# Báo cáo Tuần 1 — Nền tảng kiểm thử YiYi Book
 
-> Pham vi: 5 ngay lam viec dau tien cua ke hoach 2 tuan.  
-> Muc tieu: dung moi truong, tao Postman Workspace/Collection, khai bao cac endpoint va tao bo test ban dau.
+**Ngày chốt:** 16/08/2026
 
-## 1. Muc tieu cuoi tuan 1
+**Phạm vi:** Jira/Scrum, Test Plan, RTM, môi trường và bộ Postman nền tảng
 
-- Chay duoc backend bang Docker Compose va kiem tra duoc GET /api/ping.
-- Co Postman Team Workspace, Collection va Environment cho Local/Docker.
-- Co day du cac folder endpoint theo phan cong trong file task goc.
-- Co body mau, header mau va bien moi truong co ban.
-- Co bo test script ban dau cho cac request quan trong.
-- Moi thanh vien co README bao cao rieng va dinh kem evidence khi hoan thanh.
+**Trạng thái:** Hoàn thành các deliverable YIYI-28, YIYI-29 và YIYI-33
 
-## 2. Nguyen tac lam viec
+## 1. Kết quả
 
-- Lam tren branch rieng: feature/<ten>-week1.
-- Khong commit mat khau, token that, file .env that hoac thong tin ca nhan.
-- Dung chung ten bien Postman: baseUrl, token, userId, bookId, categoryId, orderId.
-- Neu API chua co contract ro rang, ghi TODO - can xac nhan backend, khong tu y khang dinh schema.
-- Moi request moi them vao Collection phai co method, URL, header, body mau neu can va mo ta ngan.
-- Trang thai ban dau cua cac dau viec trong file nay la TODO; cap nhat thanh DOING, DONE sau khi thuc hien.
+| Hạng mục | Kết quả | Bằng chứng |
+| --- | --- | --- |
+| Jira/Scrum | Project key `YIYI`, Sprint 1 và luồng `To Do → In Progress → Done` đã được dùng; quy ước vai trò, nhánh và Definition of Done đã được tài liệu hóa | [JIRA_SCRUM_GUIDE.md](JIRA_SCRUM_GUIDE.md) |
+| Test Plan | Đã xác định scope, cấp độ test, môi trường, entry/exit criteria, rủi ro và trách nhiệm | [TEST_PLAN.md](TEST_PLAN.md) |
+| RTM | Đã liên kết yêu cầu với Jira task, endpoint, JUnit/Postman và bằng chứng chạy test | [REQUIREMENT_TRACEABILITY_MATRIX.md](REQUIREMENT_TRACEABILITY_MATRIX.md) |
+| Backend local | Docker image build thành công; `GET /api/ping` trả `200 pong` | `docker compose build`; backend test tại `localhost:8082` |
+| Unit test baseline | Maven chạy **282/282 test PASS**, không failure/error/skipped | `./mvnw.cmd test` |
+| Frontend | ESLint PASS; Vite production build PASS | `npm run lint`; `npm run build` |
+| Postman collection | Có **152 request item**, cả 152 item có test script; environment local có 43 biến | [test-scripts](../test-scripts/README.md) |
 
-## 3. Phan cong chi tiet tuan 1
+## 2. Deliverable đã bàn giao
 
-| Ma | Thanh vien | Nhiem vu tuan 1 | Dau ra bat buoc |
-| --- | --- | --- | --- |
-| VA-W1 | Van Anh | Clone source, checkout branch, cai JDK 17/21, Docker Desktop, IntelliJ; cau hinh application-local.properties; chay docker compose up --build; kiem tra GET /api/ping; ghi loi vao README | 3 container xanh, ket qua ping, log loi va cach xu ly |
-| AP-W1 | Anh Phu | Tao Team Workspace, Collection, folder Auth/Books/Categories/Banners; tao Environment Local va Docker; verify API bang Postman/Swagger; khai bao request co ban | Workspace, Environment, 4 folder va request co ban |
-| VT-W1 | Van Thien | Khai bao Cart, Orders, Payment; tao skeleton Wishlist, Address, VAT Invoice; chuan bi body mau va header auth; xac dinh request nao can token | 6 folder, request co ban, danh sach request can auth |
-| VD-W1 | Van Dinh | Khai bao Reviews, Coupons, Notifications, Newsletter; tao test script dau tien cho Auth, Books, Cart, Orders; dat quy uoc test chung | 4 folder, test script ban dau, bang test case |
-| MT-W1 | Minh Tai | Khai bao Admin Users, Admin Reviews, Admin Rewards, Rewards; tao Collection Runner draft; phoi hop invite thanh vien va kiem tra quyen truy cap | 4 folder admin/rewards, Runner draft, danh sach thanh vien da invite |
+- README gốc đã bổ sung mục Jira, kiểm thử và đường dẫn tài liệu.
+- Collection và environment có thể import trực tiếp vào Postman.
+- Không commit JWT/runtime response; bằng chứng Newman chỉ lưu số liệu tổng hợp đã làm sạch.
+- Các lệnh chạy Maven, Postman/Newman và kiểm tra frontend được ghi trong Test Plan.
 
-## 4. Lich lam viec 5 ngay
+## 3. Đánh giá tiêu chí hoàn thành
 
-### Ngay 1 - Dung moi truong va Workspace
+- [x] Jira workflow và cách dùng Scrum board được mô tả rõ.
+- [x] Test Plan có scope, chiến lược, môi trường, entry/exit criteria và risk.
+- [x] RTM truy vết requirement → task → test → evidence.
+- [x] Backend build/chạy được bằng Docker và health check trả 200.
+- [x] Postman collection/environment được chuẩn hóa và có hướng dẫn import/chạy.
+- [x] Kết quả kiểm thử có thể tái lập bằng command trong repository.
 
-- Van Anh: clone source, cai cong cu, bat dau Docker Compose.
-- Anh Phu: tao Workspace, Collection va Environment.
-- Van Thien: chot quy uoc folder, header va bien token.
-- Van Dinh: chot mau test script va bang ma test case.
-- Minh Tai: chot danh sach quyen truy cap, tao folder Admin/Rewards.
+## 4. Lưu ý
 
-### Ngay 2 - Kiem tra backend va khai bao endpoint dot 1
+- Cổng mặc định `8081` đang bị một dự án khác sử dụng trong lần xác minh, nên backend YiYi được chạy tạm ở `8082`; đây không phải lỗi ứng dụng.
+- Bước tạo sitemap báo `ER_ACCESS_DENIED_ERROR` với MySQL từ xa nhưng script hiện tại cho phép Vite tiếp tục và build thành công; cần owner dữ liệu kiểm tra lại credential/allowlist.
+- `npm audit` ghi nhận 10 dependency issue ở frontend và 19 issue trong bộ Newman/reporting; chưa dùng `--force` vì có rủi ro nâng version gây breaking change.
+- Kiểm tra static analysis/SonarQube thuộc task riêng của nhóm, chưa được dùng làm tiêu chí PASS cho ba task tuần 1 này.
+- Các API upload file cần được kiểm tra thêm bằng file thật trên Postman GUI.
 
-- Van Anh: hoan tat GET /api/ping, kiem tra log va port.
-- Anh Phu: hoan tat Auth, Books, Categories, bat dau Banners.
-- Van Thien: hoan tat Cart, Orders, bat dau Payment.
-- Van Dinh: hoan tat Reviews, Coupons, Notifications, Newsletter.
-- Minh Tai: hoan tat Admin Users, Admin Reviews, Admin Rewards, Rewards.
+## 5. Kết luận
 
-### Ngay 3 - Khai bao endpoint dot 2 va test ban dau
-
-- Anh Phu: hoan tat Banners, bo sung body mau va response note.
-- Van Thien: hoan tat Payment, Wishlist, Address, VAT Invoice.
-- Van Dinh: viet test cho Auth, Books, Cart, Orders.
-- Minh Tai: tao Collection Runner va bo test chay theo thu tu.
-- Van Anh: ho tro xu ly loi moi truong cho thanh vien.
-
-### Ngay 4 - Dong bo va review cheo
-
-- Kiem tra tat ca folder co dung ten, dung method va dung bien {{baseUrl}}.
-- Kiem tra request can auth deu co Authorization: Bearer {{token}}.
-- Kiem tra cac bien token, userId, bookId, orderId co duoc luu sau request.
-- Review cheo: moi thanh vien chay thu it nhat mot folder cua nguoi khac.
-- Ghi lai endpoint loi, body chua ro hoac response khac contract.
-
-### Ngay 5 - Chot deliverable tuan 1
-
-- Van Anh xac nhan moi truong chay duoc tren may thanh vien.
-- Anh Phu va Van Thien chot endpoint collection.
-- Van Dinh chot test script ban dau va bang test case.
-- Minh Tai chot Runner draft, quyen Workspace va danh sach con thieu.
-- Ca nhom cap nhat README rieng, commit va gui evidence.
-
-## 5. Deliverable cuoi tuan 1
-
-- [ ] Docker Compose chay thanh cong, 3 container o trang thai healthy/running.
-- [ ] GET /api/ping co ket qua va evidence.
-- [ ] Team Workspace da tao, Collection da tao.
-- [ ] Environment Local va Docker co baseUrl, token, userId.
-- [ ] Co cac folder: Auth, Books, Categories, Banners, Cart, Orders, Payment, Wishlist, Address, VAT Invoice, Reviews, Coupons, Notifications, Newsletter, Admin Users, Admin Reviews, Admin Rewards, Rewards.
-- [ ] Request co method, URL, body mau va mo ta ngan.
-- [ ] Co test script cho it nhat Auth, Books, Cart, Orders.
-- [ ] Co Runner draft va danh sach quyen truy cap.
-- [ ] Moi thanh vien cap nhat README ca nhan.
-
-## 6. Tieu chi hoan thanh mot task
-
-Mot task chi duoc danh DONE khi co du 4 noi dung:
-
-1. Da thuc hien tren branch/Workspace dung.
-2. Da chay kiem tra toi thieu mot lan.
-3. Co ket qua thuc te hoac evidence link/anh/log.
-4. Da cap nhat README va thong bao blocker neu co.
-
-## 7. Mau cap nhat bao cao hang ngay
-
-| Ngay | Da lam | Dang lam | Blocker | Evidence |
-| --- | --- | --- | --- | --- |
-| D1 | TODO | TODO | Khong/ghi ro | Link anh/log |
-| D2 | TODO | TODO | Khong/ghi ro | Link request |
-| D3 | TODO | TODO | Khong/ghi ro | Link Collection |
-| D4 | TODO | TODO | Khong/ghi ro | Link test run |
-| D5 | TODO | TODO | Khong/ghi ro | Link commit/report |
-
-## 8. Quy uoc evidence
-
-- Anh Docker: evidence/week1/docker-<ngay>.png
-- Anh Postman: evidence/week1/postman-<folder>-<ngay>.png
-- Log loi: evidence/week1/log-<ma-task>.txt
-- Bao cao test: evidence/week1/test-<ma-test>.md
-- Newman report chi chay va export trong tuan 2, khong danh dau DONE o tuan 1 neu chua co file report.
-
+Ba deliverable tuần 1 trong phạm vi được giao đã có tài liệu, traceability và bằng chứng chạy thực tế. Bộ tài liệu đủ để thành viên khác import Postman, khởi động backend và tiếp tục chạy regression mà không cần đoán cấu hình cơ bản.

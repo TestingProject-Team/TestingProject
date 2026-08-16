@@ -1,73 +1,65 @@
-# YiYi Bookstore Backend - README phan cong tuan 2
+# Báo cáo Tuần 2 — Kiểm thử tự động YiYi Book
 
-> Pham vi: Giai doan hoan thien, kiem thu va ban giao cua ke hoach 2 tuan.  
-> Muc tieu: hoan thien request, viet test script, chay collection, tao Newman HTML Report va tong hop demo.
+**Ngày chốt:** 16/08/2026
 
-## 1. Muc tieu tuan 2
+**Phạm vi:** Validator unit test, Postman/Newman regression và bàn giao kết quả
 
-- Hoan thien cac folder va request con thieu trong Postman.
-- Chay duoc luong co ban: login -> lay token -> request can auth -> luu ID -> request phu thuoc.
-- Test script bao phu toi thieu 80% endpoint theo task goc.
-- Kiem tra status code, response time, response body va bien moi truong.
-- Chay duoc Collection Runner va Newman CLI.
-- Export duoc newman-report.html.
-- Chot quyen Workspace, README ca nhan va tai lieu demo cho ca nhom.
+**Trạng thái:** PASS
 
-## 2. Phan cong chi tiet tuan 2
+## 1. Tổng hợp kết quả
 
-| Ma | Thanh vien | Nhiem vu tuan 2 | Dau ra bat buoc |
-| --- | --- | --- | --- |
-| VA-W2 | Van Anh | Re-run moi truong sau khi dong bo collection; kiem tra 3 container, port, database/log; ghi loi va cap nhat README setup; ho tro fix blocker | Setup README hoan chinh, health-check evidence, danh sach loi da xu ly |
-| AP-W2 | Anh Phu | Hoan thien body/response note cho Auth, Books, Categories, Banners; them case thanh cong/loi; verify token/userId; review cheo folder | 4 folder du request, case positive/negative, bien duoc luu dung |
-| VT-W2 | Van Thien | Hoan thien body cho Cart, Orders, Payment, Wishlist, Address, VAT Invoice; viet pre-request auto login/set token; test cac luong phu thuoc | 6 folder du request, script auth chay duoc, orderId/cartId duoc luu |
-| VD-W2 | Van Dinh | Hoan thien test script cho Payment, Reviews, Wishlist; bo sung test cho folder con can thiet; chay collection va sua assertion; tong hop test coverage | Test script pass theo contract, coverage >= 80%, bang PASS/FAIL co evidence |
-| MT-W2 | Minh Tai | Chay Collection Runner; cai/chay Newman + htmlextra; export HTML; chot quyen Member; phoi hop demo va tong hop tai lieu | newman-report.html, log command, Workspace invite day du, demo checklist |
+| Bộ kiểm thử | Quy mô | Kết quả |
+| --- | ---: | ---: |
+| Maven/JUnit toàn backend | 282 test | **282 PASS, 0 FAIL** |
+| Nhóm validator/service validation trọng tâm | 67 test | **67 PASS** |
+| Postman full collection | 152 request item | **421/421 assertion PASS** |
+| HTTP request thực thi bởi Newman | 196 request | **0 failure** |
+| Collection phạm vi YIYI-37 | 26 request | **72/72 assertion PASS** |
 
-## 3. Deliverable tuan 2
+Newman thực thi nhiều HTTP request hơn số item vì pre-request script tự đăng nhập/lấy token. Full run hoàn thành trong khoảng **41,5 giây**, response trung bình **47 ms**, lớn nhất **787 ms**.
 
-- [ ] Tat ca folder phan cong co request va body mau.
-- [ ] Environment Local/Docker co bien can thiet, khong chua secret that.
-- [ ] Pre-request script tu dong xu ly token hoac co huong dan fallback.
-- [ ] Test script kiem tra status code, response time < 2000ms, response body va luu bien.
-- [ ] Coverage test dat toi thieu 80% endpoint theo pham vi task.
-- [ ] Collection Runner chay duoc va co log.
-- [ ] Newman chay duoc va export newman-report.html.
-- [ ] Workspace da invite thanh vien va phan quyen.
-- [ ] Co danh sach FAIL/known issue, owner va huong xu ly.
-- [ ] Co README tuan 1, README tuan 2, README test case va README rieng cua 5 thanh vien.
+## 2. Unit test và coverage
 
-## 4. Tieu chi nghiem thu
+- Bổ sung 8 case cho `CouponService`: coupon không tồn tại, mốc minimum bằng nhau, giới hạn dùng bằng 0, coupon riêng thiếu user, coupon thuộc user khác, fixed discount bị cap, percentage dưới max và input null.
+- `CouponServiceTest` hiện có 16 test; nhóm Contact, Newsletter, Auth và Coupon có tổng cộng 67 test validation trọng tâm.
+- JaCoCo snapshot sau lần chạy cuối:
+  - Instruction coverage: **37,57%** (`3.790/10.089`).
+  - Branch coverage: **41,27%** (`324/785`).
+- Coverage toàn ứng dụng còn thấp do controller/integration path ngoài phạm vi validator; đây là số đo thực tế, không được làm tròn thành mức đạt giả định.
 
-| Hang muc | Dat khi |
-| --- | --- |
-| Moi truong | Docker Compose chay duoc, ping phan hoi, khong co loi blocker chua ghi nhan |
-| Collection | Folder va request dung phan cong, URL dung {{baseUrl}}, body co mau |
-| Auth | Token duoc tao/luu va request can auth dung Bearer token |
-| Test script | Co assertion status, time, body; khong dung assertion qua rong |
-| Automation | Runner/Newman co ket qua va file report |
-| Tai lieu | README co owner, ket qua thuc te, evidence va known issue |
-| Ban giao | Thanh vien khac co the import/chay theo README ma khong can hoi lai buoc co ban |
+## 3. Postman/Newman
 
-## 5. Mau tong hop ket qua
+- Collection: [YiYi-Week-1-2.postman_collection.json](../test-scripts/YiYi-Week-1-2.postman_collection.json)
+- Environment: [YiYi-Local.postman_environment.json](../test-scripts/YiYi-Local.postman_environment.json)
+- Kết quả full suite đã làm sạch: [week2-newman-summary.json](../test-scripts/week2-newman-summary.json)
+- Kết quả YIYI-37 đã làm sạch: [YIYI-37-newman-summary.json](../test-scripts/YIYI-37-newman-summary.json)
 
-| Nhom | Tong request | Da test | PASS | FAIL | Coverage | Ghi chu |
-| --- | ---: | ---: | ---: | ---: | ---: | --- |
-| Auth/Books/Categories/Banners | TODO | TODO | TODO | TODO | TODO | Anh Phu |
-| Cart/Orders/Payment/Wishlist/Address/VAT | TODO | TODO | TODO | TODO | TODO | Van Thien |
-| Reviews/Coupons/Notifications/Newsletter | TODO | TODO | TODO | TODO | TODO | Van Dinh |
-| Admin/Rewards | TODO | TODO | TODO | TODO | TODO | Minh Tai |
-| Environment/Health check | TODO | TODO | TODO | TODO | N/A | Van Anh |
-| Tong | TODO | TODO | TODO | TODO | TODO | Ca nhom |
+Ngưỡng response time riêng của luồng MoMo sandbox là 5.000 ms để tránh flaky test do dịch vụ ngoài; full run gần nhất trả tối đa 787 ms. Điều này chỉ xác nhận contract sandbox, không xác nhận thanh toán production.
 
-## 6. Known issue phai ghi ro
+## 4. Known issues và kiểm tra thủ công
 
-Moi loi con lai phai co:
+| Hạng mục | Hiện trạng | Hướng xử lý |
+| --- | --- | --- |
+| Upload banner/thumbnail | Runner không gắn file thật trong bộ dữ liệu CI | Chạy thủ công bằng Postman GUI với file hợp lệ |
+| Book ID không tồn tại | Contract hiện tại có thể trả `500` thay vì `404` | Tách bug backend để chuẩn hóa error mapping |
+| Payment gateway | Dùng sandbox/phản hồi phụ thuộc dịch vụ ngoài | Không dùng kết quả này làm bằng chứng giao dịch thật |
+| Newman report thô | Có response body và JWT runtime | Không commit; chỉ lưu JSON summary không có secret |
+| Frontend sitemap | Remote MySQL từ chối truy cập; Vite vẫn build PASS | Owner dữ liệu kiểm tra credential/allowlist |
+| Dependency audit | Frontend có 10 và Newman/reporting có 19 cảnh báo audit | Review/nâng version ở task dependency riêng, không dùng `--force` |
 
-- Ma loi/ma test.
-- Endpoint va method.
-- Cach tai hien.
-- Expected va actual.
-- Log/anh/report.
-- Owner xu ly.
-- Muc do: Blocker, High, Medium hoac Low.
-- Trang thai: Open, In progress, Resolved, Accepted risk.
+## 5. Cách tái lập
+
+```powershell
+cd backend
+.\mvnw.cmd test
+
+cd ..\postman
+npm ci
+npx newman run ..\test-scripts\YiYi-Week-1-2.postman_collection.json `
+  --environment ..\test-scripts\YiYi-Local.postman_environment.json `
+  --env-var baseUrl=http://localhost:8081/api
+```
+
+## 6. Kết luận
+
+YIYI-37 đã có cả README, unit test và Postman testcase. Lần chạy cuối không có failure; các giới hạn về coverage toàn hệ thống, file upload và payment sandbox được ghi rõ để báo cáo phản ánh đúng trạng thái sản phẩm.

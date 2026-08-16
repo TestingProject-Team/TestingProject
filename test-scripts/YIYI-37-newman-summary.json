@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-16T16:31:00+07:00",
+  "jiraIssue": "YIYI-37",
+  "collection": "Dinh_Cart_Orders_Reviews_Coupons.json",
+  "environment": "_Env_Local.json",
+  "baseUrl": "http://localhost:8082/api",
+  "collectionRequests": 26,
+  "executedHttpRequests": 26,
+  "assertions": {
+    "total": 72,
+    "passed": 72,
+    "failed": 0
+  },
+  "durationMs": 5900,
+  "responseTimeMs": {
+    "average": 68,
+    "maximum": 415
+  },
+  "status": "PASS",
+  "sanitized": true,
+  "note": "Runtime response bodies, access tokens and cookies are intentionally not retained."
+}

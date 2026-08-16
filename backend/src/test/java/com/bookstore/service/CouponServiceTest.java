@@ -107,6 +107,68 @@ public class CouponServiceTest {
     }
 
     @Test
+    void validateCoupon_CodeNotFound_ThrowsExpectedMessage() {
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("UNKNOWN"))
+                .thenReturn(Optional.empty());
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                couponService.validateCoupon("UNKNOWN", 200000.0, null));
+
+        assertEquals("Mã giảm giá không tồn tại hoặc đã hết hạn!", exception.getMessage());
+        verifyNoInteractions(userRepository, orderRepository);
+    }
+
+    @Test
+    void validateCoupon_OrderAmountEqualsMinimum_IsAccepted() {
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        Coupon validated = couponService.validateCoupon("DISCOUNT20", 100000.0, null);
+
+        assertSame(testCoupon, validated);
+        verifyNoInteractions(userRepository, orderRepository);
+    }
+
+    @Test
+    void validateCoupon_UsageLimitIsZero_ThrowsExpectedMessage() {
+        testCoupon.setUsageLimit(0);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                couponService.validateCoupon("DISCOUNT20", 200000.0, null));
+
+        assertEquals("Mã giảm giá đã hết lượt sử dụng!", exception.getMessage());
+    }
+
+    @Test
+    void validateCoupon_UserSpecificCouponWithoutLogin_ThrowsExpectedMessage() {
+        testCoupon.setUserId(1L);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                couponService.validateCoupon("DISCOUNT20", 200000.0, null));
+
+        assertEquals("Mã giảm giá này thuộc về người dùng khác. Vui lòng đăng nhập!", exception.getMessage());
+        verifyNoInteractions(userRepository, orderRepository);
+    }
+
+    @Test
+    void validateCoupon_UserSpecificCouponOwnedByAnotherUser_ThrowsExpectedMessage() {
+        testCoupon.setUserId(2L);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+        when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                couponService.validateCoupon("DISCOUNT20", 200000.0, "couponuser"));
+
+        assertEquals("Mã giảm giá này thuộc về người dùng khác!", exception.getMessage());
+        verifyNoInteractions(orderRepository);
+    }
+
+    @Test
     void calculateDiscount_PercentageWithMaxLimit() {
         // 20% of 400,000 is 80,000, but max discount is 50,000
         Double discount = couponService.calculateDiscount(testCoupon, 400000.0);
@@ -127,6 +189,21 @@ public class CouponServiceTest {
     }
 
     @Test
+    void calculateDiscount_FixedAmountNeverExceedsOrderAmount() {
+        Coupon fixedCoupon = Coupon.builder()
+                .discountType(DiscountType.FIXED)
+                .discountValue(150000.0)
+                .build();
+
+        assertEquals(100000.0, couponService.calculateDiscount(fixedCoupon, 100000.0));
+    }
+
+    @Test
+    void calculateDiscount_PercentageBelowMaximumUsesCalculatedValue() {
+        assertEquals(20000.0, couponService.calculateDiscount(testCoupon, 100000.0));
+    }
+
+    @Test
     void useCoupon_DecrementsUsageLimit() {
         couponService.useCoupon(testCoupon);
 
@@ -144,5 +221,11 @@ public class CouponServiceTest {
         assertEquals(0, testCoupon.getUsageLimit());
         assertFalse(testCoupon.getIsActive());
         verify(couponRepository).save(testCoupon);
+    }
+
+    @Test
+    void useCoupon_NullInput_DoesNothing() {
+        assertDoesNotThrow(() -> couponService.useCoupon(null));
+        verifyNoInteractions(couponRepository);
     }
 }

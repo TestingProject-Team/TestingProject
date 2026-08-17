@@ -1,7 +1,7 @@
 # Requirement Traceability Matrix (RTM)
 
 Tài liệu này là deliverable của **YIYI-33**. Ma trận được cập nhật theo source
-và lần kiểm thử ngày 16/08/2026.
+và lần kiểm thử ngày 17/08/2026.
 
 | Requirement / Jira | Implementation / tài liệu | Test case / evidence | Kết quả |
 |---|---|---|---|
@@ -10,11 +10,9 @@ và lần kiểm thử ngày 16/08/2026.
 | YIYI-33 — RTM | File này | Mapping Jira → file → evidence, ghi rõ khoảng trống | PASS |
 | YIYI-35 — Auth API test cases design | `docs/AUTH_API_TEST_CASES_YIYI-35.md`, `postman/Auth_API_TestCases_YIYI-35.json` | 42+ test cases, Postman 8 folders (Register, Login, Token, RBAC, Security, Boundary) + `AuthServiceTest` | PASS |
 | YIYI-37 — Validator unit tests | `ContactServiceTest`, `NewsletterServiceTest`, `CouponServiceTest`, `AuthServiceTest` | Maven Surefire; null/empty/format/boundary/duplicate/error branch | PASS |
-<<<<<<< HEAD
-| Boundary Value Analysis (BVA) | `docs/BVA_TEST_CASES.md`; `ReviewServiceTest`, `CouponServiceTest`, `OrderServiceCreateTest`, `RewardServiceTest` | 30 giá trị biên cho rating, coupon, tồn kho, hạng thành viên và đổi thưởng; full suite 299 test ngày 17/08/2026 | PASS |
-=======
+| Boundary Value Analysis (BVA) | `docs/BVA_TEST_CASES.md`; `ReviewServiceTest`, `CouponServiceTest`, `OrderServiceCreateTest`, `RewardServiceTest` | 30 giá trị biên cho rating, coupon, tồn kho, hạng thành viên và đổi thưởng; full suite 299 test | PASS |
 | YIYI-40 — AI fallback, context, streaming & secrets | `docs/AI_CHAT_TEST_REPORT_YIYI-40.md`, `test-scripts/test-ai-chat.js`, `test-scripts/verify-ai-module.ps1` | 10 automated test cases (RAG, Intent, Context, SSE, History, Security) + `YIYI-40-ai-test-summary.json` | PASS |
->>>>>>> 10372387b1eaa48426458b00bf305afc29b65fa9
+| YIYI-43 — End-to-End Testing với CodeceptJS | `codecept.conf.js`, `steps_file.js`, `e2e/pages/*`, `e2e/tests/*`, `docs/CODECEPTJS_E2E_TEST_REPORT_YIYI-43.md` | 20 test cases/checks E2E (Auth, Search, AIChat, Cart, Checkout, Boundary & Screenshot on fail) + `verify-codeceptjs-e2e.ps1` | PASS |
 | Auth API | `AuthController`, `AuthService` | Postman Auth + `AuthServiceTest` | PASS |
 | Cart & Order API | `CartController`, `OrderController`, services | Postman Cart/Orders + Order service tests | PASS |
 | Coupon validation | `CouponService.validateCoupon` | Unit boundary/ownership/usage tests + Postman coupon validate | PASS |

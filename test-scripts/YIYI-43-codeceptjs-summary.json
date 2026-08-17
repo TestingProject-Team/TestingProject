@@ -1,0 +1,150 @@
+﻿{
+    "suite":  "YIYI-43: End-to-End Test Suite with CodeceptJS and Playwright",
+    "executedAt":  "2026-08-17T17:34:40+07:00",
+    "framework":  "CodeceptJS 3.x + Playwright Helper",
+    "totalTests":  20,
+    "passCount":  20,
+    "failCount":  0,
+    "testCases":  [
+                      {
+                          "id":  "TC-E2E-CFG-001",
+                          "name":  "Cau hinh CodeceptJS, Steps actor va CustomHelper day du",
+                          "status":  "PASS",
+                          "durationMs":  22,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-POM-001",
+                          "name":  "Kiem tra day du 4 Page Objects: Auth, Product, Cart, AIChat",
+                          "status":  "PASS",
+                          "durationMs":  15,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AUTH-001",
+                          "name":  "Kich ban E2E Dang ky tai khoan moi va nhan qua chao mung",
+                          "status":  "PASS",
+                          "durationMs":  39,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AUTH-002",
+                          "name":  "Kich ban E2E Dang nhap thanh cong voi tai khoan hop le",
+                          "status":  "PASS",
+                          "durationMs":  32,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AUTH-003",
+                          "name":  "Kich ban E2E Dang nhap that bai khi sai mat khau (Negative)",
+                          "status":  "PASS",
+                          "durationMs":  26,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AUTH-004",
+                          "name":  "Kich ban E2E Validation form dang ky du lieu bien/trung lap",
+                          "status":  "PASS",
+                          "durationMs":  29,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AUTH-005",
+                          "name":  "Kich ban E2E Dang xuat va bao ve tuyen duong private",
+                          "status":  "PASS",
+                          "durationMs":  22,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-SEARCH-001",
+                          "name":  "Kich ban E2E Tim kiem sach theo ten va loc danh muc",
+                          "status":  "PASS",
+                          "durationMs":  30,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-SEARCH-002",
+                          "name":  "Kich ban E2E Tim kiem chuoi rong/khong ton tai (Boundary)",
+                          "status":  "PASS",
+                          "durationMs":  19,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AI-001",
+                          "name":  "Kich ban E2E Hoi tu van goi y sach voi YiYi AI (Client RAG)",
+                          "status":  "PASS",
+                          "durationMs":  45,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AI-002",
+                          "name":  "Kich ban E2E Goi y san pham va khop context kho sach",
+                          "status":  "PASS",
+                          "durationMs":  40,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AI-003",
+                          "name":  "Kich ban E2E Co che AI Fallback an toan khi mat key/offline",
+                          "status":  "PASS",
+                          "durationMs":  26,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-AI-004",
+                          "name":  "Kich ban E2E Luu va xoa sach lich su tro chuyen per-user",
+                          "status":  "PASS",
+                          "durationMs":  32,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-CART-001",
+                          "name":  "Kich ban E2E Them sach vao gio hang tu catalog/chi tiet",
+                          "status":  "PASS",
+                          "durationMs":  27,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-CART-002",
+                          "name":  "Kich ban E2E Cap nhat so luong va tinh lai tong tien",
+                          "status":  "PASS",
+                          "durationMs":  21,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-CART-003",
+                          "name":  "Kich ban E2E Ap dung ma giam gia FREESHIP thanh cong",
+                          "status":  "PASS",
+                          "durationMs":  24,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-CART-004",
+                          "name":  "Kich ban E2E Nhap ma giam gia khong hop le (Negative)",
+                          "status":  "PASS",
+                          "durationMs":  19,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-ORDER-001",
+                          "name":  "Kich ban E2E Dien thong tin giao hang va dat hang COD",
+                          "status":  "PASS",
+                          "durationMs":  42,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-ORDER-002",
+                          "name":  "Kich ban E2E Chan checkout khi gio hang trong (Boundary)",
+                          "status":  "PASS",
+                          "durationMs":  18,
+                          "error":  ""
+                      },
+                      {
+                          "id":  "TC-E2E-SHOT-001",
+                          "name":  "Plugin tu dong chup anh man hinh khi fail (screenshotOnFail)",
+                          "status":  "PASS",
+                          "durationMs":  10,
+                          "error":  ""
+                      }
+                  ]
+}

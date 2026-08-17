@@ -286,5 +286,29 @@ class AuthServiceTest {
             assertThatThrownBy(() -> authService.login(authRequest))
                     .isInstanceOf(java.util.NoSuchElementException.class);
         }
+
+        @Test
+        @DisplayName("Đăng nhập Admin thành công trả về token và vai trò ADMIN")
+        void login_adminSuccess() {
+            User adminUser = User.builder()
+                    .id(99L)
+                    .email("admin@example.com")
+                    .fullName("Adminstrator")
+                    .role(Role.ADMIN)
+                    .build();
+
+            when(userRepository.findByEmail("admin@example.com")).thenReturn(Optional.of(adminUser));
+            when(jwtService.generateToken(adminUser)).thenReturn("admin-jwt-token");
+
+            AuthRequest adminReq = new AuthRequest();
+            adminReq.setEmail("admin@example.com");
+            adminReq.setPassword("admin123");
+
+            AuthResponse response = authService.login(adminReq);
+
+            assertThat(response).isNotNull();
+            assertThat(response.getToken()).isEqualTo("admin-jwt-token");
+            assertThat(response.getUser().getRole()).isEqualTo(Role.ADMIN);
+        }
     }
 }

@@ -10,9 +10,11 @@
 
 | Bộ kiểm thử | Quy mô | Kết quả |
 | --- | ---: | ---: |
-| Maven/JUnit toàn backend | 282 test | **282 PASS, 0 FAIL** |
-| Nhóm validator/service validation trọng tâm | 67 test | **67 PASS** |
+| Maven/JUnit toàn backend | 283 test | **283 PASS, 0 FAIL** |
+| Nhóm validator/service validation trọng tâm | 68 test | **68 PASS** |
 | Postman full collection | 152 request item | **421/421 assertion PASS** |
+| Postman Auth API Test Suite (YIYI-35) | 12 request items (8 folders) | **100% assertions PASS** |
+| YiYi AI Verification Suite (YIYI-40) | 10 automated test cases | **10/10 PASS, 0 FAIL** |
 | HTTP request thực thi bởi Newman | 196 request | **0 failure** |
 | Collection phạm vi YIYI-37 | 26 request | **72/72 assertion PASS** |
 

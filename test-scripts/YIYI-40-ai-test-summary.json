@@ -1,0 +1,80 @@
+﻿{
+    "suite":  "YIYI-40: AI Chatbot Fallback, Context, Streaming and Secret Handling",
+    "executedAt":  "2026-08-17T11:05:49+07:00",
+    "totalTests":  10,
+    "passCount":  10,
+    "failCount":  0,
+    "status":  "PASS",
+    "tests":  [
+                  {
+                      "id":  "TC-AI-RAG-001",
+                      "name":  "Trich xuat tu khoa va loc bo stop words",
+                      "status":  "PASS",
+                      "durationMs":  62,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-RAG-002",
+                      "name":  "Client-side RAG Matching tim dung san pham theo Ten sach",
+                      "status":  "PASS",
+                      "durationMs":  48,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-INT-001",
+                      "name":  "Nhan dien chinh xac y dinh can tu van va goi y (wantRecommendation)",
+                      "status":  "PASS",
+                      "durationMs":  37,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-INT-002",
+                      "name":  "Nhan dien da y dinh: Qua tang + Gia re + Ky nang",
+                      "status":  "PASS",
+                      "durationMs":  27,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-CTX-001",
+                      "name":  "Xay dung Store Context day du thong ke tong quan kho",
+                      "status":  "PASS",
+                      "durationMs":  31,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-STR-001",
+                      "name":  "Giai ma chuan luong SSE va ket thuc an toan voi token [DONE]",
+                      "status":  "PASS",
+                      "durationMs":  81,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-HIS-001",
+                      "name":  "Phan tach Storage Key theo User ID tranh xung dot cache",
+                      "status":  "PASS",
+                      "durationMs":  39,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-HIS-002",
+                      "name":  "Gioi han cua so ngu canh toi da 20 tin nhan gan nhat",
+                      "status":  "PASS",
+                      "durationMs":  74,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-SEC-001",
+                      "name":  "Kiem tra API Key khong bi hardcode trong source code AIChatWidget.jsx",
+                      "status":  "PASS",
+                      "durationMs":  77,
+                      "error":  null
+                  },
+                  {
+                      "id":  "TC-AI-SEC-002",
+                      "name":  "Quet tinh toan bo repo de dam bao khong ro ri secret trong source code",
+                      "status":  "PASS",
+                      "durationMs":  16901,
+                      "error":  null
+                  }
+              ]
+}

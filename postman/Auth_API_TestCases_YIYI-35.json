@@ -1,0 +1,705 @@
+{
+  "info": {
+    "_postman_id": "yiyi-auth-api-testsuite-yiyi35",
+    "name": "Auth API Test Suite (YIYI-35)",
+    "description": "Comprehensive Test Cases for YiYi Bookstore Authentication & Authorization API. Covers Register, Login, Token lifecycle, RBAC, Validation, Duplication, and Boundary cases.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - Đăng ký (Register) - Positive & Welcome Gifts",
+      "item": [
+        {
+          "name": "TC-AUTH-REG-001: Đăng ký khách hàng mới thành công (Đầy đủ thông tin)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const rand = Math.floor(Math.random() * 1000000);",
+                  "const ts = Date.now();",
+                  "pm.environment.set(\"dynamicEmail\", \"test_reg_\" + ts + \"_\" + rand + \"@example.com\");",
+                  "pm.environment.set(\"dynamicPhone\", \"09\" + Math.floor(10000000 + Math.random() * 90000000));"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time < 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Response contains valid JWT token and user info\", function () {",
+                  "    pm.expect(data).to.have.property(\"token\");",
+                  "    pm.expect(data.token).to.be.a(\"string\");",
+                  "    pm.expect(data.token.split(\".\").length).to.equal(3);",
+                  "    pm.expect(data).to.have.property(\"user\");",
+                  "    pm.expect(data.user.email).to.equal(pm.environment.get(\"dynamicEmail\"));",
+                  "    pm.expect(data.user.role).to.equal(\"USER\");",
+                  "    pm.expect(data.user.provider).to.equal(\"LOCAL\");",
+                  "});",
+                  "",
+                  "if (data.token) {",
+                  "    pm.environment.set(\"authToken\", data.token);",
+                  "    pm.environment.set(\"authUserId\", data.user.id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyễn Văn Test\",\n  \"email\": \"{{dynamicEmail}}\",\n  \"phone\": \"{{dynamicPhone}}\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-REG-002: Đăng ký thành công không cung cấp số điện thoại (Phone Optional)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const ts = Date.now();",
+                  "pm.environment.set(\"dynamicEmailNoPhone\", \"nophone_\" + ts + \"@example.com\");"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Token exists and user phone is null or empty\", function () {",
+                  "    pm.expect(data.token).to.exist;",
+                  "    pm.expect(data.user.email).to.equal(pm.environment.get(\"dynamicEmailNoPhone\"));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Trần Thị Không SĐT\",\n  \"email\": \"{{dynamicEmailNoPhone}}\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-REG-003: Đăng ký với tên tiếng Việt có dấu (Unicode UTF-8)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const ts = Date.now();",
+                  "pm.environment.set(\"unicodeEmail\", \"unicode_\" + ts + \"@example.com\");"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Full name Unicode UTF-8 preserved correctly\", function () {",
+                  "    pm.expect(data.user.fullName).to.equal(\"Nguyễn Hoàng Đăng Khoa\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nguyễn Hoàng Đăng Khoa\",\n  \"email\": \"{{unicodeEmail}}\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Đăng ký (Register) - Validation & Missing Fields",
+      "item": [
+        {
+          "name": "TC-AUTH-REG-004: Đăng ký thất bại khi thiếu trường Email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Rejected with error status (400/500)\", function () {",
+                  "    pm.expect([400, 500]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Missing Email User\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-REG-005: Đăng ký thất bại khi thiếu trường Password",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Rejected with error status (400/500)\", function () {",
+                  "    pm.expect([400, 500]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Missing Password User\",\n  \"email\": \"nopass_{{$timestamp}}@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-REG-006: Đăng ký thất bại khi body rỗng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Rejected with error status (400/500)\", function () {",
+                  "    pm.expect([400, 500]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Đăng ký (Register) - Duplicate & Conflict",
+      "item": [
+        {
+          "name": "TC-AUTH-REG-007: Đăng ký thất bại khi trùng Email đã tồn tại",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Rejected with error status (400/409/500)\", function () {",
+                  "    pm.expect([400, 409, 500]).to.include(pm.response.code);",
+                  "});",
+                  "const text = pm.response.text();",
+                  "pm.test(\"Error message indicates email duplicate\", function () {",
+                  "    pm.expect(text).to.match(/email/i);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Duplicate Email User\",\n  \"email\": \"user@example.com\",\n  \"phone\": \"0987654321\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Đăng nhập (Login) - Positive (User & Admin)",
+      "item": [
+        {
+          "name": "TC-AUTH-LOG-001: Đăng nhập USER thành công",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"Response time < 2000ms\", function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Response contains JWT token and user info with role USER\", function () {",
+                  "    pm.expect(data.token).to.exist;",
+                  "    pm.expect(data.user).to.exist;",
+                  "    pm.expect(data.user.email).to.equal(\"user@example.com\");",
+                  "    pm.expect(data.user.role).to.equal(\"USER\");",
+                  "});",
+                  "",
+                  "if (data.token) {",
+                  "    pm.environment.set(\"userToken\", data.token);",
+                  "    pm.environment.set(\"token\", data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"user123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-LOG-002: Đăng nhập ADMIN thành công",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Response contains JWT token and user info with role ADMIN\", function () {",
+                  "    pm.expect(data.token).to.exist;",
+                  "    pm.expect(data.user).to.exist;",
+                  "    pm.expect(data.user.email).to.equal(\"admin@example.com\");",
+                  "    pm.expect(data.user.role).to.equal(\"ADMIN\");",
+                  "});",
+                  "",
+                  "if (data.token) {",
+                  "    pm.environment.set(\"adminToken\", data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Đăng nhập (Login) - Negative & Bad Credentials",
+      "item": [
+        {
+          "name": "TC-AUTH-LOG-003: Đăng nhập thất bại khi sai Mật khẩu",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 400/401/403/500 on wrong password\", function () {",
+                  "    pm.expect([400, 401, 403, 500]).to.include(pm.response.code);",
+                  "});",
+                  "pm.test(\"No token returned\", function () {",
+                  "    const text = pm.response.text();",
+                  "    pm.expect(text).to.not.include(\"eyJhbGci\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"WrongPassword_999\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-LOG-004: Đăng nhập thất bại khi Email không tồn tại",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 400/401/403/404/500 for non-existent user\", function () {",
+                  "    pm.expect([400, 401, 403, 404, 500]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"nonexistent_user_9999@test.com\",\n  \"password\": \"Password123!\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Token Lifecycle & Security",
+      "item": [
+        {
+          "name": "TC-AUTH-TOK-001: Truy cập endpoint bảo vệ với Bearer token hợp lệ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-TOK-002: Chặn truy cập khi thiếu Authorization Header",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 401 Unauthorized or 403 Forbidden\", function () {",
+                  "    pm.expect([401, 403]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-TOK-003: Chặn truy cập với Token bị giả mạo chữ ký (Tampered Token)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 401 Unauthorized or 403 Forbidden\", function () {",
+                  "    pm.expect([401, 403]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}tamperedSignature"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 - Phân quyền truy cập (RBAC)",
+      "item": [
+        {
+          "name": "TC-AUTH-RBAC-001: USER bị chặn 403 khi truy cập API của ADMIN",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 403 Forbidden\", function () {",
+                  "    pm.expect(pm.response.code).to.equal(403);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "TC-AUTH-RBAC-002: ADMIN truy cập thành công 200 OK API của ADMIN",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const data = pm.response.json();",
+                  "pm.test(\"Admin users list returned\", function () {",
+                  "    pm.expect(Array.isArray(data) || Array.isArray(data.content)).to.be.true;",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 - Kháng Injection & An toàn dữ liệu",
+      "item": [
+        {
+          "name": "TC-AUTH-SEC-001: Chặn SQL Injection trong Email đăng nhập",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status is 400/401/403/500 and not bypassed\", function () {",
+                  "    pm.expect([400, 401, 403, 500]).to.include(pm.response.code);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"' OR '1'='1' --\",\n  \"password\": \"' OR '1'='1'\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

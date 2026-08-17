@@ -8,7 +8,9 @@ và lần kiểm thử ngày 16/08/2026.
 | YIYI-28 — Jira project, Scrum board, permissions | `README.md`, `docs/JIRA_SCRUM_GUIDE.md` | Project `YIYI`, Sprint 1, workflow và branch automation đã xác nhận | PASS |
 | YIYI-29 — Test plan | `docs/TEST_PLAN.md` | Review phạm vi, strategy, entry/exit, risk và command | PASS |
 | YIYI-33 — RTM | File này | Mapping Jira → file → evidence, ghi rõ khoảng trống | PASS |
+| YIYI-35 — Auth API test cases design | `docs/AUTH_API_TEST_CASES_YIYI-35.md`, `postman/Auth_API_TestCases_YIYI-35.json` | 42+ test cases, Postman 8 folders (Register, Login, Token, RBAC, Security, Boundary) + `AuthServiceTest` | PASS |
 | YIYI-37 — Validator unit tests | `ContactServiceTest`, `NewsletterServiceTest`, `CouponServiceTest`, `AuthServiceTest` | Maven Surefire; null/empty/format/boundary/duplicate/error branch | PASS |
+| YIYI-40 — AI fallback, context, streaming & secrets | `docs/AI_CHAT_TEST_REPORT_YIYI-40.md`, `test-scripts/test-ai-chat.js`, `test-scripts/verify-ai-module.ps1` | 10 automated test cases (RAG, Intent, Context, SSE, History, Security) + `YIYI-40-ai-test-summary.json` | PASS |
 | Auth API | `AuthController`, `AuthService` | Postman Auth + `AuthServiceTest` | PASS |
 | Cart & Order API | `CartController`, `OrderController`, services | Postman Cart/Orders + Order service tests | PASS |
 | Coupon validation | `CouponService.validateCoupon` | Unit boundary/ownership/usage tests + Postman coupon validate | PASS |

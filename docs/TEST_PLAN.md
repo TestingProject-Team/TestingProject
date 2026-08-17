@@ -38,6 +38,14 @@ Ngoài phạm vi tự động hoàn toàn:
 | Static/build | Maven, ESLint/Vite, GitHub Actions | Compile, lint, dependency và secret checks | Không có lỗi blocker chưa giải thích |
 | Manual review | Checklist PR | Logic, security, maintainability | Blocker được sửa hoặc ghi nhận quyết định |
 
+### 3.1. Boundary Value Analysis (BVA)
+
+Các luật có biên số rõ ràng được kiểm thử bằng Robust BVA với dữ liệu ngay dưới
+biên, đúng biên và ngay trên biên. Danh sách dữ liệu, kết quả mong đợi và test
+JUnit tương ứng nằm tại [BVA_TEST_CASES.md](BVA_TEST_CASES.md). Phạm vi hiện tại
+gồm rating 1–5, giá trị đơn tối thiểu/giới hạn coupon, tồn kho, mốc hạng thành
+viên và điểm đổi thưởng.
+
 ## 4. Môi trường và dữ liệu
 
 | Môi trường | Cấu hình |

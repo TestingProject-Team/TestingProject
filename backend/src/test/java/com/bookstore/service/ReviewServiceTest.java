@@ -22,6 +22,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -212,6 +214,19 @@ class ReviewServiceTest {
     @Nested
     @DisplayName("Kiểm tra số sao hợp lệ")
     class SoSaoTests {
+
+        @ParameterizedTest(name = "BVA: {0} sao nằm trong miền hợp lệ")
+        @ValueSource(ints = {2, 3, 4})
+        @DisplayName("BVA: các giá trị sát biên và danh nghĩa 2, 3, 4 sao đều hợp lệ")
+        void createReview_giaTriBenTrongBien_hopLe(int soSao) {
+            gaLapTimThayUserVaSach();
+            gaLapSoLanMuaVaDanhGia(1, 0);
+            gaLapSaveReview();
+
+            Review ketQua = reviewService.createReview(USERNAME, BOOK_ID, soSao, null, null);
+
+            assertThat(ketQua.getRating()).isEqualTo(soSao);
+        }
 
         @Test
         @DisplayName("Giá trị biên dưới: 1 sao là hợp lệ")

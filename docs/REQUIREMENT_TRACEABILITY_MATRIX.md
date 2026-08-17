@@ -9,6 +9,7 @@ và lần kiểm thử ngày 16/08/2026.
 | YIYI-29 — Test plan | `docs/TEST_PLAN.md` | Review phạm vi, strategy, entry/exit, risk và command | PASS |
 | YIYI-33 — RTM | File này | Mapping Jira → file → evidence, ghi rõ khoảng trống | PASS |
 | YIYI-37 — Validator unit tests | `ContactServiceTest`, `NewsletterServiceTest`, `CouponServiceTest`, `AuthServiceTest` | Maven Surefire; null/empty/format/boundary/duplicate/error branch | PASS |
+| Boundary Value Analysis (BVA) | `docs/BVA_TEST_CASES.md`; `ReviewServiceTest`, `CouponServiceTest`, `OrderServiceCreateTest`, `RewardServiceTest` | 30 giá trị biên cho rating, coupon, tồn kho, hạng thành viên và đổi thưởng; full suite 299 test ngày 17/08/2026 | PASS |
 | Auth API | `AuthController`, `AuthService` | Postman Auth + `AuthServiceTest` | PASS |
 | Cart & Order API | `CartController`, `OrderController`, services | Postman Cart/Orders + Order service tests | PASS |
 | Coupon validation | `CouponService.validateCoupon` | Unit boundary/ownership/usage tests + Postman coupon validate | PASS |

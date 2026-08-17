@@ -94,6 +94,18 @@ public class CouponServiceTest {
     }
 
     @Test
+    void validateCoupon_BvaOrderAmountOneBelowMinimum_ThrowsException() {
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                couponService.validateCoupon("DISCOUNT20", 99999.0, null));
+
+        assertTrue(exception.getMessage().contains("Đơn hàng tối thiểu để sử dụng mã này là"));
+        verifyNoInteractions(userRepository, orderRepository);
+    }
+
+    @Test
     void validateCoupon_AlreadyUsedByUser_ThrowsException() {
         when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
         when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
@@ -130,6 +142,17 @@ public class CouponServiceTest {
     }
 
     @Test
+    void validateCoupon_BvaOrderAmountOneAboveMinimum_IsAccepted() {
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        Coupon validated = couponService.validateCoupon("DISCOUNT20", 100001.0, null);
+
+        assertSame(testCoupon, validated);
+        verifyNoInteractions(userRepository, orderRepository);
+    }
+
+    @Test
     void validateCoupon_UsageLimitIsZero_ThrowsExpectedMessage() {
         testCoupon.setUsageLimit(0);
         when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
@@ -139,6 +162,17 @@ public class CouponServiceTest {
                 couponService.validateCoupon("DISCOUNT20", 200000.0, null));
 
         assertEquals("Mã giảm giá đã hết lượt sử dụng!", exception.getMessage());
+    }
+
+    @Test
+    void validateCoupon_BvaUsageLimitOne_IsAccepted() {
+        testCoupon.setUsageLimit(1);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
+                .thenReturn(Optional.of(testCoupon));
+
+        Coupon validated = couponService.validateCoupon("DISCOUNT20", 100000.0, null);
+
+        assertSame(testCoupon, validated);
     }
 
     @Test

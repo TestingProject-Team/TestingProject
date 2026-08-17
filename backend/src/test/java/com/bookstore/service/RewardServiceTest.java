@@ -5,6 +5,8 @@ import com.bookstore.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -64,6 +66,31 @@ public class RewardServiceTest {
     }
 
     @Test
+    void exchangePoints_BvaFreeshipOneBelowMinimum_ThrowsException() {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                rewardService.exchangePoints("testuser", 9999, "FREESHIP"));
+
+        assertEquals("Cần ít nhất 10,000 điểm để đổi mã Freeship.", exception.getMessage());
+        verify(userRepository, never()).save(any(User.class));
+        verify(pointTransactionRepository, never()).save(any(PointTransaction.class));
+    }
+
+    @ParameterizedTest(name = "BVA: đổi Freeship với {0} điểm")
+    @ValueSource(ints = {10000, 10001})
+    void exchangePoints_BvaFreeshipAtAndAboveMinimum_Succeeds(int pointsToSpend) {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        rewardService.exchangePoints("testuser", pointsToSpend, "FREESHIP");
+
+        assertEquals(30000 - pointsToSpend, testUser.getYPoints());
+        assertEquals(1, testUser.getFreeShipCoupons());
+        verify(userRepository).save(testUser);
+        verify(pointTransactionRepository).save(any(PointTransaction.class));
+    }
+
+    @Test
     void exchangePoints_Failure_NotEnoughPoints() {
         when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
 
@@ -85,6 +112,20 @@ public class RewardServiceTest {
         });
 
         assertEquals("Cần đúng 20,000 điểm để đổi mã giảm 20K.", exception.getMessage());
+        verify(userRepository, never()).save(any(User.class));
+        verify(pointTransactionRepository, never()).save(any(PointTransaction.class));
+    }
+
+    @ParameterizedTest(name = "BVA: DISCOUNT_20K từ chối {0} điểm")
+    @ValueSource(ints = {19999, 20001})
+    void exchangePoints_BvaDiscount20kAdjacentValues_ThrowsException(int pointsToSpend) {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                rewardService.exchangePoints("testuser", pointsToSpend, "DISCOUNT_20K"));
+
+        assertEquals("Cần đúng 20,000 điểm để đổi mã giảm 20K.", exception.getMessage());
+        verify(couponRepository, never()).save(any(Coupon.class));
         verify(userRepository, never()).save(any(User.class));
         verify(pointTransactionRepository, never()).save(any(PointTransaction.class));
     }

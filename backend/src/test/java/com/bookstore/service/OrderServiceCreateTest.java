@@ -18,6 +18,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -256,6 +258,20 @@ class OrderServiceCreateTest {
     class TonKhoTests {
 
         @Test
+        @DisplayName("BVA: mua ít hơn tồn kho 1 đơn vị vẫn thành công")
+        void createOrder_muaItHonTonKhoMotDonVi_thanhCong() {
+            gaLapLuongCoBan();
+            Book sach = taoSach(10L, 100_000, 100_000.0, 3, 0);
+            themDongHang(10L, 2, 100_000.0);
+            gaLapSaveOrder();
+
+            orderService.createOrder(USERNAME, request);
+
+            assertThat(sach.getStockQuantity()).isEqualTo(1);
+            assertThat(sach.getSalesCount()).isEqualTo(2);
+        }
+
+        @Test
         @DisplayName("Trừ tồn kho và tăng số lượng đã bán sau khi đặt hàng")
         void createOrder_truTonKhoVaTangSoLuongDaBan() {
             gaLapLuongCoBan();
@@ -287,8 +303,8 @@ class OrderServiceCreateTest {
         @DisplayName("Ném lỗi khi số lượng đặt vượt quá tồn kho")
         void createOrder_vuotTonKho_nemLoi() {
             gaLapLuongCoBan();
-            taoSach(10L, 100_000, 100_000.0, 2, 0);
-            themDongHang(10L, 3, 100_000.0);
+            taoSach(10L, 100_000, 100_000.0, 3, 0);
+            themDongHang(10L, 4, 100_000.0);
 
             assertThatThrownBy(() -> orderService.createOrder(USERNAME, request))
                     .isInstanceOf(RuntimeException.class)
@@ -316,6 +332,27 @@ class OrderServiceCreateTest {
     @Nested
     @DisplayName("Chiết khấu theo hạng thành viên")
     class ChietKhauVipTests {
+
+        @ParameterizedTest(name = "BVA: {0} điểm tích lũy -> giảm {1} đồng")
+        @CsvSource({
+                "5001, 4000.0",
+                "29999, 4000.0",
+                "30001, 10000.0",
+                "99999, 10000.0",
+                "100001, 20000.0"
+        })
+        @DisplayName("BVA: giá trị ngay trên/dưới các mốc hạng áp dụng đúng mức chiết khấu")
+        void createOrder_giaTriLanCanMocHang_chietKhauDung(int diemTichLuy, double giamGiaMongDoi) {
+            user.setAccumulatedPoints(diemTichLuy);
+            gaLapLuongCoBan();
+            taoSach(10L, 100_000, 100_000.0, 10, 0);
+            themDongHang(10L, 2, 100_000.0);
+            gaLapSaveOrder();
+
+            Order ketQua = orderService.createOrder(USERNAME, request);
+
+            assertThat(ketQua.getDiscountAmount()).isEqualTo(giamGiaMongDoi);
+        }
 
         @Test
         @DisplayName("Hạng Đồng (dưới 5.000 điểm) không được chiết khấu")

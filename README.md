@@ -465,6 +465,7 @@ Jira tự liên kết phần Development. Khi bắt đầu một task, chuyển 
 |---|---|
 | Jira, Scrum board và quyền nhóm | [`docs/JIRA_SCRUM_GUIDE.md`](docs/JIRA_SCRUM_GUIDE.md) |
 | Test plan | [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) |
+| Test case Boundary Value Analysis (BVA) | [`docs/BVA_TEST_CASES.md`](docs/BVA_TEST_CASES.md) |
 | Requirement Traceability Matrix | [`docs/REQUIREMENT_TRACEABILITY_MATRIX.md`](docs/REQUIREMENT_TRACEABILITY_MATRIX.md) |
 | Báo cáo Week 1 | [`docs/README_TUAN_1.md`](docs/README_TUAN_1.md) |
 | Báo cáo Week 2 | [`docs/README_TUAN_2.md`](docs/README_TUAN_2.md) |

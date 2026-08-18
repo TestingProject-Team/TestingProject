@@ -1,0 +1,48 @@
+services:
+  postgres-test:
+    image: postgres:16
+    container_name: bookstore-postgres-test
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bookstore_test
+      POSTGRES_USER: bookstore_test_user
+      POSTGRES_PASSWORD: bookstore_test_pass
+    ports:
+      - "5434:5432"
+    volumes:
+      - bookstore_postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bookstore_test_user -d bookstore_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - bookstore-test-net
+
+  backend-test:
+    build:
+      context: ./backend
+    container_name: bookstore-backend-test
+    restart: unless-stopped
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: test
+      DB_HOST: postgres-test
+      DB_PORT: 5432
+      DB_NAME: bookstore_test
+      DB_USER: bookstore_test_user
+      DB_PASSWORD: bookstore_test_pass
+    ports:
+      - "8082:8081"
+    networks:
+      - bookstore-test-net
+
+volumes:
+  bookstore_postgres_test_data:
+
+networks:
+  bookstore-test-net:
+    driver: bridge

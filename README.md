@@ -471,7 +471,9 @@ Jira tự liên kết phần Development. Khi bắt đầu một task, chuyển 
 | Requirement Traceability Matrix | [`docs/REQUIREMENT_TRACEABILITY_MATRIX.md`](docs/REQUIREMENT_TRACEABILITY_MATRIX.md) |
 | Báo cáo Week 1 | [`docs/README_TUAN_1.md`](docs/README_TUAN_1.md) |
 | Báo cáo Week 2 | [`docs/README_TUAN_2.md`](docs/README_TUAN_2.md) |
+| Báo cáo Week 3 (E2E CodeceptJS) | [`docs/README_TUAN_3.md`](docs/README_TUAN_3.md), [`docs/CODECEPTJS_E2E_TEST_REPORT_YIYI-43.md`](docs/CODECEPTJS_E2E_TEST_REPORT_YIYI-43.md) |
 | Postman collection và Newman JSON | [`test-scripts/`](test-scripts/) |
+| CodeceptJS E2E Test Suite | [`e2e/`](e2e/), [`codecept.conf.js`](codecept.conf.js) |
 
 Chạy nhanh kiểm thử backend và Postman:
 

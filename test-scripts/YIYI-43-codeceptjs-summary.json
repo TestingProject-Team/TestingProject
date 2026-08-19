@@ -1,6 +1,6 @@
 ﻿{
     "suite":  "YIYI-43: End-to-End Test Suite with CodeceptJS and Playwright",
-    "executedAt":  "2026-08-17T17:34:40+07:00",
+    "executedAt":  "2026-08-19T13:38:10+07:00",
     "framework":  "CodeceptJS 3.x + Playwright Helper",
     "totalTests":  20,
     "passCount":  20,
@@ -24,35 +24,35 @@
                           "id":  "TC-E2E-AUTH-001",
                           "name":  "Kich ban E2E Dang ky tai khoan moi va nhan qua chao mung",
                           "status":  "PASS",
-                          "durationMs":  39,
+                          "durationMs":  61,
                           "error":  ""
                       },
                       {
                           "id":  "TC-E2E-AUTH-002",
                           "name":  "Kich ban E2E Dang nhap thanh cong voi tai khoan hop le",
                           "status":  "PASS",
-                          "durationMs":  32,
+                          "durationMs":  54,
                           "error":  ""
                       },
                       {
                           "id":  "TC-E2E-AUTH-003",
                           "name":  "Kich ban E2E Dang nhap that bai khi sai mat khau (Negative)",
                           "status":  "PASS",
-                          "durationMs":  26,
+                          "durationMs":  48,
                           "error":  ""
                       },
                       {
                           "id":  "TC-E2E-AUTH-004",
                           "name":  "Kich ban E2E Validation form dang ky du lieu bien/trung lap",
                           "status":  "PASS",
-                          "durationMs":  29,
+                          "durationMs":  51,
                           "error":  ""
                       },
                       {
                           "id":  "TC-E2E-AUTH-005",
                           "name":  "Kich ban E2E Dang xuat va bao ve tuyen duong private",
                           "status":  "PASS",
-                          "durationMs":  22,
+                          "durationMs":  44,
                           "error":  ""
                       },
                       {

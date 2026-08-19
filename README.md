@@ -451,7 +451,9 @@ docker compose down -v
 | `git pull` báo "Your local changes would be overwritten by merge" hoặc conflict hàng loạt | File tự sửa tay (cấu hình local) bị trùng thay đổi mới trên remote. Nếu không cần giữ thay đổi cục bộ: `git merge --abort` rồi `git reset --hard origin/main` để đồng bộ lại toàn bộ theo remote |
 | Backend crash `AccessDeniedException` khi tạo thư mục (ví dụ `/app/uploads`) | User chạy trong container không có quyền ghi vào thư mục ứng dụng. Trong Dockerfile, cấp quyền cho toàn bộ thư mục app: `RUN chown -R <user>:<group> /app` |
 | `Unable to determine Dialect without JDBC metadata` | Database chưa được tạo hoặc sai cấu hình kết nối (driver/URL không khớp loại database đang dùng). Kiểm tra lại `datasource.url`, `driver-class-name` và xác nhận database đã tồn tại |
-
+| Port `8082`/`5434` đã bị chiếm | Đổi port trong `docker-compose.test.yml`, hoặc tắt tiến trình đang giữ port đó |
+| Muốn xem log riêng từng service | `docker compose -f docker-compose.test.yml logs -f backend-test` (hoặc `postgres-test`) |
+| Test xong muốn chạy lại sạch từ đầu | `docker compose -f docker-compose.test.yml down -v` rồi `up --build` lại |
 ---
 
 ## ✅ VIII. Jira, kiểm thử và tài liệu bàn giao

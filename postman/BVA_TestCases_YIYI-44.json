@@ -1,0 +1,439 @@
+{
+  "info": {
+    "name": "BVA Test Cases - YIYI-44",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Robust BVA qua HTTP, doi chieu voi docs/BVA_TEST_CASES.md. Chay Setup - Login truoc."
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "email",
+      "value": ""
+    },
+    {
+      "key": "password",
+      "value": ""
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "bookId",
+      "value": "1"
+    },
+    {
+      "key": "stockBookId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Setup - Login lay token",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('login 200', function () { pm.expect(pm.response.code).to.eql(200); });",
+              "var d = pm.response.json();",
+              "var t = d.token || d.accessToken || (d.data && (d.data.token || d.data.accessToken));",
+              "if (t) { pm.collectionVariables.set('token', t); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/auth/login",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Chay dau tien de lay bearer token"
+      }
+    },
+    {
+      "name": "1. Rating danh gia - mien hop le 1..5",
+      "item": [
+        {
+          "name": "BVA-RATING-01 rating=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-RATING-01 -> HTTP 400', function () { pm.expect(pm.response.code).to.eql(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 0,\n  \"comment\": \"BVA BVA-RATING-01\",\n  \"imageUrl\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "book",
+                "{{bookId}}"
+              ]
+            },
+            "description": "Duoi bien duoi, phai bi tu choi"
+          }
+        },
+        {
+          "name": "BVA-RATING-02 rating=1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-RATING-02 -> HTTP 201', function () { pm.expect(pm.response.code).to.eql(201); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 1,\n  \"comment\": \"BVA BVA-RATING-02\",\n  \"imageUrl\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "book",
+                "{{bookId}}"
+              ]
+            },
+            "description": "Dung bien duoi"
+          }
+        },
+        {
+          "name": "BVA-RATING-03 rating=3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-RATING-03 -> HTTP 201', function () { pm.expect(pm.response.code).to.eql(201); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 3,\n  \"comment\": \"BVA BVA-RATING-03\",\n  \"imageUrl\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "book",
+                "{{bookId}}"
+              ]
+            },
+            "description": "Gia tri danh nghia"
+          }
+        },
+        {
+          "name": "BVA-RATING-04 rating=5",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-RATING-04 -> HTTP 201', function () { pm.expect(pm.response.code).to.eql(201); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"BVA BVA-RATING-04\",\n  \"imageUrl\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "book",
+                "{{bookId}}"
+              ]
+            },
+            "description": "Dung bien tren"
+          }
+        },
+        {
+          "name": "BVA-RATING-05 rating=6",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-RATING-05 -> HTTP 400', function () { pm.expect(pm.response.code).to.eql(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 6,\n  \"comment\": \"BVA BVA-RATING-05\",\n  \"imageUrl\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "book",
+                "{{bookId}}"
+              ]
+            },
+            "description": "Tren bien tren, phai bi tu choi"
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. So luong dat vs ton kho - fixture stock = 3",
+      "item": [
+        {
+          "name": "BVA-STOCK-00 quantity=0",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-STOCK-00 -> HTTP 400', function () { pm.expect(pm.response.code).to.eql(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": \"{{stockBookId}}\",\n  \"quantity\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            },
+            "description": "Duoi bien duoi"
+          }
+        },
+        {
+          "name": "BVA-STOCK-01 quantity=2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-STOCK-01 -> HTTP 200', function () { pm.expect(pm.response.code).to.eql(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": \"{{stockBookId}}\",\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            },
+            "description": "Stock - 1"
+          }
+        },
+        {
+          "name": "BVA-STOCK-02 quantity=3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-STOCK-02 -> HTTP 200', function () { pm.expect(pm.response.code).to.eql(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": \"{{stockBookId}}\",\n  \"quantity\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            },
+            "description": "Stock, dung bien tren"
+          }
+        },
+        {
+          "name": "BVA-STOCK-03 quantity=4",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('BVA-STOCK-03 -> HTTP 400', function () { pm.expect(pm.response.code).to.eql(400); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": \"{{stockBookId}}\",\n  \"quantity\": 4\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cart"
+              ]
+            },
+            "description": "Stock + 1, phai tu choi"
+          }
+        }
+      ]
+    }
+  ]
+}

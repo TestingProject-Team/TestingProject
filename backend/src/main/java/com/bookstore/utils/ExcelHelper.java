@@ -16,9 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ExcelHelper {
-    public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    static String[] HEADERS = { "Tiêu đề sách", "Tác giả", "Nhà xuất bản", "Mô tả", "Giá bán (đ)", "Giá cũ (đ)", "% Giảm giá", "Số lượng tồn", "ID Danh mục", "Link Ảnh" };
-    static String SHEET = "Books";
+    public static final String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    static final String[] HEADERS = { "Tiêu đề sách", "Tác giả", "Nhà xuất bản", "Mô tả", "Giá bán (đ)", "Giá cũ (đ)", "% Giảm giá", "Số lượng tồn", "ID Danh mục", "Link Ảnh" };
+    static final String SHEET = "Books";
 
     public static boolean hasExcelFormat(MultipartFile file) {
         return TYPE.equals(file.getContentType());

@@ -86,8 +86,6 @@ public class OrderService {
     public Order createOrder(String username, OrderRequest request) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("Tài khoản không tồn tại hoặc phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!"));
-        
-        boolean isFirstOrder = orderRepository.findByUserOrderByCreatedAtDesc(user).isEmpty();
 
         double subtotal = 0;
         double totalOldPrice = 0;
@@ -145,7 +143,7 @@ public class OrderService {
         
         // Tính chiết khấu VIP
         double vipDiscountRate = 0.0;
-        double userAcc = user.getAccumulatedPoints() != null ? user.getAccumulatedPoints() : 0.0;
+        double userAcc = (user.getAccumulatedPoints() != null) ? user.getAccumulatedPoints().doubleValue() : 0.0;
         if (userAcc >= 100000) {
             vipDiscountRate = 0.10; // Kim Cương
         } else if (userAcc >= 30000) {

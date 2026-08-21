@@ -25,118 +25,120 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 1. Seed User
-        if (userRepository.count() == 0) {
-            User admin = User.builder()
-                    .username("admin@gmail.com")
-                    .password(passwordEncoder.encode("123456"))
-                    .email("admin@gmail.com")
-                    .fullName("Quản trị viên")
-                    .role(Role.ADMIN)
-                    .build();
-            userRepository.save(admin);
+        // 1. Seed Users — checked individually by username, not by count(),
+        // so a partially-seeded or already-in-use DB still gets the missing
+        // test accounts created without duplicating existing ones.
+        List<User> allUsers = userRepository.findAll();
 
-            User user = User.builder()
-                    .username("user@gmail.com")
-                    .password(passwordEncoder.encode("123456"))
-                    .email("user@gmail.com")
-                    .fullName("Khách hàng")
-                    .role(Role.USER)
-                    .build();
-            userRepository.save(user);
-        }
+        saveUserIfNotExist(allUsers, User.builder()
+                .username("admin@gmail.com")
+                .password(passwordEncoder.encode("123456"))
+                .email("admin@gmail.com")
+                .fullName("Quản trị viên")
+                .role(Role.ADMIN)
+                .build());
 
-        // 2. Seed Banners
-        if (bannerRepository.count() == 0) {
-            bannerRepository.saveAll(List.of(
-                Banner.builder()
-                        .imageUrl("https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1200&auto=format&fit=crop&q=80")
-                        .title("Manga Hot Tháng 06")
-                        .linkUrl("/category/1")
-                        .position("MAIN")
-                        .build(),
-                Banner.builder()
-                        .imageUrl("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&auto=format&fit=crop&q=80")
-                        .title("Sách Ngoại Văn Ưu Đãi")
-                        .linkUrl("/category/2")
-                        .position("MAIN")
-                        .build(),
-                Banner.builder()
-                        .imageUrl("https://images.unsplash.com/photo-1503602642458-232111445657?w=1200&auto=format&fit=crop&q=80")
-                        .title("Đồ Chơi Trẻ Em")
-                        .linkUrl("/category/3")
-                        .position("MAIN")
-                        .build(),
-                Banner.builder()
-                        .imageUrl("https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=600&auto=format&fit=crop&q=80")
-                        .title("Deal Hời Mỗi Ngày")
-                        .linkUrl("/")
-                        .position("SIDE")
-                        .build(),
-                Banner.builder()
-                        .imageUrl("https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?w=600&auto=format&fit=crop&q=80")
-                        .title("Thanh Toán VNPAY")
-                        .linkUrl("/")
-                        .position("SIDE")
-                        .build()
-            ));
-        }
+        saveUserIfNotExist(allUsers, User.builder()
+                .username("user@gmail.com")
+                .password(passwordEncoder.encode("123456"))
+                .email("user@gmail.com")
+                .fullName("Khách hàng")
+                .role(Role.USER)
+                .build());
 
-        // Seed Notifications
-        if (notificationRepository.count() == 0) {
-            notificationRepository.saveAll(List.of(
-                Notification.builder()
-                        .title("Khuyến mãi 50% văn học")
-                        .content("Nhập mã GRAPE50 để giảm ngay 50% tối đa 50k cho tất cả đầu sách thuộc danh mục Tiểu Thuyết.")
-                        .type("PROMO")
-                        .createdAt(LocalDateTime.now())
-                        .build(),
-                Notification.builder()
-                        .title("Chào mừng đến với Grape Book")
-                        .content("Chúc bạn có những trải nghiệm mua sắm sách tuyệt vời nhất tại nhà sách trực tuyến Grape Book của chúng tôi!")
-                        .type("SYSTEM")
-                        .createdAt(LocalDateTime.now().minusHours(2))
-                        .build(),
-                Notification.builder()
-                        .title("Chào hè rực rỡ")
-                        .content("Bộ sưu tập truyện tranh Manga đồng giá chỉ từ 15k duy nhất tuần này. Xem ngay!")
-                        .type("PROMO")
-                        .createdAt(LocalDateTime.now().minusDays(1))
-                        .build()
-            ));
-        }
- 
-        // 3. Seed Coupons
-        if (couponRepository.count() == 0) {
-            couponRepository.saveAll(List.of(
-                Coupon.builder()
-                        .code("GRAPE10")
-                        .discountType(DiscountType.PERCENTAGE)
-                        .discountValue(10.0)
-                        .minOrderAmount(100000.0)
-                        .expirationDate(LocalDateTime.now().plusMonths(3))
-                        .isActive(true)
-                        .build(),
-                Coupon.builder()
-                        .code("SALE50K")
-                        .discountType(DiscountType.FIXED)
-                        .discountValue(50000.0)
-                        .minOrderAmount(300000.0)
-                        .expirationDate(LocalDateTime.now().plusMonths(3))
-                        .isActive(true)
-                        .build(),
-                Coupon.builder()
-                        .code("FREESHIP")
-                        .discountType(DiscountType.FIXED)
-                        .discountValue(30000.0)
-                        .minOrderAmount(150000.0)
-                        .expirationDate(LocalDateTime.now().plusMonths(3))
-                        .isActive(true)
-                        .build()
-            ));
-        }
+        // 2. Seed Banners — checked individually by title.
+        List<Banner> allBanners = bannerRepository.findAll();
 
-        // 4. Seed Categories & Books
+        saveBannerIfNotExist(allBanners, Banner.builder()
+                .imageUrl("https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1200&auto=format&fit=crop&q=80")
+                .title("Manga Hot Tháng 06")
+                .linkUrl("/category/1")
+                .position("MAIN")
+                .build());
+
+        saveBannerIfNotExist(allBanners, Banner.builder()
+                .imageUrl("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1200&auto=format&fit=crop&q=80")
+                .title("Sách Ngoại Văn Ưu Đãi")
+                .linkUrl("/category/2")
+                .position("MAIN")
+                .build());
+
+        saveBannerIfNotExist(allBanners, Banner.builder()
+                .imageUrl("https://images.unsplash.com/photo-1503602642458-232111445657?w=1200&auto=format&fit=crop&q=80")
+                .title("Đồ Chơi Trẻ Em")
+                .linkUrl("/category/3")
+                .position("MAIN")
+                .build());
+
+        saveBannerIfNotExist(allBanners, Banner.builder()
+                .imageUrl("https://images.unsplash.com/photo-1511556532299-8f662fc26c06?w=600&auto=format&fit=crop&q=80")
+                .title("Deal Hời Mỗi Ngày")
+                .linkUrl("/")
+                .position("SIDE")
+                .build());
+
+        saveBannerIfNotExist(allBanners, Banner.builder()
+                .imageUrl("https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?w=600&auto=format&fit=crop&q=80")
+                .title("Thanh Toán VNPAY")
+                .linkUrl("/")
+                .position("SIDE")
+                .build());
+
+        // Seed Notifications — checked individually by title.
+        List<Notification> allNotifications = notificationRepository.findAll();
+
+        saveNotificationIfNotExist(allNotifications, Notification.builder()
+                .title("Khuyến mãi 50% văn học")
+                .content("Nhập mã GRAPE50 để giảm ngay 50% tối đa 50k cho tất cả đầu sách thuộc danh mục Tiểu Thuyết.")
+                .type("PROMO")
+                .createdAt(LocalDateTime.now())
+                .build());
+
+        saveNotificationIfNotExist(allNotifications, Notification.builder()
+                .title("Chào mừng đến với Grape Book")
+                .content("Chúc bạn có những trải nghiệm mua sắm sách tuyệt vời nhất tại nhà sách trực tuyến Grape Book của chúng tôi!")
+                .type("SYSTEM")
+                .createdAt(LocalDateTime.now().minusHours(2))
+                .build());
+
+        saveNotificationIfNotExist(allNotifications, Notification.builder()
+                .title("Chào hè rực rỡ")
+                .content("Bộ sưu tập truyện tranh Manga đồng giá chỉ từ 15k duy nhất tuần này. Xem ngay!")
+                .type("PROMO")
+                .createdAt(LocalDateTime.now().minusDays(1))
+                .build());
+
+        // 3. Seed Coupons — checked individually by code (naturally unique).
+        List<Coupon> allCoupons = couponRepository.findAll();
+
+        saveCouponIfNotExist(allCoupons, Coupon.builder()
+                .code("GRAPE10")
+                .discountType(DiscountType.PERCENTAGE)
+                .discountValue(10.0)
+                .minOrderAmount(100000.0)
+                .expirationDate(LocalDateTime.now().plusMonths(3))
+                .isActive(true)
+                .build());
+
+        saveCouponIfNotExist(allCoupons, Coupon.builder()
+                .code("SALE50K")
+                .discountType(DiscountType.FIXED)
+                .discountValue(50000.0)
+                .minOrderAmount(300000.0)
+                .expirationDate(LocalDateTime.now().plusMonths(3))
+                .isActive(true)
+                .build());
+
+        saveCouponIfNotExist(allCoupons, Coupon.builder()
+                .code("FREESHIP")
+                .discountType(DiscountType.FIXED)
+                .discountValue(30000.0)
+                .minOrderAmount(150000.0)
+                .expirationDate(LocalDateTime.now().plusMonths(3))
+                .isActive(true)
+                .build());
+
+        // 4. Seed Categories & Books — already idempotent, unchanged.
         List<Category> allCats = categoryRepository.findAll();
         Category thieuNhi = getOrCreateCategory(allCats, "Sách Thiếu Nhi", "Các tác phẩm dành cho trẻ em",
                 "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&auto=format&fit=crop&q=80");
@@ -160,7 +162,7 @@ public class DataSeeder implements CommandLineRunner {
                 "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400&auto=format&fit=crop&q=80");
 
         List<Book> allBooks = bookRepository.findAll();
-        
+
         saveBookIfNotExist(allBooks, Book.builder()
                 .title("Dế Mèn Phiêu Lưu Ký")
                 .author("Tô Hoài")
@@ -300,6 +302,38 @@ public class DataSeeder implements CommandLineRunner {
                 .isCombo(false)
                 .category(bachHoa)
                 .build());
+    }
+
+    private void saveUserIfNotExist(List<User> list, User user) {
+        boolean exists = list.stream()
+                .anyMatch(u -> u.getUsername().equalsIgnoreCase(user.getUsername()));
+        if (!exists) {
+            userRepository.save(user);
+        }
+    }
+
+    private void saveBannerIfNotExist(List<Banner> list, Banner banner) {
+        boolean exists = list.stream()
+                .anyMatch(b -> b.getTitle().equalsIgnoreCase(banner.getTitle()));
+        if (!exists) {
+            bannerRepository.save(banner);
+        }
+    }
+
+    private void saveNotificationIfNotExist(List<Notification> list, Notification notification) {
+        boolean exists = list.stream()
+                .anyMatch(n -> n.getTitle().equalsIgnoreCase(notification.getTitle()));
+        if (!exists) {
+            notificationRepository.save(notification);
+        }
+    }
+
+    private void saveCouponIfNotExist(List<Coupon> list, Coupon coupon) {
+        boolean exists = list.stream()
+                .anyMatch(c -> c.getCode().equalsIgnoreCase(coupon.getCode()));
+        if (!exists) {
+            couponRepository.save(coupon);
+        }
     }
 
     private Category getOrCreateCategory(List<Category> list, String name, String description, String imageUrl) {

@@ -10,11 +10,11 @@ import java.util.Random;
 
 @Configuration
 public class VNPayConfig {
-    public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:5173/payment-result"; // Thay đổi nếu deploy
-    public static String vnp_TmnCode = "CGXZLS0Z"; // Thay bằng mã TMN của bạn
-    public static String secretKey = "***REMOVED_VNPAY_HASH_SECRET***"; // Thay bằng Secret Key của bạn
-    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static final String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+    public static final String vnp_ReturnUrl = "http://localhost:5173/payment-result"; // Thay đổi nếu deploy
+    public static final String vnp_TmnCode = "CGXZLS0Z"; // Thay bằng mã TMN của bạn
+    public static final String secretKey = "***REMOVED_VNPAY_HASH_SECRET***"; // Thay bằng Secret Key của bạn
+    public static final String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
     public static String hmacSHA512(final String key, final String data) {
         try {

@@ -21,7 +21,7 @@ và lần kiểm thử ngày 17/08/2026.
 | RBAC Admin | Spring Security + admin controllers | Postman USER/no-token → 403; ADMIN → 200 | PASS |
 | Payment integration | `PaymentController` | Postman VNPay/MoMo/ZaloPay sandbox assertions | PASS có phụ thuộc ngoài |
 | Upload | `FileController` | Postman skip khi thiếu file local; negative no-file/no-auth | PARTIAL |
-| Static analysis | GitHub workflows, Maven/Vite config | CI workflow/manual build | Chưa có SonarQube/Checkstyle/SpotBugs baseline trong phạm vi task được giao |
+| YIYI-30 — Static analysis (SonarQube, Checkstyle, SpotBugs, Flake8) | `checkstyle.xml`, `spotbugs-exclude.xml`, `sonar-project.properties`, `.flake8`, `docs/STATIC_ANALYSIS_GUIDE_YIYI-30.md` | Checkstyle 0 violations, SpotBugs 0 bugs, SonarQube & Flake8 configured | PASS |
 
 ## Khoảng trống và hành động tiếp theo
 

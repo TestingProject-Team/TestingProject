@@ -157,11 +157,12 @@ public class PaymentController {
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Map> response = restTemplate.postForEntity(MoMoConfig.ENDPOINT, entity, Map.class);
+            Map<?, ?> responseBody = response.getBody();
             
-            if (response.getBody() != null && response.getBody().get("payUrl") != null) {
-                return ResponseEntity.ok(Map.of("url", response.getBody().get("payUrl").toString()));
+            if (responseBody != null && responseBody.get("payUrl") != null) {
+                return ResponseEntity.ok(Map.of("url", responseBody.get("payUrl").toString()));
             } else {
-                return ResponseEntity.badRequest().body(Map.of("message", "Error from MoMo: " + response.getBody()));
+                return ResponseEntity.badRequest().body(Map.of("message", "Error from MoMo: " + responseBody));
             }
         } catch (org.springframework.web.client.HttpStatusCodeException e) {
             e.printStackTrace();
@@ -206,11 +207,15 @@ public class PaymentController {
 
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Map> response = restTemplate.postForEntity(ZaloPayConfig.CREATE_ORDER_URL, entity, Map.class);
+            Map<?, ?> responseBody = response.getBody();
             
-            if (response.getBody() != null && response.getBody().get("return_code").toString().equals("1")) {
-                return ResponseEntity.ok(Map.of("url", response.getBody().get("order_url").toString()));
+            if (responseBody != null && responseBody.get("return_code") != null
+                    && "1".equals(String.valueOf(responseBody.get("return_code")))) {
+                Object orderUrl = responseBody.get("order_url");
+                String urlStr = (orderUrl != null) ? orderUrl.toString() : "";
+                return ResponseEntity.ok(Map.of("url", urlStr));
             } else {
-                return ResponseEntity.badRequest().body(Map.of("message", "Error from ZaloPay: " + response.getBody()));
+                return ResponseEntity.badRequest().body(Map.of("message", "Error from ZaloPay: " + responseBody));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -239,8 +244,10 @@ public class PaymentController {
             org.springframework.http.HttpEntity<org.springframework.util.MultiValueMap<String, String>> request = new org.springframework.http.HttpEntity<>(map, headers);
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Map> response = restTemplate.postForEntity(ZaloPayConfig.QUERY_ORDER_URL, request, Map.class);
+            Map<?, ?> responseBody = response.getBody();
             
-            if (response.getBody() != null && response.getBody().get("return_code").toString().equals("1")) {
+            if (responseBody != null && responseBody.get("return_code") != null
+                    && "1".equals(String.valueOf(responseBody.get("return_code")))) {
                 try {
                     orderService.confirmVNPayPayment(orderId, true);
                 } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {

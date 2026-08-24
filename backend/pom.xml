@@ -96,6 +96,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- H2 Database for DataJpaTest unit testing -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Spring Boot Starter Mail -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

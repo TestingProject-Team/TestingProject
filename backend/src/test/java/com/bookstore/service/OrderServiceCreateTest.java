@@ -126,7 +126,6 @@ class OrderServiceCreateTest {
     /** Khai báo các stub dùng chung cho luồng tạo đơn thành công. */
     private void gaLapLuongCoBan() {
         when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(user));
-        when(orderRepository.findByUserOrderByCreatedAtDesc(user)).thenReturn(new ArrayList<>());
     }
 
     /** Khai báo cho orderRepository.save() trả lại chính đối tượng được truyền vào. */

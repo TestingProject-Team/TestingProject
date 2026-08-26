@@ -7,6 +7,7 @@
   1. **Chức năng Authentication (Auth)**: Đăng ký (`/api/auth/register`) & Đăng nhập (`/api/auth/login`) - Bao phủ các trường `email`, `password`, `phone`.
   2. **Chức năng Books & Search**: Tìm kiếm sách (`/api/books/search`), Lọc/Phân trang sách (`keyword`, `price`, `page`, `size`).
 - **Thời gian hoàn thành & Nghiệm thu**: Hoàn tất trước ngày **26/08/2026**.
+- **Mã Sub-task & Branch Git**: `feature/YIYI-46` (Sub-task YIYI-46: Phân vùng tương đương Auth và Books/Search).
 
 ---
 
@@ -95,8 +96,17 @@ Bảng dưới đây tổng hợp đầy đủ các Test Case đại diện cho 
 
 ---
 
-## 4. BÁO CÁO KẾT QUẢ CHẠY TEST TỰ ĐỘNG & MINH CHỨNG (AUTOMATED TEST VERIFICATION)
+## 4. BÁO CÁO KẾT QUẢ CHẠY TEST TỰ ĐỘNG & COLLECTION MINH CHỨNG (DELIVERABLES & LOGS)
 
+### 4.1. Bộ Postman Collection & Test Scripts liên quan
+- **File Postman Collection**: `postman/Epic2.1_2.3_Collection_Auth_Books_Categories_Banners_Phu.json`
+- **File Environment**: `postman/Epic2.2_Environment_Local_Phu.json` & `Epic2.2_Environment_Docker_Phu.json`
+- **Cách thực thi runner**:
+  ```powershell
+  npx newman run postman/Epic2.1_2.3_Collection_Auth_Books_Categories_Banners_Phu.json -e postman/Epic2.2_Environment_Local_Phu.json
+  ```
+
+### 4.2. Kết quả chạy bộ UnitTest backend (Backend Test Suite Result Log)
 Toàn bộ bộ kiểm thử tự động (Unit Test Suite) trên Backend Spring Boot đã được thực thi thông qua lệnh Maven Wrapper:
 
 ```powershell
@@ -104,15 +114,21 @@ cd TestingProject-Team/backend
 .\mvnw.cmd test
 ```
 
-### Kết quả chạy kiểm thử thực tế (Test Execution Summary):
+#### Log minh chứng kết quả chạy thực tế:
+```text
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 300, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:27 min
+[INFO] Finished at: 2026-08-26T11:48:07+07:00
+```
 - **Tổng số test cases đã chạy**: **300 tests**
-- **Số test case đạt (Pass)**: **300 tests**
-- **Số test case thất bại (Failures)**: **0**
-- **Số test case bị lỗi (Errors)**: **0**
-- **Số test case bị bỏ qua (Skipped)**: **0**
-- **Tỷ lệ vượt qua (Pass Rate)**: **100%**
-- **Thời gian thực thi**: 1 phút 27 giây
-- **Công cụ đo độ bao phủ (JaCoCo Code Coverage)**: Đã xuất dữ liệu `jacoco.exec` đạt tiêu chuẩn coverage cho 61 service classes.
+- **Số test case đạt (Pass)**: **300 tests (100% Pass Rate)**
+- **Công cụ đo độ bao phủ (JaCoCo Code Coverage)**: Đã xuất dữ liệu `target/jacoco.exec` đạt tiêu chuẩn coverage cho 61 service classes.
 
 ---
 

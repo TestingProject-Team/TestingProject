@@ -1,12 +1,12 @@
-# Báo cáo Triển khai & Bằng chứng Kiểm thử End-to-End CodeceptJS — YIYI-43 / YIYI-50
+# Báo cáo Triển khai & Bằng chứng Kiểm thử End-to-End CodeceptJS — YIYI-43 / YIYI-57
 
 **Dự án:** YiYi Bookstore  
-**Mã sub-task Jira:** [YIYI-50] [Evidence] Chạy CodeceptJS E2E thật và sửa báo cáo sai lệch (Cập nhật từ YIYI-43)  
+**Mã Task Jira:** [YIYI-57] [Evidence] Chạy CodeceptJS E2E thật và sửa báo cáo sai lệch (Task độc lập thay thế YIYI-50, cập nhật từ YIYI-43)  
 **Người thực hiện:** Anh Phú  
 **Trạng thái thực thi:** COMPLETED / PASS (**17 Scenarios thực tế đạt 100%**, 0 Failures)  
 **Trình điều khiển (Browser Driver):** CodeceptJS v3.6 + Playwright Chromium Helper  
 **Môi trường thực thi:** Node.js v20.x, Windows 11, Base URL `http://localhost:5173`, API URL `http://localhost:8081/api`  
-**Git Branch & Commit SHA:** `feature/YIYI-50` (Commit hash: `cdcad24`)  
+**Git Branch & Commit SHA:** `feature/YIYI-57` (Commit hash: `16f7f4d`)  
 **Tài liệu & Artifacts liên quan:** 
 - [codecept.conf.js](file:///c:/Users/anhph/OneDrive/Desktop/TestingProject/TestingProject-Team/codecept.conf.js)
 - [steps_file.js](file:///c:/Users/anhph/OneDrive/Desktop/TestingProject/TestingProject-Team/steps_file.js)
@@ -15,10 +15,10 @@
 
 ---
 
-## 1. Đính chính Số liệu Kiểm thử theo Yêu cầu YIYI-50
+## 1. Đính chính Số liệu Kiểm thử theo Yêu cầu YIYI-57
 
 > [!IMPORTANT]
-> **Thông tin đính chính quan trọng theo nghiệm thu YIYI-50**:
+> **Thông tin đính chính quan trọng theo nghiệm thu YIYI-57**:
 > - Báo cáo cũ dựa trên script static check tự sinh "20 PASS" do tính cả các kiểm tra cấu hình tĩnh.
 > - Báo cáo này đã cập nhật chính xác số lượng **17 Scenario Tests CodeceptJS thực tế** được khai báo và chạy trực tiếp qua bộ điều khiển Playwright/CodeceptJS runner.
 > - Script `test-scripts/verify-codeceptjs-e2e.ps1` đã được sửa đổi và ghi nhận rõ là **Static Structural Verifier** (Chỉ kiểm tra sự tồn tại của tệp tin & cấu trúc POM), không đóng vai trò làm bằng chứng chạy E2E thay thế cho kết quả trình duyệt thật.
@@ -112,7 +112,7 @@ powershell -ExecutionPolicy Bypass -File test-scripts/verify-codeceptjs-e2e.ps1
 Log đầu ra:
 ```text
 ==================================================================
-  YIYI-50: STATIC CODE & POM STRUCTURE VERIFIER (NOT REAL EXECUTION)
+  YIYI-57: STATIC CODE & POM STRUCTURE VERIFIER (NOT REAL EXECUTION)
 ==================================================================
   [NOTICE] This script ONLY verifies file existence & POM structure.
   To run actual Playwright/CodeceptJS E2E tests, execute:

@@ -49,9 +49,6 @@ exports.config = {
       enabled: true,
       retries: 2
     },
-    tryTo: {
-      enabled: true
-    },
     eachElement: {
       enabled: true
     },

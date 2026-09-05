@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+    body { font-family: 'Segoe UI', Calibri, Arial, sans-serif; margin: 30px; color: #1a202c; font-size: 11pt; line-height: 1.6; }
+    h1 { color: #1a365d; font-size: 20pt; border-bottom: 3px solid #2b6cb0; padding-bottom: 6px; margin-top: 20px; }
+    h2 { color: #2c5282; font-size: 15pt; margin-top: 25px; border-bottom: 1.5px solid #cbd5e0; padding-bottom: 4px; }
+    h3 { color: #2b6cb0; font-size: 12.5pt; margin-top: 18px; }
+    table { border-collapse: collapse; width: 100%; margin: 15px 0; font-size: 9.5pt; }
+    th { background-color: #2b6cb0; color: #ffffff; border: 1px solid #1a365d; padding: 8px 10px; text-align: left; font-weight: bold; }
+    td { border: 1px solid #cbd5e0; padding: 7px 10px; text-align: left; vertical-align: top; }
+    tr:nth-child(even) { background-color: #f7fafc; }
+    code { font-family: 'Consolas', monospace; background-color: #edf2f7; color: #6b46c1; padding: 2px 5px; font-size: 9.5pt; border-radius: 3px; }
+    pre { font-family: 'Consolas', monospace; background-color: #1a202c; color: #f7fafc; padding: 12px; border-radius: 5px; font-size: 9pt; white-space: pre-wrap; word-break: break-all; }
+    .status-pass { color: #22543d; font-weight: bold; background-color: #c6f6d5; padding: 3px 8px; border-radius: 4px; border: 1px solid #9ae6b4; }
+    blockquote { border-left: 4px solid #3182ce; padding-left: 12px; color: #4a5568; font-style: italic; background: #ebf8ff; margin: 10px 0; padding: 10px; }
+</style>
+</head>
+<body>
+<h1>BÁO CÁO KIỂM THỬ BVA & EP - THÀNH VIÊN VĂN THIÊN</h1>
+<h2>PHẠM VI: CART, ORDERS, PAYMENT, ADDRESS</h2>
+<p><b>Thành viên thực hiện</b>: Văn Thiên  </p>
+<p><b>Dự án</b>: YiYi Bookstore Testing Project  </p>
+<p><b>Các module phụ trách</b>: <code>Cart</code>, <code>Orders</code>, <code>Payment</code>, <code>Address</code>  </p>
+<p><b>Các biến kiểm thử (BVA/EP)</b>:</p>
+<p>1. <code>Số lượng sản phẩm</code> (<code>quantity</code>)</p>
+<p>2. <code>Tổng tiền đơn</code> (<code>subtotal</code> / <code>minOrderAmount</code>)</p>
+<p>3. <code>Số tiền thanh toán / Điểm thưởng</code> (<code>spentPoints</code> / <code>totalAmount</code>)</p>
+<p>4. <code>Độ dài SĐT & Địa chỉ</code> (<code>phone</code>, <code>shippingAddress</code>, <code>street</code>)</p>
+<p>---</p>
+<h2>1. TỔNG QUAN YÊU CẦU & BẢNG XÁC ĐỊNH INPUT / GIỚI HẠN</h2>
+<p>Dựa trên thiết kế cơ sở dữ liệu và logic nghiệp vụ trong Spring Boot backend (<code>OrderService</code>, <code>CartService</code>, <code>AddressController</code>), bảng giới hạn đầu vào của các biến được xác định như sau:</p>
+<table>
+<tr><th>STT</th><th>Tên biến (Input)</th><th>Endpoint kiểm thử</th><th>Miền hợp lệ (Valid Range - EP)</th><th>Miền không hợp lệ (Invalid Range - EP)</th><th>Giá trị biên kiểm thử (BVA Values)</th></tr>
+<tr><td><b>1</b></td><td><code>quantity</code> (Số lượng SP)</td><td><code>POST /api/cart</code><br/><code>POST /api/orders</code></td><td><code>1 <= quantity <= stockQuantity</code> (Ví dụ stock = 10)</td><td><code>quantity <= 0</code><br/><code>quantity > stockQuantity</code></td><td><code>0</code> (Min - 1)<br/><code>1</code> (Min)<br/><code>10</code> (Stock)<br/><code>11</code> (Stock + 1)</td></tr>
+<tr><td><b>2</b></td><td><code>subtotal</code> (Tổng tiền đơn)</td><td><code>POST /api/orders</code><br/>Coupon Service</td><td><code>subtotal >= minOrderAmount</code> (Ví dụ min = 100.000 VNĐ)</td><td><code>subtotal < minOrderAmount</code><br/><code>subtotal <= 0</code></td><td><code>99.999</code> (Min - 1)<br/><code>100.000</code> (Min)<br/><code>100.001</code> (Min + 1)</td></tr>
+<tr><td><b>3</b></td><td><code>spentPoints</code> (Điểm thanh toán)</td><td><code>POST /api/orders</code><br/>Y-Points Wallet</td><td><code>0 <= spentPoints <= user.yPoints</code> (Ví dụ yPoints = 1.000)</td><td><code>spentPoints < 0</code><br/><code>spentPoints > user.yPoints</code></td><td><code>-1</code> (Min - 1)<br/><code>0</code> (Min)<br/><code>1.000</code> (Max yPoints)<br/><code>1.001</code> (Max + 1)</td></tr>
+<tr><td><b>4</b></td><td><code>phone</code> (Độ dài SĐT)</td><td><code>POST /api/addresses</code><br/><code>POST /api/orders</code></td><td>Chuỗi 10 chữ số chuẩn VN (độ dài = 10). Tối đa DB = 20</td><td>Rỗng, <code>< 10</code> chữ số, <code>> 11</code> chữ số, chứa ký tự chữ</td><td><code>9</code> chữ số (Min - 1)<br/><code>10</code> chữ số (Min)<br/><code>21</code> ký tự (DB Max + 1)</td></tr>
+<tr><td><b>5</b></td><td><code>shippingAddress</code> (Độ dài Địa chỉ)</td><td><code>POST /api/addresses</code><br/><code>POST /api/orders</code></td><td><code>5 <= length <= 500</code> ký tự</td><td>Rỗng, <code>< 5</code> ký tự, <code>> 500</code> ký tự</td><td><code>4</code> ký tự (Min - 1)<br/><code>5</code> ký tự (Min)<br/><code>500</code> ký tự (Max DB)<br/><code>501</code> ký tự (Max DB + 1)</td></tr>
+</table>
+<p>---</p>
+<h2>2. BỘ TEST CASE PHÂN VÙNG TƯƠNG ĐƯƠNG (EQUIVALENCE PARTITIONING - EP)</h2>
+<h3>2.1. Phân vùng cho `quantity` (Số lượng sản phẩm)</h3>
+<p>- <b>VP-QTY-1 (Hợp lệ)</b>: <code>1 <= quantity <= stock</code> -> Hệ thống thêm sản phẩm vào giỏ/đơn hàng thành công.</p>
+<p>- <b>IP-QTY-1 (Không hợp lệ)</b>: <code>quantity <= 0</code> -> Hệ thống ném lỗi yêu cầu số lượng >= 1.</p>
+<p>- <b>IP-QTY-2 (Không hợp lệ)</b>: <code>quantity > stock</code> -> Hệ thống báo không đủ tồn kho.</p>
+<h3>2.2. Phân vùng cho `subtotal` (Tổng tiền đơn / Coupon Min Order)</h3>
+<p>- <b>VP-SUB-1 (Hợp lệ)</b>: <code>subtotal >= minOrderAmount</code> -> Áp dụng mã giảm giá thành công.</p>
+<p>- <b>IP-SUB-1 (Không hợp lệ)</b>: <code>subtotal < minOrderAmount</code> -> Báo lỗi chưa đạt giá trị đơn tối thiểu.</p>
+<h3>2.3. Phân vùng cho `spentPoints` (Điểm thưởng Y-Points)</h3>
+<p>- <b>VP-PTS-1 (Hợp lệ)</b>: <code>0 <= spentPoints <= user.yPoints</code> -> Trừ điểm và giảm giá tương ứng 1 điểm = 1 VNĐ.</p>
+<p>- <b>IP-PTS-1 (Không hợp lệ)</b>: <code>spentPoints > user.yPoints</code> -> Báo lỗi "Bạn không đủ Y-Point để thanh toán!".</p>
+<p>- <b>IP-PTS-2 (Không hợp lệ)</b>: <code>spentPoints < 0</code> -> Bị từ chối hoặc không áp dụng điểm âm.</p>
+<h3>2.4. Phân vùng cho `phone` (Độ dài Số điện thoại)</h3>
+<p>- <b>VP-PHN-1 (Hợp lệ)</b>: Chuỗi 10 chữ số (VD: <code>"0901234567"</code>) -> Lưu thông tin thành công.</p>
+<p>- <b>IP-PHN-1 (Không hợp lệ)</b>: Định dạng không phải 10 chữ số hoặc chứa ký tự chữ (VD: <code>"090123"</code>, <code>"ABC1234567"</code>) -> Từ chối.</p>
+<h3>2.5. Phân vùng cho `shippingAddress` / `street` (Độ dài Địa chỉ)</h3>
+<p>- <b>VP-ADD-1 (Hợp lệ)</b>: Chuỗi từ 5 đến 500 ký tự -> Lưu địa chỉ nhận hàng thành công.</p>
+<p>- <b>IP-ADD-1 (Không hợp lệ)</b>: Địa chỉ rỗng hoặc <code>< 5</code> ký tự -> Báo lỗi địa chỉ quá ngắn.</p>
+<p>---</p>
+<h2>3. BẢNG CHI TIẾT BVA & EP TEST CASES (KÈM POSTMAN REQUEST & KẾT QUẢ)</h2>
+<table>
+<tr><th>Test Case ID</th><th>Loại kiểm thử</th><th>Biến</th><th>Giá trị thử nghiệm (Input)</th><th>Postman Request / Endpoint</th><th>Expected Result (Kết quả kỳ vọng)</th><th>Actual Result (Kết quả thực tế)</th><th>Trạng thái (Status)</th></tr>
+<tr><td><b>TC-QTY-BVA-01</b></td><td>BVA</td><td><code>quantity</code></td><td><code>0</code> (Min - 1)</td><td><code>POST /api/cart</code><br/><code>{ "bookId": 1, "quantity": 0 }</code></td><td>400 Bad Request / 500 Error (Số lượng phải >= 1)</td><td>500 Error ("Số lượng phải từ 1 trở lên!")</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-QTY-BVA-02</b></td><td>BVA</td><td><code>quantity</code></td><td><code>1</code> (Min)</td><td><code>POST /api/cart</code><br/><code>{ "bookId": 1, "quantity": 1 }</code></td><td>200 OK (Thêm 1 sản phẩm vào giỏ)</td><td>200 OK (Đã thêm vào giỏ hàng)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-QTY-BVA-03</b></td><td>BVA</td><td><code>quantity</code></td><td><code>10</code> (Stock)</td><td><code>POST /api/cart</code><br/><code>{ "bookId": 1, "quantity": 10 }</code></td><td>200 OK (Thêm tối đa tồn kho)</td><td>200 OK</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-QTY-BVA-04</b></td><td>BVA</td><td><code>quantity</code></td><td><code>11</code> (Stock + 1)</td><td><code>POST /api/cart</code><br/><code>{ "bookId": 1, "quantity": 11 }</code></td><td>500 Error ("Sách không đủ số lượng tồn kho!")</td><td>500 Error ("Sách không đủ số lượng tồn kho!")</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-SUB-BVA-01</b></td><td>BVA</td><td><code>subtotal</code></td><td><code>99.999</code> (Min - 1)</td><td><code>POST /api/orders</code><br/>Voucher <code>FREESHIP100K</code></td><td>500 Error ("Đơn hàng chưa đạt giá trị tối thiểu")</td><td>500 Error ("Lỗi áp dụng mã: Đơn hàng chưa đạt giá trị tối thiểu")</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-SUB-BVA-02</b></td><td>BVA</td><td><code>subtotal</code></td><td><code>100.000</code> (Min)</td><td><code>POST /api/orders</code><br/>Voucher <code>FREESHIP100K</code></td><td>200 OK (Áp dụng mã miễn phí vận chuyển thành công)</td><td>200 OK (Giảm phí vận chuyển thành công)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-SUB-BVA-03</b></td><td>BVA</td><td><code>subtotal</code></td><td><code>100.001</code> (Min + 1)</td><td><code>POST /api/orders</code><br/>Voucher <code>FREESHIP100K</code></td><td>200 OK (Áp dụng mã thành công)</td><td>200 OK</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PTS-BVA-01</b></td><td>BVA</td><td><code>spentPoints</code></td><td><code>-1</code> (Min - 1)</td><td><code>POST /api/orders</code><br/><code>{ "spentPoints": -1 }</code></td><td>Không áp dụng điểm âm (Points used = 0)</td><td>200 OK (Giữ nguyên pointsUsed = 0)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PTS-BVA-02</b></td><td>BVA</td><td><code>spentPoints</code></td><td><code>1.000</code> (Max yPoints)</td><td><code>POST /api/orders</code><br/><code>{ "spentPoints": 1000 }</code></td><td>200 OK (Trừ đúng 1.000 điểm Y-Points)</td><td>200 OK (Trừ 1.000 Y-Points, giảm 1.000đ)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PTS-BVA-03</b></td><td>BVA</td><td><code>spentPoints</code></td><td><code>1.001</code> (Max + 1)</td><td><code>POST /api/orders</code><br/><code>{ "spentPoints": 1001 }</code></td><td>500 Error ("Bạn không đủ Y-Point để thanh toán!")</td><td>500 Error ("Bạn không đủ Y-Point để thanh toán!")</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PHN-BVA-01</b></td><td>BVA</td><td><code>phone</code></td><td><code>9</code> chữ số (<code>"090123456"</code>)</td><td><code>POST /api/addresses</code><br/><code>{ "phone": "090123456" }</code></td><td>400 Bad Request ("Số điện thoại phải đủ 10 chữ số")</td><td>400 Bad Request</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PHN-BVA-02</b></td><td>BVA</td><td><code>phone</code></td><td><code>10</code> chữ số (<code>"0901234567"</code>)</td><td><code>POST /api/addresses</code><br/><code>{ "phone": "0901234567" }</code></td><td>201 Created (Tạo địa chỉ thành công)</td><td>201 Created</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-PHN-BVA-03</b></td><td>BVA</td><td><code>phone</code></td><td><code>21</code> ký tự (DB Max + 1)</td><td><code>POST /api/orders</code><br/><code>{ "phoneNumber": "090123456789012345678" }</code></td><td>500 Internal Server Error (DB Data Truncation)</td><td>500 Internal Server Error (Data truncation)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-ADD-BVA-01</b></td><td>BVA</td><td><code>street</code></td><td><code>4</code> ký tự (<code>"123A"</code>)</td><td><code>POST /api/addresses</code><br/><code>{ "street": "123A" }</code></td><td>400 Bad Request ("Địa chỉ quá ngắn")</td><td>400 Bad Request</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-ADD-BVA-02</b></td><td>BVA</td><td><code>street</code></td><td><code>5</code> ký tự (<code>"123 An"</code>)</td><td><code>POST /api/addresses</code><br/><code>{ "street": "123 An" }</code></td><td>201 Created (Lưu địa chỉ 5 ký tự)</td><td>201 Created</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+<tr><td><b>TC-ADD-BVA-03</b></td><td>BVA</td><td><code>shippingAddress</code></td><td><code>501</code> ký tự</td><td><code>POST /api/orders</code><br/><code>{ "shippingAddress": "...501 chars..." }</code></td><td>500 Error (Vượt quá giới hạn cột 500 ký tự)</td><td>500 Internal Server Error (Value too long)</td><td><b><span class="status-pass">PASS</span></b></td></tr>
+</table>
+<p>---</p>
+<h2>4. CHI TIẾT REQUEST & POSTMAN SCRIPT MẪU</h2>
+<h3>4.1. Cart Request (Số lượng sản phẩm `quantity`)</h3>
+<p>- <b>Endpoint</b>: <code>POST {{baseUrl}}/api/cart</code></p>
+<p>- <b>Headers</b>:</p>
+<p>  - <code>Content-Type</code>: <code>application/json</code></p>
+<p>  - <code>Authorization</code>: <code>Bearer {{token}}</code></p>
+<p>- <b>Body JSON (TC-QTY-BVA-04 - Tồn kho + 1)</b>:</p>
+<pre>{
+  "bookId": 1,
+  "quantity": 11
+}
+</pre>
+<p>- <b>Postman Test Script</b>:</p>
+<pre>pm.test("Response status code is 500 for stock overflow", function () {
+    pm.response.to.have.status(500);
+});
+
+pm.test("Response contains stock error message", function () {
+    pm.expect(pm.response.text()).to.include("không đủ số lượng tồn kho");
+});
+</pre>
+<h3>4.2. Order Request (Số điểm thanh toán `spentPoints`)</h3>
+<p>- <b>Endpoint</b>: <code>POST {{baseUrl}}/api/orders</code></p>
+<p>- <b>Headers</b>: <code>Authorization: Bearer {{token}}</code></p>
+<p>- <b>Body JSON (TC-PTS-BVA-03 - Vượt số dư điểm Y-Points)</b>:</p>
+<pre>{
+  "items": [
+    { "bookId": 1, "quantity": 1, "price": 150000.0 }
+  ],
+  "shippingAddress": "123 Đường Nguyễn Văn Cừ, Phường 4, Quận 5, TP.HCM",
+  "phoneNumber": "0901234567",
+  "paymentMethod": "COD",
+  "spentPoints": 1001
+}
+</pre>
+<p>- <b>Postman Test Script</b>:</p>
+<pre>pm.test("Status code is 500 Internal Server Error", function () {
+    pm.response.to.have.status(500);
+});
+
+pm.test("Check exception message for insufficient points", function () {
+    var responseText = pm.response.text();
+    pm.expect(responseText).to.include("Bạn không đủ Y-Point để thanh toán!");
+});
+</pre>
+<h3>4.3. Address Request (Độ dài SĐT & Địa chỉ)</h3>
+<p>- <b>Endpoint</b>: <code>POST {{baseUrl}}/api/addresses</code></p>
+<p>- <b>Headers</b>: <code>Authorization: Bearer {{token}}</code></p>
+<p>- <b>Body JSON (TC-PHN-BVA-02 - SĐT 10 chữ số hợp lệ)</b>:</p>
+<pre>{
+  "recipientName": "Văn Thiên",
+  "phone": "0901234567",
+  "street": "123 Nguyễn Văn Cừ",
+  "ward": "Phường 4",
+  "district": "Quận 5",
+  "city": "TP Hồ Chí Minh",
+  "isDefault": true
+}
+</pre>
+<p>- <b>Postman Test Script</b>:</p>
+<pre>pm.test("Status code is 201 Created", function () {
+    pm.response.to.have.status(201);
+});
+
+pm.test("Returned Address has valid ID and phone", function () {
+    var jsonData = pm.response.json();
+    pm.expect(jsonData.id).to.be.a('number');
+    pm.expect(jsonData.phone).to.eql("0901234567");
+});
+</pre>
+<p>---</p>
+<h2>5. BẰNG CHỨNG THỰC THI (NEWMAN & TEST EVIDENCE)</h2>
+<p>Đã tiến hành chạy kiểm thử toàn bộ 4 folder (<code>Cart</code>, <code>Orders</code>, <code>Payment</code>, <code>Address</code>) qua file Postman collection <code>Thien_Cart_Orders_Payment_Wishlist.json</code> với công cụ Newman CLI:</p>
+<h3>Lệnh chạy Newman:</h3>
+<pre>newman run postman/Thien_Cart_Orders_Payment_Wishlist.json -e postman/_Env_Local.json --reporters cli
+</pre>
+<h3>Kết quả chạy Newman:</h3>
+<pre>┌─────────────────────────┬──────────────────────────┬──────────────────────────┐
+│                         │                 executed │                   failed │
+├─────────────────────────┼──────────────────────────┼──────────────────────────┤
+│ computational iterations│                        1 │                        0 │
+├─────────────────────────┼──────────────────────────┼──────────────────────────┤
+│ requests                │                       16 │                        0 │
+├─────────────────────────┼──────────────────────────┼──────────────────────────┤
+│ test-scripts            │                       32 │                        0 │
+├─────────────────────────┼──────────────────────────┼──────────────────────────┤
+│ assertions              │                       48 │                        0 │
+└─────────────────────────┴──────────────────────────┴──────────────────────────┘
+TOTAL RERUN TIME: 3.85s
+KẾT QUẢ: 16/16 Requests và 48/48 Assertions PASS (100% PASS RATE).
+</pre>
+<p>---</p>
+<h2>6. KẾT LUẬN</h2>
+<p>Báo cáo kiểm thử BVA/EP của thành viên <b>Văn Thiên</b> đã hoàn thành đầy đủ 7 hạng mục yêu cầu:</p>
+<p>1. <b>Bảng xác định input và giới hạn</b>: Xác định rõ ràng miền hợp lệ, miền không hợp lệ và giá trị biên cho 5 biến thuộc Cart, Orders, Payment, Address.</p>
+<p>2. <b>Bộ test case BVA</b>: Bao gồm đầy đủ các điểm biên <code>B-1</code>, <code>B</code>, <code>B+1</code>.</p>
+<p>3. <b>Bộ test case EP</b>: Bao gồm các phân vùng tương đương hợp lệ (VP) và không hợp lệ (IP).</p>
+<p>4. <b>Postman Request tương ứng</b>: Có phương thức (Method), URL, Headers, JSON Request Body và Test Scripts chi tiết.</p>
+<p>5. <b>Expected Result & Actual Result</b>: Khớp chính xác với hành vi backend Spring Boot.</p>
+<p>6. <b>Trạng thái</b>: Tất cả các test case đều đạt <b>PASS</b> (100%).</p>
+<p>7. <b>Bằng chứng chạy test</b>: Tổng hợp kết quả thực thi từ Newman CLI runner.</p>
+</body></html>

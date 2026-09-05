@@ -14,5 +14,8 @@
     "@codeceptjs/ui": "^0.5.0",
     "codeceptjs": "^3.5.15",
     "playwright": "^1.40.0"
+  },
+  "dependencies": {
+    "docx": "^9.7.1"
   }
 }

@@ -1,7 +1,7 @@
 # CHAPTER 4: KIỂM THỬ BẢNG QUYẾT ĐỊNH (DECISION TABLE TESTING)
 ## QUY TẮC THANH TOÁN & ĐẶT HÀNG (CHECKOUT & PAYMENT RULES)
 
-**Issue Key / Scrum Task**: YIYI-48 (Thay thế YIYI-48 hiển thị card riêng trên Scrum Board)  
+**Issue Key / Scrum Task**: YIYI-47 (Thay thế YIYI-47 hiển thị card riêng trên Scrum Board)  
 **Tác giả**: Sinh viên thực hiện kiểm thử  
 **Đối tượng kiểm thử**: `OrderService.createOrder`, `OrderRequest`, `CouponService`  
 

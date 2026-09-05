@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 
 /**
  * Unit Test Bảng Quyết Định (Decision Table Testing) cho Quy tắc Checkout & Thanh Toán.
- * Task: Scrum Board Card / Thay thế YIYI-48
+ * Task: Scrum Board Card / Thay thế YIYI-47
  * Phong cách: Đơn giản, sạch sẽ, dễ hiểu (Sinh viên năm 2).
  */
 @ExtendWith(MockitoExtension.class)

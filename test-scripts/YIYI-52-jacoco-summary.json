@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-09T10:18:14+07:00",
+  "jiraIssue": "YIYI-52",
+  "framework": "JaCoCo 0.8.12",
+  "testRunner": "Maven Surefire Plugin",
+  "testResults": {
+    "total": 300,
+    "passed": 300,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "overallCoverage": {
+    "lines": {
+      "covered": 845,
+      "total": 2212,
+      "percentage": 38.2
+    },
+    "branches": {
+      "covered": 325,
+      "total": 793,
+      "percentage": 40.98
+    },
+    "instructions": {
+      "covered": 3788,
+      "total": 10086,
+      "percentage": 37.56
+    },
+    "complexity": {
+      "covered": 257,
+      "total": 757,
+      "percentage": 33.95
+    },
+    "methods": {
+      "covered": 115,
+      "total": 356,
+      "percentage": 32.3
+    }
+  },
+  "serviceLayerCoverage": {
+    "package": "com.bookstore.service",
+    "lines": {
+      "covered": 821,
+      "total": 967,
+      "percentage": 84.9
+    },
+    "branches": {
+      "covered": 325,
+      "total": 462,
+      "percentage": 70.35
+    },
+    "instructions": {
+      "covered": 3672,
+      "total": 4497,
+      "percentage": 81.65
+    }
+  },
+  "status": "PASS",
+  "note": "Raw binary jacoco.exec and html reports generated under backend/target/site/jacoco. Cleaned summary captured for repository traceability."
+}

@@ -1,0 +1,118 @@
+
+=================== TABLE 94 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh cấu hình file .env và application-local.properties]']
+
+=================== TABLE 95 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh docker compose up -d và Docker Desktop]']
+
+=================== TABLE 96 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh console log Spring Boot Started Application in X seconds]']
+
+=================== TABLE 97 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh Postman / Browser kiểm tra Swagger UI hoặc API /actuator/health]']
+
+=================== TABLE 98 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh npm run dev sẵn sàng truy cập Localhost]']
+
+=================== TABLE 99 (rows=2, cols=1) ===================
+Row 0: ['Chính sách bảo mật (Security Policy): Toàn bộ mật khẩu, JWT secret, SMTP credential, payment API keys đã được che giấu ([REDACTED]) trong toàn bộ tài liệu báo cáo để đảm bảo an toàn thông tin.[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình trang chủ với trạng thái đã đăng nhập tài khoản]']
+Row 1: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình cài đặt và khởi chạy Local]']
+
+=================== TABLE 100 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình ứng dụng trên Domain Production]']
+
+=================== TABLE 101 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh Dashboard Cloud / Server Log / Swagger Production UP]']
+
+=================== TABLE 102 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng nhập Khách hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng ký & Đăng nhập Khách hàng]']
+
+=================== TABLE 103 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Tìm kiếm Khách hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng ký & Đăng nhập Khách hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Duyệt danh mục & Tìm kiếm]']
+
+=================== TABLE 104 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Sản phẩm & Danh sách yêu thích][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Duyệt danh mục & Tìm kiếm][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Chi tiết sản phẩm & Wishlist]']
+
+=================== TABLE 105 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Giỏ hàng & Thanh toán][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Chi tiết sản phẩm & Wishlist][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giỏ hàng & Điền thông tin Đặt hàng]']
+
+=================== TABLE 106 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Xác nhận Thanh toán & Đơn hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giỏ hàng & Điền thông tin Đặt hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cổng thanh toán & Lịch sử Đơn hàng]']
+
+=================== TABLE 107 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đánh giá sản phẩm][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cổng thanh toán & Lịch sử Đơn hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Viết đánh giá và Xem bình luận]']
+
+=================== TABLE 108 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đổi điểm thưởng & Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Viết đánh giá và Xem bình luận][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đổi điểm thưởng & Kho Voucher]']
+
+=================== TABLE 109 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Trợ lý AI][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đổi điểm thưởng & Kho Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cửa sổ Chatbot YiYi AI Assistant]']
+
+=================== TABLE 110 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Admin Login & Dashboard][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cửa sổ Chatbot YiYi AI Assistant][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Admin Login & Dashboard Doanh thu]']
+
+=================== TABLE 111 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Sách][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Admin Login & Dashboard Doanh thu][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Quản lý Sách và Tồn kho]']
+
+=================== TABLE 112 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh mục & Banner][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Quản lý Sách và Tồn kho][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Thể loại & Banner Marketing]']
+
+=================== TABLE 113 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị đơn hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Thể loại & Banner Marketing][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh sách Đơn hàng & Vận chuyển]']
+
+=================== TABLE 114 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Người dùng & Phân quyền][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh sách Đơn hàng & Vận chuyển][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Người dùng & RBAC Role]']
+
+=================== TABLE 115 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Khuyến mãi & Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Người dùng & RBAC Role][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Mã Coupon & Điểm Y-Point]']
+
+=================== TABLE 116 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Banner và Nội dung][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Mã Coupon & Điểm Y-Point][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Kiểm duyệt Đánh giá & Hòm thư Liên hệ]']
+
+=================== TABLE 117 (rows=8, cols=3) ===================
+Row 0: ['Vấn đề[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Kiểm duyệt Đánh giá & Hòm thư Liên hệ]', 'Nguyên nhân có thể', 'Cách xử lý']
+Row 1: ['Frontend không thể kết nối API', 'Sai VITE_API_URL, Backend dừng hoặc lỗi CORS/config', 'Kiểm tra environment, Backend health, browser network và origin được cho phép']
+Row 2: ['Login thất bại', 'Lỗi Database/user/config/JWT', 'Sử dụng seeded/test account an toàn, kiểm tra Backend log và verify format của JWT secret']
+Row 3: ['Payment result không được update', 'Sandbox callback hoặc return URL không khớp', 'Sử dụng mock flow, verify callback URL và gateway configuration']
+Row 4: ['AI hiển thị configuration message', 'Thiếu VITE_GROQ_API_KEY', 'Cấu hình environment variable an toàn; không bao giờ hardcode']
+Row 5: ['Image upload thất bại', 'File không được hỗ trợ, auth, storage path hoặc size', 'Kiểm tra file type/size, token, upload API và storage configuration an toàn']
+Row 6: ['User có thể truy cập Admin page', 'RBAC chưa đầy đủ hoặc chỉ guard ở Frontend', 'Sửa Backend authorization và thêm API negative test']
+Row 7: ['Page number của report bị cũ', 'Word field/TOC chưa update', 'Mở bằng Word, update field/table of contents rồi export PDF cuối']
+
+=================== TABLE 118 (rows=15, cols=4) ===================
+Row 0: ['ID', 'Hạng mục evidence', 'Report location', 'Status / chèn tại đây']
+Row 1: ['A01', 'Logo trường/bộ chính thức', 'Bìa báo cáo', 'PENDING - [CẦN BỔ SUNG: Chèn file ảnh logo chính thức của Trường]']
+Row 2: ['A02', 'Họ tên, MSSV, GVHD và Mã lớp môn học', 'Bìa / Chương I', 'DONE - Đã chuẩn hóa 5 thành viên & GVHD Nguyễn Văn Chiến']
+Row 3: ['A03', 'Use-case và System Context Diagram', 'Chương III / IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ Use-Case tổng thể]']
+Row 4: ['A04', 'System Architecture Diagram (Hệ thống)', 'Chương IV', 'DONE - Đã có diagram Figure 1.1 / Hinh_4.1 (sẵn sàng nhúng)']
+Row 5: ['A05', 'Frontend Component & Route Architecture', 'Chương IV', 'DONE - Đã có diagram Hinh_4.2 (sẵn sàng nhúng)']
+Row 6: ['A06', 'Backend Layered Architecture Diagram', 'Chương IV', 'DONE - Đã có diagram Figure 1.1.1 (sẵn sàng nhúng)']
+Row 7: ['A07', 'Sơ đồ luồng AI RAG và Phân loại Intent', 'Chương IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý RAG & Groq AI]']
+Row 8: ['A08', 'Database ERD và Schema Design', 'Chương IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 17 bảng PostgreSQL]']
+Row 9: ['A09', 'Screenshot Giao diện Customer Storefront', 'Chương III / VI', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 8 màn hình luồng khách hàng]']
+Row 10: ['A10', 'Screenshot Giao diện Quản trị Admin Portal', 'Chương III / VI', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 7 màn hình cổng quản trị]']
+Row 11: ['A11', 'Minh chứng kết quả Kiểm thử (Unit, API, E2E)', 'Chương V', 'DONE - 299 Unit TCs, 421 API Assertions, 20 E2E Checks']
+Row 12: ['A12', 'Minh chứng JaCoCo Code Coverage', 'Chương V', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Ảnh chụp báo cáo JaCoCo HTML]']
+Row 13: ['A13', 'Báo cáo Kiểm thử chấp nhận người dùng (UAT)', 'Chương V', 'PENDING - [CẦN BỔ SUNG: Biên bản ký duyệt nghiệm thu UAT]']
+Row 14: ['A14', 'Deployment URL, Health Check & Docker evidence', 'Chương II / IV / VI', 'PENDING - [CẦN BỔ SUNG: URL Production & Ảnh Docker PS]']
+
+=================== TABLE 119 (rows=3, cols=3) ===================
+Row 0: ['Owner', 'Complete next', 'Acceptance criteria']
+Row 1: ['Nhóm Phụ trách 1: Yêu cầu, Kiến trúc & Giao diện (Đỉnh, Phú, Tài)', '1. Chèn ảnh Logo trường và ảnh chụp giao diện Storefront / Admin vào Chương III và Chương VI. 2. Bổ sung diagram Use-Case tổng thể, sơ đồ luồng AI RAG và sơ đồ ERD vào Chương IV. 3. Kiểm tra định dạng lề và cập nhật lại Mục lục Word (TOC) trước khi xuất PDF.', 'Hoàn thiện 100% hình ảnh minh chứng kiến trúc và giao diện hệ thống.']
+Row 2: ['Nhóm Phụ trách 2: Kiểm thử, Minh chứng & Triển khai (Thiên Văn, Vân Anh)', '1. Chụp ảnh báo cáo JaCoCo HTML (đạt 37.57% toàn hệ thống, >85% core service) đính kèm Mục 5.3. 2. Thực hiện buổi đánh giá UAT với người dùng thử nghiệm và bổ sung biên bản vào Mục 5.8. 3. Điền URL triển khai chính thức và ảnh chụp trạng thái Docker/Health Check vào Chương II & VI.', 'Đầy đủ minh chứng thực tế từ test suite, độ bao phủ mã và trạng thái triển khai.']
+
+=================== TABLE 120 (rows=1, cols=1) ===================
+Row 0: ['Final review: Sau khi cả hai owner hoàn thành, mở file Word, update table of contents và field, proofread toàn bộ figure/table caption, verify page number, xóa placeholder còn lại và export PDF cuối.']
+
+=================== TABLE 121 (rows=11, cols=6) ===================
+Row 0: ['STT', 'Hạng mục cần bổ sung', 'Vị trí trong Báo cáo', 'Mức độ ưu tiên', 'Người phụ trách', 'Hành động thực hiện']
+Row 1: ['1', 'Chèn ảnh Logo chính thức của Trường', 'Trang bìa (Cover)', 'Critical', 'Phan Văn Đỉnh', 'Chèn file ảnh logo độ phân giải cao vào đầu trang bìa.']
+Row 2: ['2', 'Nhúng các sơ đồ kiến trúc hệ thống chính thức', 'Chương IV (Mục 4.1, 4.2)', 'Critical', 'Lê Minh Tài / Huỳnh Anh Phú', 'Chèn các ảnh đã tạo: Figure 1.1 (System), Hinh 4.2 (Frontend), Figure 1.1.1 (Backend).']
+Row 3: ['3', 'Bổ sung ảnh chụp báo cáo JaCoCo HTML', 'Chương V (Mục 5.3)', 'Critical', 'Lê Minh Tài', 'Chụp ảnh màn hình từ target/site/jacoco/index.html minh chứng 37.57% tổng thể và >85% Service.']
+Row 4: ['4', 'Bổ sung ảnh chụp kết quả Kiểm thử E2E & API', 'Chương V (Mục 5.4, 5.5)', 'High', 'Huỳnh Anh Phú / Tạ Huy Thiên Văn', 'Chụp kết quả chạy Newman CLI (421 assertions) và CodeceptJS (20/20 checks PASS).']
+Row 5: ['5', 'Bổ sung biên bản nghiệm thu UAT', 'Chương V (Mục 5.8)', 'High', 'Phan Văn Đỉnh / Võ Ngọc Vân Anh', 'Tổ chức phiên kiểm thử thực tế với người dùng, lập bảng đánh giá và ghi nhận biên bản xác nhận.']
+Row 6: ['6', 'Chụp ảnh giao diện Customer Storefront & Admin', 'Chương III & Chương VI', 'High', 'Huỳnh Anh Phú / Võ Ngọc Vân Anh', 'Chụp 8 màn hình Storefront (Home, Search, Detail, Cart...) và 7 màn hình Admin Portal.']
+Row 7: ['7', 'Cập nhật Deployment URL và Health Check', 'Chương II & Chương VI', 'Medium', 'Lê Minh Tài', 'Điền đường dẫn production thực tế (hoặc domain staging) và chụp lệnh docker ps/curl health check.']
+Row 8: ['8', 'Bổ sung Sơ đồ luồng AI RAG & Intent', 'Chương IV (Mục 4.4)', 'Medium', 'Tạ Huy Thiên Văn', 'Vẽ sơ đồ quy trình RAG (User -> Intent Router -> PostgreSQL -> Groq API -> Markdown Result).']
+Row 9: ['9', 'Bổ sung Sơ đồ cơ sở dữ liệu ERD 17 bảng', 'Chương IV (Mục 4.3)', 'Medium', 'Lê Minh Tài', 'Export sơ đồ ERD trực tiếp từ PostgreSQL/DBeaver thể hiện khóa chính, khóa ngoại 17 bảng.']
+Row 10: ['10', 'Cập nhật Mục lục tự động Word (TOC) & Xuất PDF', 'Toàn bộ tài liệu', 'Low', 'Phan Văn Đỉnh', 'Mở file trên Microsoft Word, nhấn F9 / Update Entire Table of Contents, rà soát số trang và lưu bản PDF.']

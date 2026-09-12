@@ -35,8 +35,14 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getOrderById(id));
+    public ResponseEntity<Order> getOrderById(Authentication authentication, @PathVariable Long id) {
+        Order order = orderService.getOrderById(id);
+        boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if (!isAdmin && (authentication == null || order.getUser() == null || !order.getUser().getUsername().equals(authentication.getName()))) {
+            return ResponseEntity.status(org.springframework.http.HttpStatus.FORBIDDEN).build();
+        }
+        return ResponseEntity.ok(order);
     }
 
     @PutMapping("/{id}/shipping")

@@ -8,12 +8,14 @@ import com.bookstore.repository.OrderRepository;
 import com.bookstore.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CouponService {
 
     private final CouponRepository couponRepository;

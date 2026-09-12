@@ -1,0 +1,63 @@
+
+=================== TABLE 15 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh bảng Jira Scrum Board / Sprint Backlog thực tế của dự án]']
+
+=================== TABLE 16 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh quản lý Git Branch, Commit History và Pull Request trên GitHub]']
+
+=================== TABLE 17 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh GitHub Actions CI Workflow chạy tự động Build & Test thành công]']
+
+=================== TABLE 18 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh kết quả Smoke Test môi trường triển khai thực tế]']
+
+=================== TABLE 19 (rows=5, cols=4) ===================
+Row 0: ['Chủ đề', 'Đối tượng', 'Đầu ra đào tạo', 'Minh chứng']
+Row 1: ['Setup local', 'Tất cả thành viên', 'Chạy Database, Backend, Frontend và Docker path', '[CẦN BỔ SUNG: SETUP SCREENSHOT]']
+Row 2: ['API testing', 'QA và Backend', 'Chạy Postman/Newman và phân tích kết quả auth/status', '[CẦN BỔ SUNG: COLLECTION RUN]']
+Row 3: ['Content operations', 'Admin/documentation owner', 'Quản lý book, banner, coupon, user, review và setting', '[CẦN BỔ SUNG: ADMIN DEMO]']
+Row 4: ['Release process', 'Release owner', 'Build, environment variable và deployment smoke test', '[CẦN BỔ SUNG: DEPLOYMENT LOG]']
+
+=================== TABLE 20 (rows=1, cols=1) ===================
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh biên bản bàn giao / Ảnh chụp buổi đào tạo vận hành hệ thống]']
+
+=================== TABLE 21 (rows=8, cols=4) ===================
+Row 0: ['ID', 'Sản phẩm bàn giao', 'Mô tả', 'Vị trí / status']
+Row 1: ['D01', 'Đặc tả yêu cầu phần mềm (Software Requirements Specification)', 'Actor, Use Case, yêu cầu chức năng và phi chức năng', '[CẦN BỔ SUNG: LINK / VERSION]']
+Row 2: ['D02', 'Mô tả thiết kế phần mềm (Software Design Description)', 'Architecture, package structure, Database và flow chi tiết', '[CẦN BỔ SUNG: LINK / VERSION]']
+Row 3: ['D03', 'Source Code', 'Frontend, Backend, configuration, migration/seed data', 'Archive được cung cấp']
+Row 4: ['D04', 'API documentation', 'Endpoint được document, auth scheme và gap đã biết', 'backend/API_DOCUMENTATION.md']
+Row 5: ['D05', 'Test assets', '17 unit-test file, Postman/Newman collection và CI workflow', 'Archive được cung cấp']
+Row 6: ['D06', 'Release package', 'Docker file, environment example và hướng dẫn build/deployment', '[CẦN BỔ SUNG: RELEASE LINK]']
+Row 7: ['D07', 'Hướng dẫn sử dụng', 'Workflow của Customer và Administrator kèm screenshot', '[CẦN BỔ SUNG: FINAL DOC LINK]']
+
+=================== TABLE 22 (rows=6, cols=4) ===================
+Row 0: ['Owner', 'Trách nhiệm chính', 'Phần báo cáo phụ trách', 'Trạng thái']
+Row 1: ['Phan Văn Đỉnh', 'Requirement, cấu trúc report, integration, RTM và final review', 'Chương I, Chương II, Phụ lục & Tổng hợp Báo cáo', 'Đã hoàn thành']
+Row 2: ['Huỳnh Anh Phú', 'Frontend Storefront UI/UX, Catalogue, Books API, Postman Tests', 'Chương III, Chương IV (Storefront), Chương V (API Tests)', 'Đã hoàn thành']
+Row 3: ['Lê Minh Tài', 'Backend Spring Boot Architecture, Database, Security, RBAC & Rewards', 'Chương IV (Backend Architecture & DB), Chương V (Unit Tests & JaCoCo)', 'Đã hoàn thành']
+Row 4: ['Tạ Huy Thiên Văn', 'Cart, Order, Sandbox Payment, Wishlist, CodeceptJS E2E Tests', 'Chương IV (E-Commerce Flow), Chương V (E2E Tests & Defect Log)', 'Đã hoàn thành']
+Row 5: ['Võ Ngọc Vân Anh', 'Static Analysis (SonarQube/SpotBugs), User Profile, Contact, Checklist', 'Chương V (Static Analysis), Chương VI (User Guide), Phụ lục A', 'Đã hoàn thành']
+
+=================== TABLE 23 (rows=6, cols=5) ===================
+Row 0: ['Hình thức trao đổi', 'Thành phần', 'Tần suất', 'Mục đích', 'Kênh']
+Row 1: ['Stand-up', 'Tất cả thành viên', '2-3 lần mỗi tuần', 'Tiến độ, blocker và action tiếp theo', '[CẦN BỔ SUNG: CHANNEL]']
+Row 2: ['Code review', 'Developer + reviewer', 'Trước khi merge', 'Review logic, security, test và convention', 'GitHub Pull Request']
+Row 3: ['Test triage', 'QA + feature owner', 'Theo từng test cycle', 'Phân loại defect và verify fix', '[CẦN BỔ SUNG: CHANNEL]']
+Row 4: ['Document review', 'Report owner + supervisor', 'Hằng tuần / theo milestone', 'Kiểm tra tính đầy đủ và evidence', 'Notion / Word']
+Row 5: ['Demo rehearsal', 'Tất cả thành viên', 'Trước khi nộp', 'Luyện workflow, thời lượng và Q&A', '[CẦN BỔ SUNG: LOCATION]']
+
+=================== TABLE 24 (rows=10, cols=2) ===================
+Row 0: ['Category', 'Công cụ / hạ tầng']
+Row 1: ['Frontend', 'React, Vite, Tailwind CSS, React Router, Axios, Swiper']
+Row 2: ['Backend', 'Java 17, Spring Boot 3.2.4, Spring Security, JPA/Hibernate']
+Row 3: ['Database', 'PostgreSQL; Supabase được document như một cloud option']
+Row 4: ['Payment', 'VNPAY, MoMo, ZaloPay và QR/mock payment flow']
+Row 5: ['AI', 'Groq API với Llama 3.3 70B; retrieval và intent detection phía client']
+Row 6: ['Testing', 'JUnit/Spring Boot Test, Postman/Newman và HTTP test asset']
+Row 7: ['CI/CD', 'GitHub Actions workflow cho Backend, API và static check']
+Row 8: ['Deployment', 'Cấu hình Docker Compose, Vercel/Render/Supabase được mô tả trong README']
+Row 9: ['Documentation', 'Microsoft Word, Notion, diagram và screenshot']
+
+=================== TABLE 25 (rows=1, cols=1) ===================
+Row 0: ['']

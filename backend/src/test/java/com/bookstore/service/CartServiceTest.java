@@ -56,6 +56,7 @@ public class CartServiceTest {
         testBook = Book.builder()
                 .id(100L)
                 .title("Tối Ưu Hóa Code")
+                .stockQuantity(100)
                 .build();
     }
 

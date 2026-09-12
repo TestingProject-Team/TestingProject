@@ -1,0 +1,55 @@
+=== AUDIT VERIFICATION REPORT ===
+
+Target: [Hãy] -> 0 occurrences
+
+Target: [Nhóm nên] -> 0 occurrences
+
+Target: [archive] -> 0 occurrences
+
+Target: [source archive] -> 0 occurrences
+
+Target: [1. 1.] -> 0 occurrences
+
+Target: [2. 2.] -> 0 occurrences
+
+Target: [3. 3.] -> 0 occurrences
+
+Target: [4. 4.] -> 0 occurrences
+
+Target: [REQ-] -> 0 occurrences
+
+Target: [UC-01 (Quy trình mua sách] -> 0 occurrences
+
+Target: [Response Time trung bình dưới 2000ms] -> 0 occurrences
+
+Target: [100% Toàn thời gian] -> 0 occurrences
+
+Target: [sẵn sàng phục vụ người dùng thực tế] -> 0 occurrences
+
+Target: [Class/Sequence Diagram] -> 0 occurrences
+
+Target: [UCT-01] -> 1 occurrences
+  [P674] UCT-01 – Quy trình mua sách hoàn chỉnh (Related Use Cases: UC-01, UC-02, UC-03, UC-07, UC-09, UC-10,
+
+Target: [UCT-02] -> 1 occurrences
+  [P675] • Kịch bản UCT-02 (Tư vấn sách thông minh cùng Trợ lý AI): Khách hàng mở widget chat trên giao diện
+
+Target: [UCT-03] -> 1 occurrences
+  [P676] • Kịch bản UCT-03 (Quản trị viên xử lý đơn hàng và bàn giao vận chuyển): Quản trị viên đăng nhập cổn
+
+Target: [CẦN XÁC MINH] -> 37 occurrences
+  [P385] Tầng dữ liệu (Persistence Layer): Bao gồm 19 Spring Data JPA repositories và 25 Java Entity/Enum cla
+  [P404] Cơ sở dữ liệu được mô hình hóa dưới dạng quan hệ trên hệ quản trị cơ sở dữ liệu PostgreSQL. Mã nguồn
+  [P947] 1. Oracle Corporation, "Java Platform, Standard Edition 17 Documentation", https://docs.oracle.com/e
+  [P948] 2. VMware, Inc., "Spring Boot Reference Documentation (v3.2.x)", https://docs.spring.io/spring-boot/
+  [P949] 3. VMware, Inc., "Spring Security Reference Documentation", https://docs.spring.io/spring-security/r
+  ... and 32 more
+
+Target: [CẦN BỔ SUNG] -> 95 occurrences
+  [P944] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)
+  [T6[R1C2]] [CẦN BỔ SUNG: Benchmark system / URL / Evidence]
+  [T6[R2C2]] [CẦN BỔ SUNG: Benchmark system / URL / Evidence]
+  [T6[R3C2]] [CẦN BỔ SUNG: Benchmark payment gateway / Evidence]
+  [T6[R4C2]] [CẦN BỔ SUNG: Benchmark AI assistant / Evidence]
+  ... and 90 more
+

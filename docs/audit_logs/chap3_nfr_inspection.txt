@@ -1,0 +1,95 @@
+[P354][Heading 2] 4. Yêu cầu phi chức năng
+[P355][Normal] 
+[P356][Heading 3] 4.1 External Interface
+[P357][Normal] 
+[P358][Heading 3] 4.2 Thuộc tính chất lượng
+[P359][Normal] Correctness: các thao tác nghiệp vụ phải trả về status, data và error condition như mong đợi.
+[P360][Normal] Security: protected route, ownership, role check, secret và external integration an toàn phải được review.
+[P361][Normal] Usability: khách hàng phải hiểu thao tác tiếp theo ở mỗi bước browse, cart, checkout, payment và order tracking.
+[P362][Normal] Reliability: lỗi external service phải hiển thị trạng thái có thể khôi phục và không được làm hỏng dữ liệu order hoặc cart.
+[P363][Normal] Maintainability: các module phải có thể test độc lập và thay đổi phải được truy vết thông qua code review.
+[P364][Heading 2] 5. Phụ lục yêu cầu
+[P365][Heading 3] 5.1 Business Rule
+[P366][Normal] 
+[P367][Heading 3] 5.2 Yêu cầu chung
+[P368][Normal] Tất cả form phải validate các field bắt buộc và hiển thị message dễ hiểu cho người dùng.
+[P369][Normal] Mỗi asynchronous action phải có thiết kế cho các state loading, empty, success và error.
+[P370][Normal] Tất cả request đã authentication phải đính kèm token hiện tại thông qua một mechanism duy nhất, có thể review.
+[P371][Normal] Tất cả phép tính tiền phải sử dụng currency và quy tắc làm tròn nhất quán.
+[P372][Normal] Ngày và giờ phải sử dụng timezone và display format được dokument rõ ràng.
+[P373][Normal] File upload phải được type-check và không được làm lộ secret hoặc unsafe path.
+[P374][Normal] Báo cáo phải có screenshot hoặc test evidence cho mọi workflow có độ ưu tiên cao.
+[P375][Heading 3] 5.3 Danh sách Application Message
+[P376][Normal] 
+
+--- TABLE 40 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 41 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 42 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 43 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 44 (rows=10, cols=4) ---
+Row 0: ['ID', 'Thuộc tính', 'Yêu cầu', 'Minh chứng']
+Row 1: ['NFR-01', 'Performance', 'Các page catalogue và admin thông dụng phải load trong target do nhóm thống nhất ở environment mục tiêu.', '[CẦN BỔ SUNG: SỐ ĐO]']
+Row 2: ['NFR-02', 'Availability', 'Storefront phải tiếp tục sử dụng được khi AI tùy chọn hoặc external payment service không khả dụng.', 'Graceful fallback']
+Row 3: ['NFR-03', 'Security', 'Bắt buộc có authentication, authorization, secret handling, ownership check, input validation và error response an toàn.', '[CẦN BỔ SUNG EVIDENCE: Kiểm tra bổ sung]']
+Row 4: ['NFR-04', 'Usability', 'Các thao tác customer cốt lõi phải dễ hiểu trên layout desktop và mobile-width.', '[CẦN BỔ SUNG: UI REVIEW]']
+
+--- TABLE 45 (rows=8, cols=3) ---
+Row 0: ['Interface', 'Protocol / technology', 'Mục đích']
+Row 1: ['Frontend đến Backend', 'HTTP/JSON REST, Axios, Bearer JWT', 'Catalogue, auth, cart, order, review và admin API']
+Row 2: ['Backend đến Database', 'JPA/Hibernate, PostgreSQL JDBC', 'Entity và transaction bền vững']
+Row 3: ['Backend đến payment', 'Gateway URL, redirect, callback/IPN', 'VNPAY, MoMo, ZaloPay và mock flow']
+Row 4: ['Frontend đến AI', 'HTTPS Groq OpenAI-compatible chat completion, SSE streaming', 'Recommendation và conversation']
+
+--- TABLE 46 (rows=11, cols=2) ---
+Row 0: ['ID', 'Rule']
+Row 1: ['BR-01', 'Chỉ user đã authentication mới có thể truy cập thao tác cart, address, order, review, reward và profile cá nhân.']
+Row 2: ['BR-02', 'Thao tác Administrator phải yêu cầu role Administrator và không được chỉ dựa vào menu Frontend bị ẩn.']
+Row 3: ['BR-03', 'Không thể mua product vượt quá stock hiện có.']
+Row 4: ['BR-04', 'Order item price phải giữ transaction price tại thời điểm tạo order.']
+
+--- TABLE 47 (rows=13, cols=4) ---
+Row 0: ['ID', 'Message', 'Nhóm', 'Loại']
+Row 1: ['MSG‑001', 'Login thành công', 'Authentication', 'Success']
+Row 2: ['MSG‑002', 'Email hoặc password không hợp lệ', 'Authentication', 'Error']
+Row 3: ['MSG‑003', 'Registration hoàn tất', 'Authentication', 'Success']
+Row 4: ['MSG‑004', 'Không tìm thấy product được yêu cầu', 'Catalogue', 'Error']
+
+--- TABLE 48 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 49 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 50 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG DIAGRAM: Sơ đồ kiến trúc phân tầng Backend Spring Boot]']
+
+--- TABLE 51 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý AI RAG và Phân loại Intent]']
+
+--- TABLE 52 (rows=6, cols=3) ---
+Row 0: ['Thành phần runtime', 'Technology đã cấu hình', 'Minh chứng cần có']
+Row 1: ['Frontend', 'Vercel / React build tĩnh', '[CẦN BỔ SUNG: DEPLOYMENT URL VÀ SCREENSHOT]']
+Row 2: ['Backend', 'Render / Spring Boot service trên Docker', '[CẦN BỔ SUNG: HEALTH CHECK VÀ LOG]']
+Row 3: ['Database', 'PostgreSQL / Supabase', '[CẦN BỔ SUNG: SCHEMA HOẶC CONSOLE EVIDENCE]']
+Row 4: ['AI', 'Groq Cloud', '[CẦN BỔ SUNG: ENVIRONMENT EVIDENCE ĐÃ CẤU HÌNH, KHÔNG KÈM KEY]']
+
+--- TABLE 53 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG: PACKAGE DIAGRAM]']
+
+--- TABLE 54 (rows=9, cols=3) ---
+Row 0: ['Package / nhóm', 'Trách nhiệm', 'Ví dụ']
+Row 1: ['com.bookstore.controller', 'Ranh giới HTTP endpoint', 'Module Auth, Book, Cart, Order, Payment, Review, Admin']
+Row 2: ['com.bookstore.service', 'Business logic', 'Validation, transaction, calculation và orchestration']
+Row 3: ['com.bookstore.entity', 'Domain model', 'User, Book, Order, Review, Reward và entity liên quan']
+Row 4: ['com.bookstore.repository', 'Data access', 'Spring Data repository interface']
+
+--- TABLE 55 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG: ENTITY RELATIONSHIP DIAGRAM]']

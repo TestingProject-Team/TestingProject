@@ -1,0 +1,135 @@
+=== CHAPTER V PARAGRAPHS (592 to 791) ===
+[P592][Heading 1] V. Tài liệu kiểm thử phần mềm
+[P593][Heading 2] 1. Phạm vi kiểm thử
+[P594][Heading 3] 1.1 In-Scope Testing (Kiểm thử trong phạm vi)
+[P603][Heading 3] 1.2 Out-of-Scope Testing (Kiểm thử ngoài phạm vi)
+[P609][Heading 3] 1.3 Constraints & Assumptions (Ràng buộc và giả định)
+[P613][Heading 2] 2. Chiến lược kiểm thử
+[P614][Heading 3] 2.1 Testing Types (Các loại kiểm thử)
+[P620][Heading 3] 2.2 Test Levels (Các cấp độ kiểm thử)
+[P626][Normal] • Cấp độ Nghiệm thu Người dùng (Acceptance Testing - UAT): Đối chiếu các kịch bản sử dụng thực tế với hội đồng đánh giá và các bên liên quan để xác nhận mức độ hoàn thiện của sản phẩm.
+[P627][Heading 3] 2.3 Testing Tools (Công cụ kiểm thử)
+[P631][Heading 2] 3. Kế hoạch kiểm thử
+[P632][Heading 3] 3.1 Human Resources (Nguồn lực nhân sự)
+[P636][Heading 3] 3.2 Test Environment (Môi trường kiểm thử)
+[P640][Heading 3] 3.3 Test Data (Dữ liệu kiểm thử)
+[P645][Heading 3] 3.4 Entry & Exit Criteria (Tiêu chí Bắt đầu & Kết thúc)
+[P649][Heading 3] 3.5 Test Milestones (Các cột mốc kiểm thử)
+[P653][Heading 2] 4. Thiết kế Test Case bằng Black-box Testing
+[P654][Heading 3] 4.1 Equivalence Partitioning (Phân vùng tương đương - EP)
+[P658][Heading 3] 4.2 Boundary Value Analysis (Phân tích giá trị biên - BVA)
+[P662][Heading 3] 4.3 Decision Table Testing (Bảng quyết định)
+[P666][Heading 3] 4.4 State Transition Testing (Kiểm thử chuyển trạng thái)
+[P672][Heading 3] 4.5 Use Case Testing (Kiểm thử theo Use Case)
+[P677][Heading 2] 5. White-box / Unit Testing
+[P678][Heading 3] 5.1 JUnit 5 & Mockito Test Implementation
+[P683][Heading 3] 5.2 JaCoCo Code Coverage Report
+[P690][Heading 3] 5.3 Statement & Branch Coverage Analysis
+[P692][Normal] • Kiểm thử các luồng ngoại lệ (Exception Branches): 100% các nhánh ném ngoại lệ tùy biến (Custom Business Exceptions như BadCredentialsException, ResourceNotFoundException, InvalidCouponException, OutOfStockException) đều được thiết kế kịch bản kích hoạt và kiểm tra đúng thông điệp lỗi.
+[P695][Heading 2] 6. API Testing
+[P696][Heading 3] 6.1 Postman Collection Structure
+[P703][Heading 3] 6.2 Newman Automation Execution
+[P710][Heading 3] 6.3 API Test Result Summary
+[P715][Heading 2] 7. End-to-End Testing
+[P716][Heading 3] 7.1 CodeceptJS Test Design & Page Object Model
+[P723][Heading 3] 7.2 E2E Test Execution & Scenarios
+[P728][Heading 3] 7.3 Screenshots & Failure Evidence Plugin
+[P732][Normal] • Kết quả thực thi tổng thể: 20/20 kịch bản đạt trạng thái PASS 100% với tổng thời gian thực thi toàn bộ luồng E2E là 38.2 giây.
+[P734][Heading 2] 8. Static Analysis & Code Quality
+[P735][Heading 3] 8.1 Checkstyle Java Standards
+[P741][Heading 3] 8.2 SpotBugs Bytecode Analysis
+[P746][Heading 3] 8.3 SonarQube & Flake8 Configuration
+[P750][Heading 2] 9. Test Execution Report (Báo cáo thực thi)
+[P751][Heading 3] 9.1 Test Execution Summary
+[P756][Heading 3] 9.2 Pass / Fail / Blocked Statistics
+[P757][Normal] • Trạng thái PASS: Đạt 100% trên toàn bộ 750+ phép kiểm tra tự động.
+[P760][Heading 3] 9.3 Coverage Summary Metrics
+[P761][Normal] • 100% các luồng nghiệp vụ cốt lõi (Core Business Workflows) được bao phủ bởi kịch bản kiểm thử tự động.
+[P764][Heading 2] 10. Defect Management (Quản lý lỗi & Khiếm khuyết)
+[P765][Heading 3] 10.1 Bug Tracking & Defect Life Cycle
+[P773][Heading 3] 10.2 Resolved Defects Log (Nhật ký lỗi đã xử lý)
+[P777][Heading 3] 10.3 Defect Status & Evidence Index
+[P778][Normal] • Hiện trạng khiếm khuyết: 100% các lỗi phát hiện đã được khắc phục hoàn toàn và vượt qua vòng tái kiểm thử (Retest).
+[P780][Heading 2] 11. Requirement Traceability Matrix (RTM)
+[P781][Heading 3] 11.1 Chi tiết Ma trận Truy vết Yêu cầu
+[P782][Normal] Ma trận Truy vết Yêu cầu (RTM) thể hiện mối liên kết hai chiều 1-1 chặt chẽ giữa Yêu cầu đặc tả phần mềm (SRS), Công việc quản lý trên Jira, Mã nguồn thành phần triển khai và Bằng chứng kiểm thử thực tế. Bảng 5.14 trình bày chi tiết ma trận RTM của dự án YiYi Book.
+[P783][Normal] Bảng 5.14. Ma trận truy vết yêu cầu phần mềm (Requirement Traceability Matrix - RTM)
+[P785][Heading 2] 12. Test Summary & Conclusion (Tổng kết & Kết luận)
+[P786][Heading 3] 12.1 Đánh giá mức độ sẵn sàng sản phẩm
+[P787][Normal] Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng nghiêm ngặt từ Unit Test, Integration Test, API Automation Test đến End-to-End Black-box Testing. Toàn bộ 100% các tiêu chí nghiệm thu (Exit Criteria) đặt ra trong kế hoạch kiểm thử đều được hoàn thành trọn vẹn, không còn bất kỳ khiếm khuyết mức độ nghiêm trọng nào tồn đọng, chứng minh hệ thống đạt độ ổn định và độ tin cậy cao, sẵn sàng phục vụ người dùng thực tế.
+[P788][Heading 3] 12.2 Đề xuất và Định hướng nâng cấp tiếp theo
+
+=== CHAPTER V TABLES ===
+
+--- TABLE 70 (rows=7, cols=4) ---
+Row 0: ['Nhóm công cụ', 'Tên công cụ / Thư viện', 'Mục đích sử dụng', 'Môi trường áp dụng']
+Row 1: ['Unit & Integration Test', 'JUnit 5 & Mockito 5', 'Xây dựng kịch bản kiểm thử đơn vị, mock dữ liệu và kiểm tra logic nghiệp vụ Java', 'Backend Spring Boot']
+Row 2: ['Code Coverage', 'JaCoCo Maven Plugin', 'Đo lường và phân tích tỷ lệ bao phủ câu lệnh (Statement) và nhánh rẽ (Branch)', 'Backend Java / CI']
+Row 3: ['API Automation Test', 'Postman & Newman CLI', 'Thiết kế bộ sưu tập API Test, tự động hóa kiểm thử endpoint và assert response', 'Toàn hệ thống / CLI']
+
+--- TABLE 71 (rows=6, cols=4) ---
+Row 0: ['Thành viên', 'Vai trò chính', 'Phạm vi trách nhiệm kiểm thử', 'Mức độ cam kết']
+Row 1: ['Phan Văn Đỉnh', 'Test Lead / QA Engineer', 'Điều phối chiến lược kiểm thử, kiểm thử Giỏ hàng, Đơn hàng, Đánh giá, Khuyến mãi và ma trận truy vết RTM', '100% Toàn thời gian']
+Row 2: ['Lê Minh Tài', 'Scrum Master / Backend Tester', 'Điều phối Scrum Board Jira, kiểm thử phân quyền RBAC, Admin Portal, Loyalty Rewards và kiểm tra Code Review', '100% Toàn thời gian']
+Row 3: ['Huỳnh Anh Phú', 'API Tester / Backend Dev', 'Thiết kế và tự động hóa Test Cases cho Auth API, Catalogue, CRUD Sách, Banners và Category Management', '100% Toàn thời gian']
+
+--- TABLE 72 (rows=6, cols=4) ---
+Row 0: ['Thành phần môi trường', 'Phiên bản / Công nghệ', 'Cổng kết nối (Port)', 'Mục đích & Ghi chú']
+Row 1: ['Backend Application Server', 'OpenJDK 17 / Spring Boot 3.2.4', '8081 (Local) / 8082 (Docker Test)', 'Thực thi toàn bộ 23 REST Controllers và tầng Business Logic']
+Row 2: ['Database Server', 'PostgreSQL 16 Relational DB', '5432 (Local) / 5433 (Test DB)', 'Lưu trữ 25 bảng thực thể và xử lý giao dịch nguyên tử ACID']
+Row 3: ['Frontend Client Application', 'React 18 / Vite 5 Build Engine', '5173', 'Cung cấp giao diện SPA cho Customer và Admin Portal']
+
+--- TABLE 73 (rows=3, cols=3) ---
+Row 0: ['Hạng mục tiêu chí', 'Nội dung quy định cụ thể', 'Phương pháp kiểm tra / Đánh giá']
+Row 1: ['Tiêu chí Bắt đầu (Entry Criteria)', '• Mã nguồn hoàn thành việc biên dịch 100% không có lỗi cú pháp. • Cơ sở dữ liệu thử nghiệm đã được khởi tạo và nạp đầy đủ dữ liệu mẫu. • Tất cả các container dịch vụ (Database, Backend, Frontend) đạt trạng thái Healthy.', 'Kiểm tra log khởi động Maven và Docker Compose']
+Row 2: ['Tiêu chí Kết thúc (Exit Criteria)', '• 100% các bài kiểm thử đơn vị Unit Tests đạt trạng thái PASS (299/299 bài kiểm thử). • 100% các khẳng định API Assertions đạt trạng thái PASS (421/421 khẳng định). • 100% các kịch bản E2E Tests đạt trạng thái PASS (20/20 kịch bản). • Không còn lỗi tồn đọng ở mức độ Blocker hoặc Critical. • Độ bao phủ mã nguồn tầng Service đạt trên 85%.', 'Báo cáo tổng hợp từ Newman, JUnit, CodeceptJS và JaCoCo']
+
+--- TABLE 74 (rows=4, cols=4) ---
+Row 0: ['Cột mốc (Milestone)', 'Khoảng thời gian', 'Nội dung triển khai chính', 'Sản phẩm bàn giao']
+Row 1: ['Sprint 1: Nền tảng & Phân tích tĩnh', 'Tuần 1', 'Thiết lập dự án Jira, xây dựng Test Plan, ma trận RTM, cấu hình Checkstyle, SpotBugs và SonarQube', 'Kế hoạch kiểm thử, RTM ban đầu, báo cáo Static Analysis']
+Row 2: ['Sprint 2: Unit, BVA & API Automation', 'Tuần 2', 'Phát triển 299 Unit tests, thiết kế ca kiểm thử BVA/EP, xây dựng bộ sưu tập Postman Auth, Catalogue, Cart, Orders', 'Báo cáo JaCoCo Coverage, Newman API Test Report']
+Row 3: ['Sprint 3: E2E Testing & Hoàn thiện', 'Tuần 3', 'Tự động hóa 20 kịch bản kiểm thử toàn trình E2E với CodeceptJS & Playwright, chạy hồi quy toàn diện, đóng gói báo cáo', 'E2E Video/Screenshots, Báo cáo nghiệm thu hoàn chỉnh']
+
+--- TABLE 90 (rows=6, cols=5) ---
+Row 0: ['Mã Defect', 'Mức độ', 'Mô tả lỗi phát hiện', 'Giải pháp khắc phục', 'Trạng thái']
+Row 1: ['BUG-01', 'Major', "Trùng lặp tiền tố '/api' trong baseUrl của Postman Suite gây lỗi 404", 'Chuẩn hóa biến môi trường {{baseUrl}} trong environment JSON', 'Closed / Verified']
+Row 2: ['BUG-02', 'Critical', 'Xung đột Enum trạng thái đơn hàng gây lỗi HTTP 500 khi cập nhật trạng thái đơn', 'Đồng bộ Enum mapping giữa Java Entity và Database PostgreSQL', 'Closed / Verified']
+Row 3: ['BUG-03', 'Major', 'Hardcode API Key trong mã nguồn giao diện AIChatWidget.jsx', 'Chuyển sang nạp biến môi trường an toàn qua VITE_GROQ_API_KEY', 'Closed / Verified']
+
+--- TABLE 91 (rows=9, cols=5) ---
+Row 0: ['Mã Yêu cầu (SRS)', 'Mã Jira Task', 'Thành phần mã nguồn triển khai', 'Bộ kiểm thử & Bằng chứng nghiệm thu', 'Kết quả']
+Row 1: ['REQ-AUTH-01/02', 'YIYI-35', 'AuthController, AuthService, JwtAuthFilter, User', 'AuthServiceTest (24 TCs), Postman Auth Suite (42 TCs)', 'PASS (100%)']
+Row 2: ['REQ-CAT-01/02', 'YIYI-37', 'BookController, BookService, CategoryRepository', 'BookServiceTest (32 TCs), Postman Catalogue Suite', 'PASS (100%)']
+Row 3: ['REQ-CART-01/02', 'YIYI-36', 'CartController, CartService, CartItem', 'CartServiceTest (22 TCs), Postman Cart Suite (10 TCs)', 'PASS (100%)']
+
+--- TABLE 92 (rows=8, cols=3) ---
+Row 0: ['Hạng mục package', 'Nội dung', 'Vị trí / status']
+Row 1: ['Source', 'frontend/, backend/, postman/, test-scripts/, .github/workflows/', 'Archive / repository']
+Row 2: ['Frontend', 'React/Vite application và production build', '[CẦN BỔ SUNG: DEPLOYMENT URL]']
+Row 3: ['Backend', 'Spring Boot API và Dockerfile', '[CẦN BỔ SUNG: DEPLOYMENT URL]']
+
+--- TABLE 93 (rows=8, cols=3) ---
+Row 0: ['Yêu cầu', 'Giá trị đề xuất', 'Ghi chú']
+Row 1: ['OS', 'Windows, macOS hoặc Linux', 'Sử dụng shell được hỗ trợ cho Maven/npm script']
+Row 2: ['JDK', '17+', 'Bắt buộc cho Backend']
+Row 3: ['Node.js', '18+', 'Bắt buộc cho Frontend']
+
+--- TABLE 118 (rows=15, cols=4) ---
+Row 0: ['ID', 'Hạng mục evidence', 'Report location', 'Status / chèn tại đây']
+Row 1: ['A01', 'Logo trường/bộ chính thức', 'Bìa báo cáo', 'PENDING - [CẦN BỔ SUNG: Chèn file ảnh logo chính thức của Trường]']
+Row 2: ['A02', 'Họ tên, MSSV, GVHD và Mã lớp môn học', 'Bìa / Chương I', 'DONE - Đã chuẩn hóa 5 thành viên & GVHD Nguyễn Văn Chiến']
+Row 3: ['A03', 'Use-case và System Context Diagram', 'Chương III / IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ Use-Case tổng thể]']
+
+--- TABLE 119 (rows=3, cols=3) ---
+Row 0: ['Owner', 'Complete next', 'Acceptance criteria']
+Row 1: ['Nhóm Phụ trách 1: Yêu cầu, Kiến trúc & Giao diện (Đỉnh, Phú, Tài)', '1. Chèn ảnh Logo trường và ảnh chụp giao diện Storefront / Admin vào Chương III và Chương VI. 2. Bổ sung diagram Use-Case tổng thể, sơ đồ luồng AI RAG và sơ đồ ERD vào Chương IV. 3. Kiểm tra định dạng lề và cập nhật lại Mục lục Word (TOC) trước khi xuất PDF.', 'Hoàn thiện 100% hình ảnh minh chứng kiến trúc và giao diện hệ thống.']
+Row 2: ['Nhóm Phụ trách 2: Kiểm thử, Minh chứng & Triển khai (Thiên Văn, Vân Anh)', '1. Chụp ảnh báo cáo JaCoCo HTML (đạt 37.57% toàn hệ thống, >85% core service) đính kèm Mục 5.3. 2. Thực hiện buổi đánh giá UAT với người dùng thử nghiệm và bổ sung biên bản vào Mục 5.8. 3. Điền URL triển khai chính thức và ảnh chụp trạng thái Docker/Health Check vào Chương II & VI.', 'Đầy đủ minh chứng thực tế từ test suite, độ bao phủ mã và trạng thái triển khai.']
+
+--- TABLE 120 (rows=1, cols=1) ---
+Row 0: ['Final review: Sau khi cả hai owner hoàn thành, mở file Word, update table of contents và field, proofread toàn bộ figure/table caption, verify page number, xóa placeholder còn lại và export PDF cuối.']
+
+--- TABLE 121 (rows=11, cols=6) ---
+Row 0: ['STT', 'Hạng mục cần bổ sung', 'Vị trí trong Báo cáo', 'Mức độ ưu tiên', 'Người phụ trách', 'Hành động thực hiện']
+Row 1: ['1', 'Chèn ảnh Logo chính thức của Trường', 'Trang bìa (Cover)', 'Critical', 'Phan Văn Đỉnh', 'Chèn file ảnh logo độ phân giải cao vào đầu trang bìa.']
+Row 2: ['2', 'Nhúng các sơ đồ kiến trúc hệ thống chính thức', 'Chương IV (Mục 4.1, 4.2)', 'Critical', 'Lê Minh Tài / Huỳnh Anh Phú', 'Chèn các ảnh đã tạo: Figure 1.1 (System), Hinh 4.2 (Frontend), Figure 1.1.1 (Backend).']
+Row 3: ['3', 'Bổ sung ảnh chụp báo cáo JaCoCo HTML', 'Chương V (Mục 5.3)', 'Critical', 'Lê Minh Tài', 'Chụp ảnh màn hình từ target/site/jacoco/index.html minh chứng 37.57% tổng thể và >85% Service.']

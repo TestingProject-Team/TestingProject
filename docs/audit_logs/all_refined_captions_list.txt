@@ -1,0 +1,79 @@
+Hình 1.1. Giao diện Trang chủ hệ thống YiYi Book.
+Hình 1.2. Minh chứng khảo sát thực tế mô hình Online Bookstore.
+Hình 1.3. Minh chứng khảo sát thực tế mô hình sàn thương mại điện tử.
+Hình 1.4. Minh chứng khảo sát cổng thanh toán trực tuyến.
+Hình 2.1. Sơ đồ quy trình phát triển phần mềm Agile/Scrum của dự án YiYi Book.
+Hình 2.2. Minh chứng quản trị công việc và phân chia Sprint trên Jira.
+Hình 2.3. Minh chứng quy trình Git Branching và Code Review trên GitHub.
+Hình 2.4. Minh chứng luồng tự động hóa kiểm thử liên tục (CI/CD Pipeline).
+Hình 2.5. Minh chứng kiểm thử chấp nhận và triển khai hệ thống.
+Hình 2.6. Minh chứng buổi chuyển giao công nghệ và đào tạo vận hành hệ thống.
+Hình 3.1. Sơ đồ ngữ cảnh hệ thống (System Context Diagram).
+Hình 3.2. Sơ đồ Use Case tổng quát hệ thống (Overall Use Case Diagram).
+Hình 3.3. Giao diện chức năng Đăng ký, Đăng nhập và Xác thực (Authentication).
+Hình 3.4. Giao diện Trang chủ và Khám phá Danh mục sách (Home & Catalogue).
+Hình 3.5. Giao diện Tìm kiếm và Bộ lọc nâng cao (Search & Filter).
+Hình 3.6. Giao diện Chi tiết Sách và Đánh giá (Product Detail & Review).
+Hình 3.7. Giao diện Giỏ hàng và Quản lý Địa chỉ nhận hàng (Cart & Address).
+Hình 3.8. Giao diện Đặt hàng và Cổng thanh toán trực tuyến (Checkout & Payment).
+Hình 3.9. Giao diện Theo dõi Đơn hàng và Hậu mãi (Order Tracking & After-sales).
+Hình 3.10. Giao diện Tương tác Trợ lý ảo AI (YiYi AI Assistant).
+Hình 3.11. Giao diện Bảng điều khiển Quản trị (Admin Dashboard & Operations).
+Hình 3.12. Giao diện Quản trị Sách, Danh mục và Banner (Admin Catalogue & Banners).
+Hình 3.13. Giao diện Quản lý Đơn hàng và Vận chuyển (Admin Orders).
+Hình 3.14. Giao diện Quản trị Người dùng và Phân quyền (Admin Users & RBAC).
+Hình 3.15. Giao diện Quản trị Khuyến mãi, Đánh giá và Cài đặt (Admin Promotions & Settings).
+Hình 4.1. Kiến trúc tổng thể hệ thống YiYi Book.
+Hình 4.2. Kiến trúc luồng Component và Routing Frontend.
+Hình 4.3. Kiến trúc phân tầng Backend Spring Boot.
+Hình 4.4. Kiến trúc luồng tích hợp Trợ lý AI và xử lý ngôn ngữ tự nhiên.
+Hình 4.5. Sơ đồ phân rã gói phần mềm hệ thống (Package Diagram).
+Hình 4.6. Sơ đồ thực thể quan hệ cơ sở dữ liệu (ERD).
+Hình 4.7. Sơ đồ lớp (Class Diagram) và Tuần tự luồng Xác thực JWT.
+Hình 4.8. Sơ đồ tuần tự (Sequence Diagram) luồng Xem danh mục và Danh sách Sách.
+Hình 4.9. Sơ đồ tuần tự (Sequence Diagram) luồng Tìm kiếm và Lọc sách nâng cao.
+Hình 4.10. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Chi tiết Sách & Đánh giá.
+Hình 4.11. Sơ đồ tuần tự (Sequence Diagram) luồng Thao tác Giỏ hàng (Cart Management).
+Hình 4.12. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Đặt hàng COD & Giảm giá.
+Hình 4.13. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Tích hợp Cổng thanh toán Online.
+Hình 4.14. Sơ đồ trạng thái (State Diagram) & Tuần tự luồng Đơn hàng và Đổi trả.
+Hình 4.15. Sơ đồ tuần tự (Sequence Diagram) luồng Tích lũy và Tiêu điểm Y-Point.
+Hình 4.16. Sơ đồ thành phần và Tuần tự (Component/Sequence Diagram) Trợ lý AI.
+Hình 4.17. Sơ đồ tuần tự (Sequence Diagram) luồng Quản trị Danh mục & Sách (Admin).
+Hình 4.18. Sơ đồ tuần tự (Sequence Diagram) luồng Xử lý và Cập nhật Đơn hàng (Admin).
+Hình 4.19. Sơ đồ tuần tự (Sequence Diagram) luồng Quản trị Khuyến mãi & Nội dung (Admin).
+Hình 5.1. Kết quả thực thi Unit Test bằng JUnit 5 và Mockito.
+Hình 5.2. Báo cáo tổng quan Code Coverage bằng JaCoCo.
+Hình 5.3. Statement và Branch Coverage của các Service nghiệp vụ.
+Hình 5.4. Kết quả chạy API Automation bằng Newman CLI.
+Hình 5.5. Báo cáo kết quả kiểm thử API bằng Postman và Newman.
+Hình 5.6. Kết quả thực thi E2E Test bằng CodeceptJS và Playwright.
+Hình 5.7. Ảnh giao diện tự động hóa trong quá trình thực thi kịch bản E2E.
+Hình 5.8. Thư mục lưu trữ bằng chứng và ảnh chụp màn hình (output/screenshots).
+Hình 5.9. Báo cáo kiểm tra chuẩn mã nguồn Java bằng Checkstyle (0 violations).
+Hình 5.10. Báo cáo phân tích bytecode bằng SpotBugs (0 bugs found).
+Hình 5.11. Kết quả đánh giá chất lượng mã nguồn trên SonarQube Quality Gate.
+Hình 5.12. Kết quả thực thi toàn bộ luồng kiểm thử tự động trên CI/GitHub Actions.
+Hình 6.1. Minh chứng cấu hình biến môi trường hệ thống (.env và application.properties).
+Hình 6.2. Minh chứng khởi chạy PostgreSQL thành công qua Docker Container.
+Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8080.
+Hình 6.4. Minh chứng kiểm tra API Health Check trả về kết quả UP.
+Hình 6.5. Minh chứng Frontend Vite React khởi động thành công trên cổng 5173.
+Hình 6.7. Minh chứng giao diện Frontend triển khai trên Production.
+Hình 6.8. Minh chứng Backend và Cơ sở dữ liệu Cloud hoạt động trên Production.
+Hình 6.9. Hướng dẫn Đăng ký tài khoản người dùng và Đăng nhập hệ thống.
+Hình 6.10. Hướng dẫn Khám phá Trang chủ và Tìm kiếm Sách nâng cao.
+Hình 6.11. Hướng dẫn Xem Chi tiết Sách và Quản lý Danh sách yêu thích.
+Hình 6.12. Hướng dẫn Thao tác Giỏ hàng và Nhập địa chỉ Giao hàng.
+Hình 6.13. Hướng dẫn Thanh toán Trực tuyến và Theo dõi Đơn hàng.
+Hình 6.14. Hướng dẫn Đánh giá Sách và Bình luận chia sẻ.
+Hình 6.15. Hướng dẫn Tích điểm Thưởng Y-Points và Áp dụng Mã Voucher.
+Hình 6.16. Hướng dẫn Tương tác và Tư vấn Sách thông minh qua Trợ lý AI.
+Hình 6.17. Hướng dẫn Đăng nhập Quản trị và Theo dõi Bảng điều khiển Tổng quan.
+Hình 6.18. Hướng dẫn Thêm mới, Chỉnh sửa và Quản trị Kho Sách.
+Hình 6.19. Hướng dẫn Cấu hình Danh mục Thể loại và Banner Khuyến mãi.
+Hình 6.20. Hướng dẫn Duyệt, Xử lý và Chuyển trạng thái Đơn hàng.
+Hình 6.21. Hướng dẫn Quản lý Tài khoản Khách hàng và Phân quyền Quản trị.
+Hình 6.22. Hướng dẫn Tạo Mã giảm giá và Cấu hình Chương trình Điểm thưởng.
+Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.
+Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.

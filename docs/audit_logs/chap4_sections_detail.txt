@@ -1,0 +1,21 @@
+[P413][Heading 2] 3. Thiết kế chi tiết
+[P414][Heading 3] 3.1 Login và JWT Authentication
+[P429][Normal] Hình 4.7. Sơ đồ lớp (Class Diagram) và Tuần tự luồng Xác thực JWT.
+[P430][Heading 3] 3.2 Xem Product List
+[P442][Normal] Hình 4.8. Sơ đồ tuần tự (Sequence Diagram) luồng Xem danh mục và Danh sách Sách.
+[P443][Heading 3] 3.3 Search và Filter
+[P457][Normal] Hình 4.9. Sơ đồ tuần tự (Sequence Diagram) luồng Tìm kiếm và Lọc sách nâng cao.
+[P458][Heading 3] 3.4 Product Detail và Review
+[P470][Normal] Hình 4.10. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Chi tiết Sách & Đánh giá.
+[P471][Heading 3] 3.5 Quản lý Cart (Cart Management)
+[P483][Normal] Hình 4.11. Sơ đồ tuần tự (Sequence Diagram) luồng Thao tác Giỏ hàng (Cart Management).
+[P484][Heading 3] 3.6 Checkout và COD
+[P498][Normal] Hình 4.12. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Đặt hàng COD & Giảm giá.
+[P499][Heading 3] 3.7 Payment Online (Online Payment)
+[P513][Normal] Hình 4.13. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Tích hợp Cổng thanh toán Online.
+[P514][Heading 3] 3.8 Order và Return
+[P526][Normal] Hình 4.14. Sơ đồ trạng thái (State Diagram) & Tuần tự luồng Đơn hàng và Đổi trả.
+[P527][Heading 3] 3.9 Y-Point và Membership
+[P539][Normal] Hình 4.15. Sơ đồ tuần tự (Sequence Diagram) luồng Tích lũy và Tiêu điểm Y-Point.
+[P540][Heading 3] 3.10 Chat YiYi AI
+[P554][Normal] Hình 4.16. Sơ đồ thành phần và Tuần tự (Component/Sequence Diagram) Trợ lý AI.

@@ -1,0 +1,123 @@
+=== TABLE 29: FUNCTIONAL REQUIREMENTS ===
+Row 0: ['ID', 'Nhóm', 'Yêu cầu']
+Row 1: ['FR-01', 'Authentication', 'Hệ thống phải hỗ trợ registration, login, xử lý JWT session và logout.']
+Row 2: ['FR-02', 'Role control', 'Hệ thống phải giới hạn thao tác Administrator cho role Administrator.']
+Row 3: ['FR-03', 'Profile', 'Customer phải view/update thông tin profile và change password.']
+Row 4: ['FR-04', 'Catalogue browsing', 'Hệ thống phải hiển thị view book, category, featured, latest, bestseller, combo và discounted.']
+Row 5: ['FR-05', 'Search', 'Customer phải search product theo keyword và xem result phù hợp.']
+Row 6: ['FR-06', 'Filtering', 'Customer phải filter/sort theo category, price và tiêu chí catalogue liên quan.']
+Row 7: ['FR-07', 'Product detail', 'Hệ thống phải hiển thị product data, image, pricing, stock và review information.']
+Row 8: ['FR-08', 'Wishlist', 'Customer đã authentication phải add, list và remove wishlist item.']
+Row 9: ['FR-09', 'Cart', 'Customer đã authentication phải add, update, remove và clear cart item một cách bền vững.']
+Row 10: ['FR-10', 'Address', 'Customer phải quản lý delivery address và chọn default address.']
+Row 11: ['FR-11', 'Checkout', 'Customer phải tạo order bằng item đã chọn, shipping, discount và payment method.']
+Row 12: ['FR-12', 'Payment', 'Hệ thống phải hỗ trợ COD và online/mock payment flow đã cấu hình.']
+Row 13: ['FR-13', 'Order lifecycle', 'Hệ thống phải hiển thị order history và status transition.']
+Row 14: ['FR-14', 'Return', 'Customer phải gửi yêu cầu return/refund và Administrator phải xử lý yêu cầu đó.']
+Row 15: ['FR-15', 'Review', 'Customer đủ điều kiện phải có thể tạo, like, comment, report và xem review.']
+Row 16: ['FR-16', 'Coupon', 'Hệ thống phải validate, áp dụng coupon đủ điều kiện và track usage.']
+Row 17: ['FR-17', 'Y-Point', 'Hệ thống phải ghi nhận point transaction và hỗ trợ exchange đã cấu hình.']
+Row 18: ['FR-18', 'Membership', 'Hệ thống phải hiển thị và update membership rank theo rule đã định nghĩa.']
+Row 19: ['FR-19', 'Notification', 'Hệ thống phải list, read, read-all và administer notification.']
+Row 20: ['FR-20', 'Newsletter', 'Hệ thống phải thu thập subscriber và cho phép gửi bulk newsletter đã cấu hình.']
+Row 21: ['FR-21', 'AI assistant', 'Hệ thống phải cung cấp recommendation dựa trên product context và missing-key state có graceful fallback.']
+Row 22: ['FR-22', 'Admin dashboard', 'Hệ thống phải tổng hợp thông tin vận hành và business cho Administrator.']
+Row 23: ['FR-23', 'Admin catalogue', 'Administrator phải quản lý book, category, banner và featured product.']
+Row 24: ['FR-24', 'Admin order', 'Administrator phải xem tất cả order, update shipping và xử lý return.']
+Row 25: ['FR-25', 'Admin user', 'Administrator phải xem user và change role được hỗ trợ.']
+Row 26: ['FR-26', 'Admin moderation', 'Administrator phải quản lý review, contact, reward, coupon, message và setting.']
+Row 27: ['FR-27', 'File upload', 'User đã authentication phải upload image file được hỗ trợ thông qua upload API.']
+Row 28: ['FR-28', 'API health', 'Backend phải cung cấp health/ping endpoint để kiểm tra availability cơ bản.']
+
+=== FLOW PARAGRAPHS IN CHAPTER III ===
+[P184] FR-01 Register, Login và Session
+[P185] Mục tiêu: Tạo account hoặc sign in bằng email/password; JWT được lưu và đính kèm vào protected API call.
+[P186] Actor(s): Customer
+[P188] Luồng chính
+[P193] Luồng thay thế và ngoại lệ
+[P195] Tiêu chí nghiệm thu: UI phải hiển thị validation và không được expose protected page nếu không có session hợp lệ.
+[P196] Hình 3.3. Giao diện chức năng Đăng ký, Đăng nhập và Xác thực (Authentication).
+[P197] FR-04 Home và Catalogue Discovery
+[P198] Mục tiêu: Hiển thị hero banner, flash sale, bestseller, category, featured item, book mới và publisher brand.
+[P199] Actor(s): Customer
+[P201] Luồng chính
+[P206] Luồng thay thế và ngoại lệ
+[P208] Tiêu chí nghiệm thu: State empty/loading/error phải dễ hiểu và không chặn thao tác.
+[P209] Hình 3.4. Giao diện Trang chủ và Khám phá Danh mục sách (Home & Catalogue).
+[P210] FR-05 Search và Filter
+[P211] Mục tiêu: Search theo keyword và browse theo category, price và sorting option.
+[P212] Actor(s): Customer
+[P214] Luồng chính
+[P219] Luồng thay thế và ngoại lệ
+[P221] Tiêu chí nghiệm thu: No-result state phải giải thích cách mở rộng phạm vi search.
+[P222] Hình 3.5. Giao diện Tìm kiếm và Bộ lọc nâng cao (Search & Filter).
+[P223] FR-07 Product Detail và Review
+[P224] Mục tiêu: Xem thông tin product, image, stock, rating, review, comment và item liên quan.
+[P225] Actor(s): Customer
+[P227] Luồng chính
+[P232] Luồng thay thế và ngoại lệ
+[P234] Tiêu chí nghiệm thu: Identifier không xác định phải hiển thị error state được kiểm soát.
+[P235] Hình 3.6. Giao diện Chi tiết Sách và Đánh giá (Product Detail & Review).
+[P236] FR-09 Cart và Address
+[P237] Mục tiêu: Lưu cart item và quản lý delivery address record.
+[P238] Actor(s): Customer
+[P240] Luồng chính
+[P245] Luồng thay thế và ngoại lệ
+[P247] Tiêu chí nghiệm thu: Quantity phải dương và stock phải được check trước checkout.
+[P248] Hình 3.7. Giao diện Giỏ hàng và Quản lý Địa chỉ nhận hàng (Cart & Address).
+[P249] FR-11 Checkout và Payment
+[P250] Mục tiêu: Chọn shipping address, coupon, Y-Point và payment method trước khi đặt order.
+[P251] Actor(s): Customer
+[P253] Luồng chính
+[P258] Luồng thay thế và ngoại lệ
+[P260] Tiêu chí nghiệm thu: Payment failure phải giữ order state có thể khôi phục.
+[P261] Hình 3.8. Giao diện Đặt hàng và Cổng thanh toán trực tuyến (Checkout & Payment).
+[P262] FR-13 Order và After-sales
+[P263] Mục tiêu: Track status, xác nhận đã nhận hàng, cancel order đủ điều kiện và gửi yêu cầu return/refund.
+[P264] Actor(s): Customer
+[P266] Luồng chính
+[P271] Luồng thay thế và ngoại lệ
+[P273] Tiêu chí nghiệm thu: Customer không được truy cập order của customer khác.
+[P274] Hình 3.9. Giao diện Theo dõi Đơn hàng (Order Tracking).
+[P275] FR-21 Trợ lý YiYi AI
+[P276] Mục tiêu: Yêu cầu recommendation sách; assistant retrieve product context và stream response.
+[P277] Actor(s): Customer
+[P279] Luồng chính
+[P284] Luồng thay thế và ngoại lệ
+[P286] Tiêu chí nghiệm thu: Thiếu key/provider error không được làm hỏng storefront.
+[P287] Hình 3.10. Giao diện Tương tác Trợ lý ảo AI (YiYi AI Assistant).
+[P289] FR-22 Dashboard và Operations
+[P290] Mục tiêu: Xem tổng quan vận hành, metric và các item cần được xử lý.
+[P291] Actor(s): Administrator
+[P293] Luồng chính
+[P298] Luồng thay thế và ngoại lệ
+[P300] Tiêu chí nghiệm thu: Minh chứng Dashboard
+[P301] Hình 3.11. Giao diện Bảng điều khiển Quản trị (Admin Dashboard & Operations).
+[P302] FR-23 Book, Category, Banner và Featured Content
+[P303] Mục tiêu: Tạo, edit, import, feature và xóa record catalogue/content.
+[P304] Actor(s): Administrator
+[P306] Luồng chính
+[P311] Luồng thay thế và ngoại lệ
+[P313] Tiêu chí nghiệm thu: Minh chứng content của catalogue
+[P314] Hình 3.12. Giao diện Quản trị Sách, Danh mục và Banner (Admin Catalogue & Banners).
+[P315] FR-24 Quản lý Order (Order Management)
+[P316] Mục tiêu: Xem order, cập nhật shipping status, xóa record đủ điều kiện và xử lý return.
+[P317] Actor(s): Administrator
+[P319] Luồng chính
+[P324] Luồng thay thế và ngoại lệ
+[P326] Tiêu chí nghiệm thu: Minh chứng order status
+[P327] Hình 3.13. Giao diện Quản lý Đơn hàng và Vận chuyển (Admin Orders).
+[P328] FR-25 User và Role
+[P329] Mục tiêu: Xem user và thay đổi role assignment được hỗ trợ.
+[P330] Actor(s): Administrator
+[P332] Luồng chính
+[P337] Luồng thay thế và ngoại lệ
+[P339] Tiêu chí nghiệm thu: Minh chứng RBAC
+[P340] Hình 3.14. Giao diện Quản trị Người dùng và Phân quyền (Admin Users & RBAC).
+[P341] FR-26 Promotion, Review, Message và Setting
+[P342] Mục tiêu: Quản lý coupon, reward, review, contact, notification, newsletter và site setting.
+[P343] Actor(s): Administrator
+[P345] Luồng chính
+[P350] Luồng thay thế và ngoại lệ
+[P352] Tiêu chí nghiệm thu: Minh chứng content của Admin
+[P353] Hình 3.15. Giao diện Quản trị Khuyến mãi, Đánh giá và Cài đặt (Admin Promotions & Settings).

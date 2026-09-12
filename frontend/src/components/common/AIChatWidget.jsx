@@ -34,11 +34,10 @@ export default function AIChatWidget() {
     fetchAllBooks();
   }, []);
 
-  // API Key lấy từ cấu hình môi trường Vercel (.env), không có key dự phòng.
-  // Tuyệt đối không hardcode key vào đây: repo công khai nên mọi giá trị đã
-  // commit đều lộ vĩnh viễn trong lịch sử git, kể cả khi sau đó xoá đi.
-  // Thiếu biến này thì widget tự hiện thông báo hướng dẫn cấu hình.
-  const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
+  // Cấu hình AI Provider (Hỗ trợ 9Router, Groq, OpenAI, OpenRouter, v.v.)
+  const AI_BASE_URL = (import.meta.env.VITE_AI_BASE_URL || 'https://api.groq.com/openai/v1').replace(/\/+$/, '');
+  const AI_MODEL = import.meta.env.VITE_AI_MODEL || (AI_BASE_URL.includes('groq.com') ? 'llama-3.3-70b-versatile' : 'gpt-4o-mini');
+  const GROQ_API_KEY = import.meta.env.VITE_AI_API_KEY || import.meta.env.VITE_GROQ_API_KEY;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -251,15 +250,15 @@ ${intentSummary || '(Chưa phát hiện tín hiệu đặc biệt - hãy hỏi t
         content: `${KNOWLEDGE_BASE}\n\n[DỮ LIỆU KHO HÀNG THỰC TẾ - BẮT BUỘC DÙNG ĐỂ TƯ VẤN]\n${storeContext}\n\nNHIỆM VỤ NGAY BÂY GIỜ: TRẢ LỜI ĐÚNG TRỌNG TÂM câu hỏi của khách ngay lập tức (không lan man). Sau khi đã trả lời xong, mới đưa ra 1 gợi ý ngắn gọn về sản phẩm phù hợp từ kho hàng. Kết thúc bằng một câu hỏi ngắn để hiểu thêm nhu cầu (nếu cần).`
       });
 
-      // Dùng model tốc độ ánh sáng Llama 3.3 70B Versatile của Groq
-      const response = await fetch(`https://api.groq.com/openai/v1/chat/completions`, {
+      // Gửi request đến AI Provider (Groq / 9Router / OpenAI / OpenRouter)
+      const response = await fetch(`${AI_BASE_URL}/chat/completions`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${GROQ_API_KEY}`
         },
         body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
+          model: AI_MODEL,
           messages: groqHistory,
           stream: true
         })
@@ -280,34 +279,38 @@ ${intentSummary || '(Chưa phát hiện tín hiệu đặc biệt - hãy hỏi t
 
       let done = false;
       let buffer = "";
+      let accumulatedContent = "";
+
       while (!done) {
         const { value, done: readerDone } = await reader.read();
         done = readerDone;
         if (value) {
           buffer += decoder.decode(value, { stream: true });
-          // SSE events are separated by double newlines
-          const events = buffer.split(/\r?\n\r?\n/);
-          // Giữ lại phần tử cuối cùng vì có thể nó chưa tải xong một event hoàn chỉnh
-          buffer = events.pop() || "";
+          const lines = buffer.split(/\r?\n/);
+          // Giữ lại phần tử cuối cùng nếu dòng chưa hoàn chỉnh
+          buffer = lines.pop() || "";
           
-          for (const event of events) {
-            // Loại bỏ chữ "data: " ở đầu event
-            const dataStr = event.replace(/^data:\s*/, "").trim();
-            if (!dataStr || dataStr === "[DONE]") continue;
+          for (const line of lines) {
+            const trimmedLine = line.trim();
+            if (!trimmedLine || !trimmedLine.startsWith("data:")) continue;
+            
+            const dataStr = trimmedLine.slice(5).trim();
+            if (dataStr === "[DONE]") continue;
             
             try {
               const data = JSON.parse(dataStr);
-              // Phân tích cú pháp dữ liệu theo chuẩn OpenAI
-              const text = data.choices?.[0]?.delta?.content || '';
+              const text = data.choices?.[0]?.delta?.content || data.choices?.[0]?.text || '';
               if (text) {
+                accumulatedContent += text;
+                const currentFullText = accumulatedContent;
                 setMessages(prev => {
                   const newMsgs = [...prev];
-                  newMsgs[newMsgs.length - 1].content += text;
+                  newMsgs[newMsgs.length - 1] = { role: 'model', content: currentFullText };
                   return newMsgs;
                 });
               }
             } catch (e) {
-              console.error("Lỗi parse chunk:", e, "Data:", dataStr);
+              // Bỏ qua các dòng parse chưa hoàn tất
             }
           }
         }

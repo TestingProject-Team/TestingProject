@@ -36,6 +36,10 @@ public class CartService {
     }
 
     public Cart addToCart(String username, CartRequest request) {
+        if (request == null || request.getQuantity() == null || request.getQuantity() <= 0) {
+            throw new RuntimeException("Số lượng sản phẩm không hợp lệ!");
+        }
+
         Cart cart = getCartByUser(username);
         Book book = bookRepository.findById(request.getBookId())
                 .orElseThrow(() -> new RuntimeException("Sách (ID: " + request.getBookId() + ") không tồn tại hoặc đã ngừng kinh doanh!"));
@@ -44,9 +48,18 @@ public class CartService {
                 .filter(item -> item.getBook().getId().equals(book.getId()))
                 .findFirst();
 
+        int targetQuantity = request.getQuantity();
+        if (existingItem.isPresent()) {
+            targetQuantity += existingItem.get().getQuantity();
+        }
+
+        if (book.getStockQuantity() != null && targetQuantity > book.getStockQuantity()) {
+            throw new RuntimeException("Số lượng yêu cầu vượt quá tồn kho hiện có (" + book.getStockQuantity() + ")!");
+        }
+
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
-            item.setQuantity(item.getQuantity() + request.getQuantity());
+            item.setQuantity(targetQuantity);
         } else {
             CartItem newItem = CartItem.builder()
                     .cart(cart)
@@ -60,7 +73,22 @@ public class CartService {
     }
 
     public Cart updateCartItem(String username, Long bookId, CartRequest request) {
+        if (request == null || request.getQuantity() == null || request.getQuantity() < 0) {
+            throw new RuntimeException("Số lượng sản phẩm không hợp lệ!");
+        }
+
+        if (request.getQuantity() == 0) {
+            return removeCartItem(username, bookId);
+        }
+
         Cart cart = getCartByUser(username);
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new RuntimeException("Sách không tồn tại!"));
+
+        if (book.getStockQuantity() != null && request.getQuantity() > book.getStockQuantity()) {
+            throw new RuntimeException("Số lượng yêu cầu vượt quá tồn kho hiện có (" + book.getStockQuantity() + ")!");
+        }
+
         cart.getItems().stream()
                 .filter(item -> item.getBook().getId().equals(bookId))
                 .findFirst()

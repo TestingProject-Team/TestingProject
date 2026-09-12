@@ -1,0 +1,1021 @@
+{
+  "Hãy": [
+    {
+      "location": "Paragraph 110",
+      "text": "Phạm vi công việc được tổ chức thành các nhóm: khám phá sản phẩm, giao diện cửa hàng, quản trị, Backend services, tích hợp, đảm bảo chất lượng, triển khai và tà"
+    },
+    {
+      "location": "Paragraph 398",
+      "text": "README mô tả Frontend deployment trên Vercel, Backend deployment trên Render, PostgreSQL/Supabase làm cloud Database và Docker cho setup local/runtime có thể lặ"
+    }
+  ],
+  "Nhóm nên": [
+    {
+      "location": "Paragraph 80",
+      "text": "Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalogue navigation, product discovery, check"
+    },
+    {
+      "location": "Paragraph 180",
+      "text": "Module map sau đây chuyển archive triển khai thành các nhóm yêu cầu. Nhóm nên sử dụng các ID này khi đính kèm screenshot, API evidence, test case và các phần de"
+    }
+  ],
+  "Archive được cung cấp": [
+    {
+      "location": "Paragraph 80",
+      "text": "Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalogue navigation, product discovery, check"
+    },
+    {
+      "location": "Paragraph 102",
+      "text": "Archive được cung cấp không có tên sinh viên chính thức, thông tin supervisor, project code cuối cùng, yêu cầu đã phê duyệt hoặc deployment evidence cuối cùng."
+    },
+    {
+      "location": "Paragraph 825",
+      "text": "Hướng dẫn sử dụng này được tổ chức theo Actor. Mỗi bước dưới đây nên đi kèm screenshot từ UI cuối cùng. Archive được cung cấp có cấu trúc page nhưng chưa có bộ "
+    },
+    {
+      "location": "Table 3 [R9C0]",
+      "text": "Minh chứng từ archive được cung cấp"
+    },
+    {
+      "location": "Table 21 [R3C3]",
+      "text": "Archive được cung cấp"
+    },
+    {
+      "location": "Table 21 [R5C3]",
+      "text": "Archive được cung cấp"
+    }
+  ],
+  "source archive": [
+    {
+      "location": "Paragraph 80",
+      "text": "Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalogue navigation, product discovery, check"
+    },
+    {
+      "location": "Paragraph 404",
+      "text": "Database được mô hình hóa dưới dạng relational PostgreSQL schema. Source archive chứa 25 entity class và các repository interface cho những thao tác persistence"
+    }
+  ],
+  "Chèn screenshot": [
+    {
+      "location": "Paragraph 833",
+      "text": "Chèn screenshot cho 3.2.1 Register và Login."
+    },
+    {
+      "location": "Paragraph 840",
+      "text": "Chèn screenshot cho 3.2.2 Browse và Search."
+    },
+    {
+      "location": "Paragraph 847",
+      "text": "Chèn screenshot cho 3.2.3 Product và Wishlist."
+    },
+    {
+      "location": "Paragraph 855",
+      "text": "Chèn screenshot cho 3.2.4 Cart và Checkout."
+    },
+    {
+      "location": "Paragraph 862",
+      "text": "Chèn screenshot cho 3.2.5 Payment và Order Tracking."
+    },
+    {
+      "location": "Paragraph 869",
+      "text": "Chèn screenshot cho 3.2.6 Review và Community."
+    },
+    {
+      "location": "Paragraph 876",
+      "text": "Chèn screenshot cho 3.2.7 Y-Point và Coupon."
+    },
+    {
+      "location": "Paragraph 883",
+      "text": "Chèn screenshot cho 3.2.8 YiYi AI."
+    },
+    {
+      "location": "Paragraph 891",
+      "text": "Chèn screenshot cho 3.3.1 Admin Login và Dashboard."
+    },
+    {
+      "location": "Paragraph 898",
+      "text": "Chèn screenshot cho 3.3.2 Quản lý Book."
+    },
+    {
+      "location": "Paragraph 905",
+      "text": "Chèn screenshot cho 3.3.3 Quản lý Category và Banner."
+    },
+    {
+      "location": "Paragraph 913",
+      "text": "Chèn screenshot cho 3.3.4 Quản lý Order."
+    },
+    {
+      "location": "Paragraph 921",
+      "text": "Chèn screenshot cho 3.3.5 Quản lý User và Role."
+    },
+    {
+      "location": "Paragraph 928",
+      "text": "Chèn screenshot cho 3.3.6 Quản lý Promotion và Reward."
+    },
+    {
+      "location": "Paragraph 935",
+      "text": "Chèn screenshot cho 3.3.7 Kiểm duyệt Review và Communication."
+    }
+  ],
+  "chèn minh chứng": [],
+  "Mục 5.8": [
+    {
+      "location": "Table 119 [R2C1]",
+      "text": "1. Chụp ảnh báo cáo JaCoCo HTML (đạt 37.57% toàn hệ thống, >85% core service) đính kèm Mục 5.3.\n2. Thực hiện buổi đánh giá UAT với người dùng thử nghiệm và bổ s"
+    },
+    {
+      "location": "Table 121 [R5C2]",
+      "text": "Chương V (Mục 5.8)"
+    }
+  ],
+  "100% Toàn thời gian": [
+    {
+      "location": "Table 71 [R1C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R2C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R3C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R4C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R5C3]",
+      "text": "100% Toàn thời gian"
+    }
+  ],
+  "100%": [
+    {
+      "location": "Paragraph 692",
+      "text": "• Kiểm thử các luồng ngoại lệ (Exception Branches): 100% các nhánh ném ngoại lệ tùy biến (Custom Business Exceptions như BadCredentialsException, ResourceNotFou"
+    },
+    {
+      "location": "Paragraph 732",
+      "text": "• Kết quả thực thi tổng thể: 20/20 kịch bản đạt trạng thái PASS 100% với tổng thời gian thực thi toàn bộ luồng E2E là 38.2 giây."
+    },
+    {
+      "location": "Paragraph 757",
+      "text": "• Trạng thái PASS: Đạt 100% trên toàn bộ 750+ phép kiểm tra tự động."
+    },
+    {
+      "location": "Paragraph 761",
+      "text": "• 100% các luồng nghiệp vụ cốt lõi (Core Business Workflows) được bao phủ bởi kịch bản kiểm thử tự động."
+    },
+    {
+      "location": "Paragraph 778",
+      "text": "• Hiện trạng khiếm khuyết: 100% các lỗi phát hiện đã được khắc phục hoàn toàn và vượt qua vòng tái kiểm thử (Retest)."
+    },
+    {
+      "location": "Paragraph 787",
+      "text": "Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng nghiêm ngặt từ Unit Test, Integration Te"
+    },
+    {
+      "location": "Table 71 [R1C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R2C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R3C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R4C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 71 [R5C3]",
+      "text": "100% Toàn thời gian"
+    },
+    {
+      "location": "Table 73 [R1C1]",
+      "text": "• Mã nguồn hoàn thành việc biên dịch 100% không có lỗi cú pháp.\n• Cơ sở dữ liệu thử nghiệm đã được khởi tạo và nạp đầy đủ dữ liệu mẫu.\n• Tất cả các container dị"
+    },
+    {
+      "location": "Table 73 [R2C1]",
+      "text": "• 100% các bài kiểm thử đơn vị Unit Tests đạt trạng thái PASS (299/299 bài kiểm thử).\n• 100% các khẳng định API Assertions đạt trạng thái PASS (421/421 khẳng đị"
+    },
+    {
+      "location": "Table 78 [R1C3]",
+      "text": "24/24 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R2C3]",
+      "text": "32/32 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R3C3]",
+      "text": "18/18 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R4C3]",
+      "text": "22/22 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R5C3]",
+      "text": "35/35 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R6C3]",
+      "text": "20/20 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R7C3]",
+      "text": "26/26 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R8C3]",
+      "text": "14/14 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R9C3]",
+      "text": "12/12 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R10C3]",
+      "text": "15/15 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R11C3]",
+      "text": "28/28 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R12C3]",
+      "text": "16/16 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R13C3]",
+      "text": "37/37 PASS (100%)"
+    },
+    {
+      "location": "Table 78 [R14C2]",
+      "text": "Bao phủ toàn diện 100% các phân hệ nghiệp vụ cốt lõi của Backend Spring Boot"
+    },
+    {
+      "location": "Table 78 [R14C3]",
+      "text": "299/299 PASS (100%)"
+    },
+    {
+      "location": "Table 82 [R1C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 82 [R2C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 82 [R3C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 82 [R4C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 82 [R5C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 82 [R6C6]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 83 [R1C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R2C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R3C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R4C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R5C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R6C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R7C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R8C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R9C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R10C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R11C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R12C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R13C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R14C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R15C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R16C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R17C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R18C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R19C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 83 [R20C3]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 89 [R1C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 89 [R2C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 89 [R3C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 89 [R4C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 89 [R5C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 89 [R6C5]",
+      "text": "100% PASS"
+    },
+    {
+      "location": "Table 91 [R1C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R2C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R3C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R4C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R5C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R6C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R7C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 91 [R8C4]",
+      "text": "PASS (100%)"
+    },
+    {
+      "location": "Table 119 [R1C2]",
+      "text": "Hoàn thiện 100% hình ảnh minh chứng kiến trúc và giao diện hệ thống."
+    }
+  ],
+  "REQ-AUTH": [
+    {
+      "location": "Table 91 [R1C0]",
+      "text": "REQ-AUTH-01/02"
+    }
+  ],
+  "REQ-CAT": [
+    {
+      "location": "Table 91 [R2C0]",
+      "text": "REQ-CAT-01/02"
+    }
+  ],
+  "REQ-CART": [
+    {
+      "location": "Table 91 [R3C0]",
+      "text": "REQ-CART-01/02"
+    }
+  ],
+  "REQ-ORD": [
+    {
+      "location": "Table 91 [R4C0]",
+      "text": "REQ-ORD-01/03"
+    }
+  ],
+  "REQ-REW": [
+    {
+      "location": "Table 91 [R5C0]",
+      "text": "REQ-REW-01/02"
+    }
+  ],
+  "17 bảng": [
+    {
+      "location": "Table 118 [R8C3]",
+      "text": "PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 17 bảng PostgreSQL]"
+    },
+    {
+      "location": "Table 121 [R9C1]",
+      "text": "Bổ sung Sơ đồ cơ sở dữ liệu ERD 17 bảng"
+    },
+    {
+      "location": "Table 121 [R9C5]",
+      "text": "Export sơ đồ ERD trực tiếp từ PostgreSQL/DBeaver thể hiện khóa chính, khóa ngoại 17 bảng."
+    }
+  ],
+  "25 bảng": [
+    {
+      "location": "Table 72 [R2C3]",
+      "text": "Lưu trữ 25 bảng thực thể và xử lý giao dịch nguyên tử ACID"
+    }
+  ],
+  "17 table": [],
+  "25 table": [],
+  "25 Entity": [
+    {
+      "location": "Paragraph 385",
+      "text": "Persistence layer: 19 repository và 25 entity class mô hình hóa relational data."
+    },
+    {
+      "location": "Paragraph 404",
+      "text": "Database được mô hình hóa dưới dạng relational PostgreSQL schema. Source archive chứa 25 entity class và các repository interface cho những thao tác persistence"
+    },
+    {
+      "location": "Paragraph 597",
+      "text": "• Phân hệ Danh mục & Tra cứu Sách: Kiểm thử hoạt động của 25 Entity và 19 Repository trong việc truy vấn danh mục, lọc sách đa tiêu chí (theo thể loại, khoảng g"
+    },
+    {
+      "location": "Table 3 [R9C1]",
+      "text": "23 controller, 15 service, 25 entity, 19 repository, 43 Frontend page, 17 unit-test file, 109 API row được document và 3 GitHub workflow file"
+    }
+  ],
+  "23 table": [],
+  "23 bảng": [],
+  "8080": [
+    {
+      "location": "Paragraph 817",
+      "text": "Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8080."
+    }
+  ],
+  "8081": [
+    {
+      "location": "Table 72 [R1C2]",
+      "text": "8081 (Local) / 8082 (Docker Test)"
+    }
+  ],
+  "8082": [
+    {
+      "location": "Table 72 [R1C2]",
+      "text": "8081 (Local) / 8082 (Docker Test)"
+    }
+  ],
+  "sẵn sàng phục vụ người dùng thực tế": [
+    {
+      "location": "Paragraph 787",
+      "text": "Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng nghiêm ngặt từ Unit Test, Integration Te"
+    }
+  ],
+  "hoàn thành xuất sắc": [
+    {
+      "location": "Paragraph 787",
+      "text": "Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng nghiêm ngặt từ Unit Test, Integration Te"
+    }
+  ],
+  "CẦN BỔ SUNG": [
+    {
+      "location": "Paragraph 944",
+      "text": "Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)"
+    },
+    {
+      "location": "Table 6 [R1C2]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]"
+    },
+    {
+      "location": "Table 6 [R2C2]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]"
+    },
+    {
+      "location": "Table 6 [R3C2]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Minh chứng luồng thanh toán Sandbox]"
+    },
+    {
+      "location": "Table 6 [R4C2]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Bảng ghi chú đánh giá Benchmark]"
+    },
+    {
+      "location": "Table 7 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo giao diện và luồng nghiệp vụ mua sách tại Fahasa/Tiki]"
+    },
+    {
+      "location": "Table 8 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo mô hình Sàn giao dịch & Gian hàng Shopee/Lazada]"
+    },
+    {
+      "location": "Table 9 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh giao diện cổng thanh toán trực tuyến mẫu (VNPAY/MoMo Sandbox)]"
+    },
+    {
+      "location": "Table 12 [R1C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R1C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 12 [R2C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R2C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 12 [R3C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R3C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 12 [R4C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R4C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 12 [R5C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R5C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 12 [R6C2]",
+      "text": "[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]"
+    },
+    {
+      "location": "Table 12 [R6C3]",
+      "text": "[CẦN BỔ SUNG: Ước lượng Person-Days]"
+    },
+    {
+      "location": "Table 15 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh bảng Jira Scrum Board / Sprint Backlog thực tế của dự án]"
+    },
+    {
+      "location": "Table 16 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh quản lý Git Branch, Commit History và Pull Request trên GitHub]"
+    },
+    {
+      "location": "Table 17 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh GitHub Actions CI Workflow chạy tự động Build & Test thành công]"
+    },
+    {
+      "location": "Table 18 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh kết quả Smoke Test môi trường triển khai thực tế]"
+    },
+    {
+      "location": "Table 19 [R1C3]",
+      "text": "[CẦN BỔ SUNG: SETUP SCREENSHOT]"
+    },
+    {
+      "location": "Table 19 [R2C3]",
+      "text": "[CẦN BỔ SUNG: COLLECTION RUN]"
+    },
+    {
+      "location": "Table 19 [R3C3]",
+      "text": "[CẦN BỔ SUNG: ADMIN DEMO]"
+    },
+    {
+      "location": "Table 19 [R4C3]",
+      "text": "[CẦN BỔ SUNG: DEPLOYMENT LOG]"
+    },
+    {
+      "location": "Table 20 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh biên bản bàn giao / Ảnh chụp buổi đào tạo vận hành hệ thống]"
+    },
+    {
+      "location": "Table 21 [R1C3]",
+      "text": "[CẦN BỔ SUNG: LINK / VERSION]"
+    },
+    {
+      "location": "Table 21 [R2C3]",
+      "text": "[CẦN BỔ SUNG: LINK / VERSION]"
+    },
+    {
+      "location": "Table 21 [R6C3]",
+      "text": "[CẦN BỔ SUNG: RELEASE LINK]"
+    },
+    {
+      "location": "Table 21 [R7C3]",
+      "text": "[CẦN BỔ SUNG: FINAL DOC LINK]"
+    },
+    {
+      "location": "Table 23 [R1C4]",
+      "text": "[CẦN BỔ SUNG: CHANNEL]"
+    },
+    {
+      "location": "Table 23 [R3C4]",
+      "text": "[CẦN BỔ SUNG: CHANNEL]"
+    },
+    {
+      "location": "Table 23 [R5C4]",
+      "text": "[CẦN BỔ SUNG: LOCATION]"
+    },
+    {
+      "location": "Table 38 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Trợ lý tư vấn AI]"
+    },
+    {
+      "location": "Table 44 [R1C3]",
+      "text": "[CẦN BỔ SUNG: SỐ ĐO]"
+    },
+    {
+      "location": "Table 44 [R3C3]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Kiểm tra bổ sung]"
+    },
+    {
+      "location": "Table 44 [R4C3]",
+      "text": "[CẦN BỔ SUNG: UI REVIEW]"
+    },
+    {
+      "location": "Table 44 [R6C3]",
+      "text": "[CẦN BỔ SUNG: LOAD PLAN]"
+    },
+    {
+      "location": "Table 44 [R7C3]",
+      "text": "[CẦN BỔ SUNG: BROWSER MATRIX]"
+    },
+    {
+      "location": "Table 44 [R8C3]",
+      "text": "[CẦN BỔ SUNG: TRANSACTION TEST]"
+    },
+    {
+      "location": "Table 44 [R9C3]",
+      "text": "[CẦN BỔ SUNG: LOGGING REVIEW]"
+    },
+    {
+      "location": "Table 50 [R0C0]",
+      "text": "[CẦN BỔ SUNG DIAGRAM: Sơ đồ kiến trúc phân tầng Backend Spring Boot]"
+    },
+    {
+      "location": "Table 51 [R0C0]",
+      "text": "[CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý AI RAG và Phân loại Intent]"
+    },
+    {
+      "location": "Table 52 [R1C2]",
+      "text": "[CẦN BỔ SUNG: DEPLOYMENT URL VÀ SCREENSHOT]"
+    },
+    {
+      "location": "Table 52 [R2C2]",
+      "text": "[CẦN BỔ SUNG: HEALTH CHECK VÀ LOG]"
+    },
+    {
+      "location": "Table 52 [R3C2]",
+      "text": "[CẦN BỔ SUNG: SCHEMA HOẶC CONSOLE EVIDENCE]"
+    },
+    {
+      "location": "Table 52 [R4C2]",
+      "text": "[CẦN BỔ SUNG: ENVIRONMENT EVIDENCE ĐÃ CẤU HÌNH, KHÔNG KÈM KEY]"
+    },
+    {
+      "location": "Table 52 [R5C2]",
+      "text": "[CẦN BỔ SUNG: SANDBOX EVIDENCE]"
+    },
+    {
+      "location": "Table 53 [R0C0]",
+      "text": "[CẦN BỔ SUNG: PACKAGE DIAGRAM]"
+    },
+    {
+      "location": "Table 55 [R0C0]",
+      "text": "[CẦN BỔ SUNG: ENTITY RELATIONSHIP DIAGRAM]"
+    },
+    {
+      "location": "Table 57 [R0C0]",
+      "text": "[CẦN BỔ SUNG: LOGIN FLOW SCREENSHOT / SEQUENCE DIAGRAM]"
+    },
+    {
+      "location": "Table 58 [R0C0]",
+      "text": "[CẦN BỔ SUNG: PRODUCT LIST SCREENSHOT]"
+    },
+    {
+      "location": "Table 59 [R0C0]",
+      "text": "[CẦN BỔ SUNG: SEARCH FLOW SCREENSHOT]"
+    },
+    {
+      "location": "Table 60 [R0C0]",
+      "text": "[CẦN BỔ SUNG: PRODUCT DETAIL CLASS/SEQUENCE DIAGRAM]"
+    },
+    {
+      "location": "Table 61 [R0C0]",
+      "text": "[CẦN BỔ SUNG: CART FLOW SCREENSHOT]"
+    },
+    {
+      "location": "Table 62 [R0C0]",
+      "text": "[CẦN BỔ SUNG: CHECKOUT SEQUENCE DIAGRAM]"
+    },
+    {
+      "location": "Table 63 [R0C0]",
+      "text": "[CẦN BỔ SUNG: PAYMENT FLOW SCREENSHOT]"
+    },
+    {
+      "location": "Table 64 [R0C0]",
+      "text": "[CẦN BỔ SUNG: ORDER LIFECYCLE DIAGRAM]"
+    },
+    {
+      "location": "Table 65 [R0C0]",
+      "text": "[CẦN BỔ SUNG: REWARD FLOW SCREENSHOT]"
+    },
+    {
+      "location": "Table 66 [R0C0]",
+      "text": "[CẦN BỔ SUNG: AI SEQUENCE DIAGRAM]"
+    },
+    {
+      "location": "Table 67 [R0C0]",
+      "text": "[CẦN BỔ SUNG: ADMIN CATALOGUE SCREENSHOT]"
+    },
+    {
+      "location": "Table 68 [R0C0]",
+      "text": "[CẦN BỔ SUNG: ADMIN ORDER SCREENSHOT]"
+    },
+    {
+      "location": "Table 69 [R0C0]",
+      "text": "[CẦN BỔ SUNG: ADMIN CONTENT SCREENSHOT]"
+    },
+    {
+      "location": "Table 78 [R15C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh kết quả chạy 299 Unit Tests bằng lệnh `mvn test` trên Terminal/IntelliJ IDEA]"
+    },
+    {
+      "location": "Table 79 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh giao diện báo cáo HTML tổng quan của JaCoCo Code Coverage (index.html)]"
+    },
+    {
+      "location": "Table 80 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chi tiết độ bao phủ mã nguồn (Statement & Branch Coverage) của các Service cốt lõi trên giao diện JaCoCo]"
+    },
+    {
+      "location": "Table 81 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh màn hình Terminal thực thi bộ kiểm thử API toàn diện bằng Newman CLI]"
+    },
+    {
+      "location": "Table 82 [R7C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Báo cáo kết quả kiểm thử API xuất từ Newman HTML Reporter hoặc Postman Collection Runner]"
+    },
+    {
+      "location": "Table 83 [R21C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình kết quả chạy CodeceptJS trên Terminal hiển thị 20/20 kịch bản PASS]"
+    },
+    {
+      "location": "Table 84 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình giao diện ứng dụng thực tế trong quá trình robot tự động thao tác trình duyệt]"
+    },
+    {
+      "location": "Table 85 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh cấu trúc thư mục output/screenshots lưu trữ các ảnh chụp bằng chứng kiểm thử E2E]"
+    },
+    {
+      "location": "Table 86 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh Terminal thực thi lệnh `mvn checkstyle:check` đạt BUILD SUCCESS và 0 violation]"
+    },
+    {
+      "location": "Table 87 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh Terminal thực thi lệnh `mvn spotbugs:check` đạt BUILD SUCCESS và 0 bugs found]"
+    },
+    {
+      "location": "Table 88 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh giao diện SonarQube Dashboard hiển thị trạng thái Quality Gate PASSED]"
+    },
+    {
+      "location": "Table 89 [R7C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh giao diện GitHub Actions CI/CD hiển thị toàn bộ workflow kiểm thử tự động đạt trạng thái SUCCESS]"
+    },
+    {
+      "location": "Table 92 [R2C2]",
+      "text": "[CẦN BỔ SUNG: DEPLOYMENT URL]"
+    },
+    {
+      "location": "Table 92 [R3C2]",
+      "text": "[CẦN BỔ SUNG: DEPLOYMENT URL]"
+    },
+    {
+      "location": "Table 92 [R4C2]",
+      "text": "[CẦN BỔ SUNG: SCHEMA / MIGRATION]"
+    },
+    {
+      "location": "Table 92 [R6C2]",
+      "text": "[CẦN BỔ SUNG: FOLDER CUỐI]"
+    },
+    {
+      "location": "Table 92 [R7C2]",
+      "text": "[CẦN BỔ SUNG: LINK CUỐI]"
+    },
+    {
+      "location": "Table 94 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh cấu hình file .env và application-local.properties]"
+    },
+    {
+      "location": "Table 95 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh docker compose up -d và Docker Desktop]"
+    },
+    {
+      "location": "Table 96 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh console log Spring Boot Started Application in X seconds]"
+    },
+    {
+      "location": "Table 97 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh Postman / Browser kiểm tra Swagger UI hoặc API /actuator/health]"
+    },
+    {
+      "location": "Table 98 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh npm run dev sẵn sàng truy cập Localhost]"
+    },
+    {
+      "location": "Table 99 [R0C0]",
+      "text": "Chính sách bảo mật (Security Policy): Toàn bộ mật khẩu, JWT secret, SMTP credential, payment API keys đã được che giấu ([REDACTED]) trong toàn bộ tài liệu báo c"
+    },
+    {
+      "location": "Table 99 [R1C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình cài đặt và khởi chạy Local]"
+    },
+    {
+      "location": "Table 100 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình ứng dụng trên Domain Production]"
+    },
+    {
+      "location": "Table 101 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh Dashboard Cloud / Server Log / Swagger Production UP]"
+    },
+    {
+      "location": "Table 102 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng nhập Khách hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng ký & Đăng nhập Khách hàng]"
+    },
+    {
+      "location": "Table 103 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Tìm kiếm Khách hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng ký & Đăng nhập Khách hàng][CẦN BỔ SUNG EV"
+    },
+    {
+      "location": "Table 104 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Sản phẩm & Danh sách yêu thích][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Duyệt danh mục & Tìm kiếm][CẦN BỔ SUNG EV"
+    },
+    {
+      "location": "Table 105 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Giỏ hàng & Thanh toán][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Chi tiết sản phẩm & Wishlist][CẦN BỔ SUNG EVIDENCE"
+    },
+    {
+      "location": "Table 106 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Xác nhận Thanh toán & Đơn hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giỏ hàng & Điền thông tin Đặt hàng][CẦN BỔ SUNG"
+    },
+    {
+      "location": "Table 107 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đánh giá sản phẩm][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cổng thanh toán & Lịch sử Đơn hàng][CẦN BỔ SUNG EVIDENCE: Ản"
+    },
+    {
+      "location": "Table 108 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đổi điểm thưởng & Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Viết đánh giá và Xem bình luận][CẦN BỔ SUN"
+    },
+    {
+      "location": "Table 109 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Trợ lý AI][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đổi điểm thưởng & Kho Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hì"
+    },
+    {
+      "location": "Table 110 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Admin Login & Dashboard][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cửa sổ Chatbot YiYi AI Assistant][CẦN BỔ SUNG EVIDENCE"
+    },
+    {
+      "location": "Table 111 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Sách][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Admin Login & Dashboard Doanh thu][CẦN BỔ SUNG EVIDENCE: Ảnh chụp"
+    },
+    {
+      "location": "Table 112 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh mục & Banner][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Quản lý Sách và Tồn kho][CẦN BỔ SUNG EVIDE"
+    },
+    {
+      "location": "Table 113 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị đơn hàng][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Thể loại & Banner Marketing][CẦN BỔ SUNG EVIDENCE: "
+    },
+    {
+      "location": "Table 114 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Người dùng & Phân quyền][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh sách Đơn hàng & Vận chuyển][CẦN B"
+    },
+    {
+      "location": "Table 115 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Khuyến mãi & Voucher][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Người dùng & RBAC Role][CẦN BỔ SUNG EVIDE"
+    },
+    {
+      "location": "Table 116 [R0C0]",
+      "text": "[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Banner và Nội dung][CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Mã Coupon & Điểm Y-Point][CẦN BỔ SUNG EVID"
+    },
+    {
+      "location": "Table 117 [R0C0]",
+      "text": "Vấn đề[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Kiểm duyệt Đánh giá & Hòm thư Liên hệ]"
+    },
+    {
+      "location": "Table 118 [R1C3]",
+      "text": "PENDING - [CẦN BỔ SUNG: Chèn file ảnh logo chính thức của Trường]"
+    },
+    {
+      "location": "Table 118 [R3C3]",
+      "text": "PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ Use-Case tổng thể]"
+    },
+    {
+      "location": "Table 118 [R7C3]",
+      "text": "PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý RAG & Groq AI]"
+    },
+    {
+      "location": "Table 118 [R8C3]",
+      "text": "PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 17 bảng PostgreSQL]"
+    },
+    {
+      "location": "Table 118 [R9C3]",
+      "text": "PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 8 màn hình luồng khách hàng]"
+    },
+    {
+      "location": "Table 118 [R10C3]",
+      "text": "PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 7 màn hình cổng quản trị]"
+    },
+    {
+      "location": "Table 118 [R12C3]",
+      "text": "PENDING - [CẦN BỔ SUNG EVIDENCE: Ảnh chụp báo cáo JaCoCo HTML]"
+    },
+    {
+      "location": "Table 118 [R13C3]",
+      "text": "PENDING - [CẦN BỔ SUNG: Biên bản ký duyệt nghiệm thu UAT]"
+    },
+    {
+      "location": "Table 118 [R14C3]",
+      "text": "PENDING - [CẦN BỔ SUNG: URL Production & Ảnh Docker PS]"
+    },
+    {
+      "location": "Table 121 [R0C1]",
+      "text": "Hạng mục cần bổ sung"
+    }
+  ],
+  "CẦN XÁC MINH": [],
+  "Run quality check": [
+    {
+      "location": "Table 28 [R20C1]",
+      "text": "Run quality check"
+    }
+  ],
+  "QA Member": [],
+  "Hosting / Storage": [
+    {
+      "location": "Table 27 [R6C1]",
+      "text": "Hosting / Storage"
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+Total paragraphs: 946
+Total tables: 122
+
+=== HEADINGS & STRUCTURE ===
+[P53][Style:Normal] Phụ lục A. Minh chứng và Checklist hoàn thành
+[P62][Style:Heading 1] I. Giới thiệu dự án
+[P63][Style:Heading 2] 1. Tổng quan
+[P64][Style:Heading 3] 1.1 Thông tin dự án
+[P67][Style:Normal] Hình 1.1. Giao diện Trang chủ hệ thống YiYi Book.
+[P68][Style:Heading 3] 1.2 Nhóm dự án
+[P71][Style:Heading 2] 2. Bối cảnh sản phẩm
+[P79][Style:Heading 2] 3. Hệ thống hiện có và tham chiếu thị trường
+[P81][Style:Normal] Hình 1.2. Minh chứng khảo sát thực tế mô hình Online Bookstore.
+[P82][Style:Normal] Hình 1.3. Minh chứng khảo sát thực tế mô hình sàn thương mại điện tử.
+[P83][Style:Normal] Hình 1.4. Minh chứng khảo sát cổng thanh toán trực tuyến.
+[P85][Style:Heading 2] 4. Cơ hội kinh doanh
+[P92][Style:Heading 2] 5. Tầm nhìn sản phẩm phần mềm
+[P98][Style:Heading 2] 6. Phạm vi và giới hạn dự án
+[P99][Style:Heading 3] 6.1 Major Features
+[P101][Style:Heading 3] 6.2 Giới hạn và nội dung loại trừ
+[P107][Style:Heading 1] II. Kế hoạch quản lý dự án
+[P108][Style:Heading 2] 1. Tổng quan
+[P109][Style:Heading 3] 1.1 Phạm vi và ước lượng
+[P112][Style:Heading 3] 1.2 Mục tiêu dự án
+[P119][Style:Heading 3] 1.3 Rủi ro dự án
+[P121][Style:Heading 2] 2. Phương pháp quản lý
+[P122][Style:Heading 3] 2.1 Quy trình dự án
+[P129][Style:Normal] Hình 2.1. Sơ đồ quy trình phát triển phần mềm Agile/Scrum của dự án YiYi Book.
+[P130][Style:Normal] Hình 2.2. Minh chứng quản trị công việc và phân chia Sprint trên Jira.
+[P131][Style:Normal] Hình 2.3. Minh chứng quy trình Git Branching và Code Review trên GitHub.
+[P132][Style:Normal] Hình 2.4. Minh chứng luồng tự động hóa kiểm thử liên tục (CI/CD Pipeline).
+[P133][Style:Normal] Hình 2.5. Minh chứng kiểm thử chấp nhận và triển khai hệ thống.
+[P134][Style:Heading 3] 2.2 Quản lý chất lượng
+[P140][Style:Heading 3] 2.3 Kế hoạch đào tạo
+[P141][Style:Normal] Hình 2.6. Minh chứng buổi chuyển giao công nghệ và đào tạo vận hành hệ thống.
+[P143][Style:Heading 2] 3. Sản phẩm bàn giao của dự án
+[P145][Style:Heading 2] 4. Phân công trách nhiệm
+[P147][Style:Heading 2] 5. Trao đổi trong dự án
+[P149][Style:Heading 2] 6. Quản lý cấu hình
+[P150][Style:Heading 3] 6.1 Quản lý tài liệu
+[P155][Style:Heading 3] 6.2 Quản lý Source Code
+[P160][Style:Heading 3] 6.3 Công cụ và hạ tầng
+[P162][Style:Heading 1] III. Đặc tả yêu cầu phần mềm
+[P163][Style:Heading 2] 1. Tổng quan sản phẩm
+[P165][Style:Normal] Hình 3.1. Sơ đồ ngữ cảnh hệ thống (System Context Diagram).
+[P166][Style:Normal] Hình 3.2. Sơ đồ Use Case tổng quát hệ thống (Overall Use Case Diagram).
+[P172][Style:Heading 2] 2. Yêu cầu người dùng
+[P173][Style:Heading 3] 2.1 Actor của hệ thống
+[P175][Style:Heading 3] 2.2 Use Case
+[P177][Style:Heading 2] 3. Yêu cầu chức năng
+[P179][Style:Heading 3] 3.1 Tổng quan chức năng hệ thống
+[P182][Style:Heading 3] 3.2 Web Application
+[P183][Style:Heading 4] 3.2.1 Ứng dụng Customer (Customer Application)
+[P196][Style:Normal] Hình 3.3. Giao diện chức năng Đăng ký, Đăng nhập và Xác thực (Authentication).
+[P209][Style:Normal] Hình 3.4. Giao diện Trang chủ và Khám phá Danh mục sách (Home & Catalogue).
+[P222][Style:Normal] Hình 3.5. Giao diện Tìm kiếm và Bộ lọc nâng cao (Search & Filter).
+[P235][Style:Normal] Hình 3.6. Giao diện Chi tiết Sách và Đánh giá (Product Detail & Review).
+[P248][Style:Normal] Hình 3.7. Giao diện Giỏ hàng và Quản lý Địa chỉ nhận hàng (Cart & Address).
+[P261][Style:Normal] Hình 3.8. Giao diện Đặt hàng và Cổng thanh toán trực tuyến (Checkout & Payment).
+[P274][Style:Normal] Hình 3.9. Giao diện Theo dõi Đơn hàng (Order Tracking).
+[P287][Style:Normal] Hình 3.10. Giao diện Tương tác Trợ lý ảo AI (YiYi AI Assistant).
+[P288][Style:Heading 4] 3.2.2 Cổng Administration (Administration Portal)
+[P301][Style:Normal] Hình 3.11. Giao diện Bảng điều khiển Quản trị (Admin Dashboard & Operations).
+[P314][Style:Normal] Hình 3.12. Giao diện Quản trị Sách, Danh mục và Banner (Admin Catalogue & Banners).
+[P327][Style:Normal] Hình 3.13. Giao diện Quản lý Đơn hàng và Vận chuyển (Admin Orders).
+[P340][Style:Normal] Hình 3.14. Giao diện Quản trị Người dùng và Phân quyền (Admin Users & RBAC).
+[P353][Style:Normal] Hình 3.15. Giao diện Quản trị Khuyến mãi, Đánh giá và Cài đặt (Admin Promotions & Settings).
+[P354][Style:Heading 2] 4. Yêu cầu phi chức năng
+[P356][Style:Heading 3] 4.1 External Interface
+[P358][Style:Heading 3] 4.2 Thuộc tính chất lượng
+[P364][Style:Heading 2] 5. Phụ lục yêu cầu
+[P365][Style:Heading 3] 5.1 Business Rule
+[P367][Style:Heading 3] 5.2 Yêu cầu chung
+[P375][Style:Heading 3] 5.3 Danh sách Application Message
+[P377][Style:Heading 1] IV. Mô tả thiết kế phần mềm
+[P378][Style:Heading 2] 1. Thiết kế hệ thống
+[P380][Style:Normal] Hình 4.1. Kiến trúc tổng thể hệ thống YiYi Book.
+[P381][Style:Heading 3] 1.1 System Architecture
+[P388][Style:Heading 4] 1.1.1 Frontend Architecture
+[P390][Style:Normal] Hình 4.2. Kiến trúc luồng Component và Routing Frontend.
+[P391][Style:Heading 4] 1.1.2 Backend Architecture
+[P393][Style:Normal] Hình 4.3. Kiến trúc phân tầng Backend Spring Boot.
+[P394][Style:Heading 4] 1.1.3 AI Assistant Architecture
+[P396][Style:Normal] Hình 4.4. Kiến trúc luồng tích hợp Trợ lý AI và xử lý ngôn ngữ tự nhiên.
+[P397][Style:Heading 4] 1.1.4 Deployment Architecture
+[P400][Style:Heading 3] 1.2 Package Diagram
+[P401][Style:Normal] Hình 4.5. Sơ đồ phân rã gói phần mềm hệ thống (Package Diagram).
+[P403][Style:Heading 2] 2. Thiết kế Database
+[P405][Style:Normal] Hình 4.6. Sơ đồ thực thể quan hệ cơ sở dữ liệu (ERD).
+[P407][Style:Heading 3] 2.1 Ghi chú về Data Integrity và Transaction
+[P413][Style:Heading 2] 3. Thiết kế chi tiết
+[P414][Style:Heading 3] 3.1 Login và JWT Authentication
+[P429][Style:Normal] Hình 4.7. Sơ đồ lớp (Class Diagram) và Tuần tự luồng Xác thực JWT.
+[P430][Style:Heading 3] 3.2 Xem Product List
+[P442][Style:Normal] Hình 4.8. Sơ đồ tuần tự (Sequence Diagram) luồng Xem danh mục và Danh sách Sách.
+[P443][Style:Heading 3] 3.3 Search và Filter
+[P457][Style:Normal] Hình 4.9. Sơ đồ tuần tự (Sequence Diagram) luồng Tìm kiếm và Lọc sách nâng cao.
+[P458][Style:Heading 3] 3.4 Product Detail và Review
+[P470][Style:Normal] Hình 4.10. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Chi tiết Sách & Đánh giá.
+[P471][Style:Heading 3] 3.5 Quản lý Cart (Cart Management)
+[P483][Style:Normal] Hình 4.11. Sơ đồ tuần tự (Sequence Diagram) luồng Thao tác Giỏ hàng (Cart Management).
+[P484][Style:Heading 3] 3.6 Checkout và COD
+[P498][Style:Normal] Hình 4.12. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Đặt hàng COD & Giảm giá.
+[P499][Style:Heading 3] 3.7 Payment Online (Online Payment)
+[P513][Style:Normal] Hình 4.13. Sơ đồ lớp và Tuần tự (Class/Sequence Diagram) Tích hợp Cổng thanh toán Online.
+[P514][Style:Heading 3] 3.8 Order và Return
+[P526][Style:Normal] Hình 4.14. Sơ đồ trạng thái (State Diagram) & Tuần tự luồng Đơn hàng và Đổi trả.
+[P527][Style:Heading 3] 3.9 Y-Point và Membership
+[P539][Style:Normal] Hình 4.15. Sơ đồ tuần tự (Sequence Diagram) luồng Tích lũy và Tiêu điểm Y-Point.
+[P540][Style:Heading 3] 3.10 Chat YiYi AI
+[P554][Style:Normal] Hình 4.16. Sơ đồ thành phần và Tuần tự (Component/Sequence Diagram) Trợ lý AI.
+[P555][Style:Heading 3] 3.11 Catalogue Admin
+[P566][Style:Normal] Hình 4.17. Sơ đồ tuần tự (Sequence Diagram) luồng Quản trị Danh mục & Sách (Admin).
+[P567][Style:Heading 3] 3.12 Xử lý Admin Order
+[P579][Style:Normal] Hình 4.18. Sơ đồ tuần tự (Sequence Diagram) luồng Xử lý và Cập nhật Đơn hàng (Admin).
+[P580][Style:Heading 3] 3.13 Admin Promotion và Content
+[P591][Style:Normal] Hình 4.19. Sơ đồ tuần tự (Sequence Diagram) luồng Quản trị Khuyến mãi & Nội dung (Admin).
+[P592][Style:Heading 1] V. Tài liệu kiểm thử phần mềm
+[P593][Style:Heading 2] 1. Phạm vi kiểm thử
+[P594][Style:Heading 3] 1.1 In-Scope Testing (Kiểm thử trong phạm vi)
+[P603][Style:Heading 3] 1.2 Out-of-Scope Testing (Kiểm thử ngoài phạm vi)
+[P609][Style:Heading 3] 1.3 Constraints & Assumptions (Ràng buộc và giả định)
+[P613][Style:Heading 2] 2. Chiến lược kiểm thử
+[P614][Style:Heading 3] 2.1 Testing Types (Các loại kiểm thử)
+[P620][Style:Heading 3] 2.2 Test Levels (Các cấp độ kiểm thử)
+[P627][Style:Heading 3] 2.3 Testing Tools (Công cụ kiểm thử)
+[P628][Style:Normal] Bảng 5.1 tổng hợp các công cụ và nền tảng kỹ thuật được áp dụng trong toàn bộ quy trình kiểm thử phần mềm của dự án YiYi Book.
+[P629][Style:Normal] Bảng 5.1. Danh mục công cụ kiểm thử sử dụng trong dự án YiYi Book
+[P631][Style:Heading 2] 3. Kế hoạch kiểm thử
+[P632][Style:Heading 3] 3.1 Human Resources (Nguồn lực nhân sự)
+[P633][Style:Normal] Bảng 5.2 mô tả chi tiết cơ cấu phân công trách nhiệm và vai trò của từng thành viên trong nhóm dự án đối với công tác kiểm thử phần mềm.
+[P634][Style:Normal] Bảng 5.2. Bảng phân công nhân sự và trách nhiệm kiểm thử
+[P636][Style:Heading 3] 3.2 Test Environment (Môi trường kiểm thử)
+[P637][Style:Normal] Bảng 5.3 mô tả chi tiết thông số kỹ thuật và cấu hình của môi trường kiểm thử được chuẩn hóa trong dự án.
+[P638][Style:Normal] Bảng 5.3. Cấu hình môi trường kiểm thử hệ thống YiYi Book
+[P640][Style:Heading 3] 3.3 Test Data (Dữ liệu kiểm thử)
+[P645][Style:Heading 3] 3.4 Entry & Exit Criteria (Tiêu chí Bắt đầu & Kết thúc)
+[P646][Style:Normal] Bảng 5.4 quy định rõ ràng các điều kiện nghiệm thu bắt buộc áp dụng cho toàn bộ quy trình kiểm thử phần mềm của dự án.
+[P647][Style:Normal] Bảng 5.4. Tiêu chí Bắt đầu và Tiêu chí Kết thúc kiểm thử
+[P649][Style:Heading 3] 3.5 Test Milestones (Các cột mốc kiểm thử)
+[P650][Style:Normal] Bảng 5.5 trình bày lộ trình thực hiện các giai đoạn kiểm thử theo mô hình Scrum Sprint của dự án.
+[P651][Style:Normal] Bảng 5.5. Các cột mốc triển khai kiểm thử theo Sprint
+[P653][Style:Heading 2] 4. Thiết kế Test Case bằng Black-box Testing
+[P654][Style:Heading 3] 4.1 Equivalence Partitioning (Phân vùng tương đương - EP)
+[P656][Style:Normal] Bảng 5.6. Bảng phân vùng tương đương cho các trường dữ liệu đầu vào
+[P658][Style:Heading 3] 4.2 Boundary Value Analysis (Phân tích giá trị biên - BVA)
+[P660][Style:Normal] Bảng 5.7. Thiết kế ca kiểm thử theo phân tích giá trị biên (BVA)
+[P662][Style:Heading 3] 4.3 Decision Table Testing (Bảng quyết định)
+[P663][Style:Normal] Bảng quyết định được xây dựng để kiểm thử các quy tắc nghiệp vụ phức tạp kết hợp nhiều điều kiện logic trong quá trình tính toán chi phí thanh toán và ưu đãi đơn hàng (Checkout Logic). Bảng 5.8 mô tả ma trận quyết định kiểm thử.
+[P664][Style:Normal] Bảng 5.8. Bảng quyết định tính toán phí vận chuyển và giảm giá đơn hàng
+[P666][Style:Heading 3] 4.4 State Transition Testing (Kiểm thử chuyển trạng thái)
+[P672][Style:Heading 3] 4.5 Use Case Testing (Kiểm thử theo Use Case)
+[P677][Style:Heading 2] 5. White-box / Unit Testing
+[P678][Style:Heading 3] 5.1 JUnit 5 & Mockito Test Implementation
+[P680][Style:Normal] Bảng 5.9. Thống kê chi tiết các lớp kiểm thử đơn vị (Unit Test Classes) và kết quả thực thi
+[P681][Style:Normal] Hình 5.1. Kết quả thực thi Unit Test bằng JUnit 5 và Mockito.
+[P683][Style:Heading 3] 5.2 JaCoCo Code Coverage Report
+[P689][Style:Normal] Hình 5.2. Báo cáo tổng quan Code Coverage bằng JaCoCo.
+[P690][Style:Heading 3] 5.3 Statement & Branch Coverage Analysis
+[P694][Style:Normal] Hình 5.3. Statement và Branch Coverage của các Service nghiệp vụ.
+[P695][Style:Heading 2] 6. API Testing
+[P696][Style:Heading 3] 6.1 Postman Collection Structure
+[P703][Style:Heading 3] 6.2 Newman Automation Execution
+[P709][Style:Normal] Hình 5.4. Kết quả chạy API Automation bằng Newman CLI.
+[P710][Style:Heading 3] 6.3 API Test Result Summary
+[P711][Style:Normal] Bảng 5.10 tổng hợp kết quả thực thi kiểm thử tự động API bằng Newman CLI trên toàn bộ hệ thống.
+[P712][Style:Normal] Bảng 5.10. Tổng hợp kết quả kiểm thử API tự động bằng Postman và Newman
+[P713][Style:Normal] Hình 5.5. Báo cáo kết quả kiểm thử API bằng Postman và Newman.
+[P715][Style:Heading 2] 7. End-to-End Testing
+[P716][Style:Heading 3] 7.1 CodeceptJS Test Design & Page Object Model
+[P723][Style:Heading 3] 7.2 E2E Test Execution & Scenarios
+[P724][Style:Normal] Bảng 5.11 thống kê chi tiết 20 kịch bản kiểm thử toàn trình E2E được tự động hóa hoàn toàn trên trình duyệt.
+[P725][Style:Normal] Bảng 5.11. Danh sách kịch bản kiểm thử toàn trình End-to-End (E2E Test Scenarios)
+[P726][Style:Normal] Hình 5.6. Kết quả thực thi E2E Test bằng CodeceptJS và Playwright.
+[P728][Style:Heading 3] 7.3 Screenshots & Failure Evidence Plugin
+[P730][Style:Normal] Hình 5.7. Ảnh giao diện tự động hóa trong quá trình thực thi kịch bản E2E.
+[P733][Style:Normal] Hình 5.8. Thư mục lưu trữ bằng chứng và ảnh chụp màn hình (output/screenshots).
+[P734][Style:Heading 2] 8. Static Analysis & Code Quality
+[P735][Style:Heading 3] 8.1 Checkstyle Java Standards
+[P740][Style:Normal] Hình 5.9. Báo cáo kiểm tra chuẩn mã nguồn Java bằng Checkstyle (0 violations).
+[P741][Style:Heading 3] 8.2 SpotBugs Bytecode Analysis
+[P745][Style:Normal] Hình 5.10. Báo cáo phân tích bytecode bằng SpotBugs (0 bugs found).
+[P746][Style:Heading 3] 8.3 SonarQube & Flake8 Configuration
+[P749][Style:Normal] Hình 5.11. Kết quả đánh giá chất lượng mã nguồn trên SonarQube Quality Gate.
+[P750][Style:Heading 2] 9. Test Execution Report (Báo cáo thực thi)
+[P751][Style:Heading 3] 9.1 Test Execution Summary
+[P752][Style:Normal] Bảng 5.12 tổng hợp toàn diện các chỉ số và kết quả thực thi của toàn bộ hệ thống kiểm thử tự động đa tầng trong dự án YiYi Book.
+[P753][Style:Normal] Bảng 5.12. Bảng tổng hợp số liệu thực thi kiểm thử toàn diện của hệ thống YiYi Book
+[P754][Style:Normal] Hình 5.12. Kết quả thực thi toàn bộ luồng kiểm thử tự động trên CI/GitHub Actions.
+[P756][Style:Heading 3] 9.2 Pass / Fail / Blocked Statistics
+[P760][Style:Heading 3] 9.3 Coverage Summary Metrics
+[P764][Style:Heading 2] 10. Defect Management (Quản lý lỗi & Khiếm khuyết)
+[P765][Style:Heading 3] 10.1 Bug Tracking & Defect Life Cycle
+[P773][Style:Heading 3] 10.2 Resolved Defects Log (Nhật ký lỗi đã xử lý)
+[P774][Style:Normal] Bảng 5.13 ghi nhận danh sách các khiếm khuyết tiêu biểu được phát hiện trong các đợt kiểm thử và đã được đội ngũ phát triển xử lý triệt để.
+[P775][Style:Normal] Bảng 5.13. Nhật ký các lỗi và khiếm khuyết đã được khắc phục (Resolved Defects Log)
+[P777][Style:Heading 3] 10.3 Defect Status & Evidence Index
+[P780][Style:Heading 2] 11. Requirement Traceability Matrix (RTM)
+[P781][Style:Heading 3] 11.1 Chi tiết Ma trận Truy vết Yêu cầu
+[P783][Style:Normal] Bảng 5.14. Ma trận truy vết yêu cầu phần mềm (Requirement Traceability Matrix - RTM)
+[P785][Style:Heading 2] 12. Test Summary & Conclusion (Tổng kết & Kết luận)
+[P786][Style:Heading 3] 12.1 Đánh giá mức độ sẵn sàng sản phẩm
+[P788][Style:Heading 3] 12.2 Đề xuất và Định hướng nâng cấp tiếp theo
+[P791][Style:Heading 1] VI. Gói phát hành và hướng dẫn người dùng
+[P792][Style:Heading 2] 1. Gói sản phẩm bàn giao
+[P794][Style:Heading 2] 2. Hướng dẫn cài đặt
+[P795][Style:Heading 2] 2.1 System Requirement
+[P806][Style:Heading 2] 2.2 Hướng dẫn cài đặt
+[P815][Style:Normal] Hình 6.1. Minh chứng cấu hình biến môi trường hệ thống (.env và application.properties).
+[P816][Style:Normal] Hình 6.2. Minh chứng khởi chạy PostgreSQL thành công qua Docker Container.
+[P817][Style:Normal] Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8080.
+[P818][Style:Normal] Hình 6.4. Minh chứng kiểm tra API Health Check trả về kết quả UP.
+[P819][Style:Normal] Hình 6.5. Minh chứng Frontend Vite React khởi động thành công trên cổng 5173.
+[P820][Style:Normal] Hình 6.6. Minh chứng đăng nhập thành công vào hệ thống cục bộ (Localhost:5173).
+[P821][Style:Normal] Hình 6.7. Minh chứng giao diện Frontend triển khai trên Production.
+[P822][Style:Normal] Hình 6.8. Minh chứng Backend và Cơ sở dữ liệu Cloud hoạt động trên Production.
+[P823][Style:Heading 2] 3. Hướng dẫn sử dụng
+[P824][Style:Heading 3] 3.1 Tổng quan
+[P826][Style:Heading 3] 3.2 Customer Workflow
+[P827][Style:Heading 4] 3.2.1 Register và Login
+[P832][Style:Normal] Hình 6.9. Hướng dẫn Đăng ký tài khoản người dùng và Đăng nhập hệ thống.
+[P834][Style:Heading 4] 3.2.2 Browse và Search
+[P839][Style:Normal] Hình 6.10. Hướng dẫn Khám phá Trang chủ và Tìm kiếm Sách nâng cao.
+[P841][Style:Heading 4] 3.2.3 Product và Wishlist
+[P846][Style:Normal] Hình 6.11. Hướng dẫn Xem Chi tiết Sách và Quản lý Danh sách yêu thích.
+[P848][Style:Heading 4] 3.2.4 Cart và Checkout
+[P854][Style:Normal] Hình 6.12. Hướng dẫn Thao tác Giỏ hàng và Nhập địa chỉ Giao hàng.
+[P856][Style:Heading 4] 3.2.5 Payment và Order Tracking
+[P861][Style:Normal] Hình 6.13. Hướng dẫn Thanh toán Trực tuyến và Theo dõi Đơn hàng.
+[P863][Style:Heading 4] 3.2.6 Review và Community
+[P868][Style:Normal] Hình 6.14. Hướng dẫn Đánh giá Sách và Bình luận chia sẻ.
+[P870][Style:Heading 4] 3.2.7 Y-Point và Coupon
+[P875][Style:Normal] Hình 6.15. Hướng dẫn Tích điểm Thưởng Y-Points và Áp dụng Mã Voucher.
+[P877][Style:Heading 4] 3.2.8 YiYi AI
+[P882][Style:Normal] Hình 6.16. Hướng dẫn Tương tác và Tư vấn Sách thông minh qua Trợ lý AI.
+[P884][Style:Heading 3] 3.3 Admin/Manager Workflow
+[P885][Style:Heading 4] 3.3.1 Admin Login và Dashboard
+[P890][Style:Normal] Hình 6.17. Hướng dẫn Đăng nhập Quản trị và Theo dõi Bảng điều khiển Tổng quan.
+[P892][Style:Heading 4] 3.3.2 Quản lý Book
+[P897][Style:Normal] Hình 6.18. Hướng dẫn Thêm mới, Chỉnh sửa và Quản trị Kho Sách.
+[P899][Style:Heading 4] 3.3.3 Quản lý Category và Banner
+[P904][Style:Normal] Hình 6.19. Hướng dẫn Cấu hình Danh mục Thể loại và Banner Khuyến mãi.
+[P906][Style:Heading 4] 3.3.4 Quản lý Order
+[P912][Style:Normal] Hình 6.20. Hướng dẫn Duyệt, Xử lý và Chuyển trạng thái Đơn hàng.
+[P914][Style:Heading 4] 3.3.5 Quản lý User và Role
+[P920][Style:Normal] Hình 6.21. Hướng dẫn Quản lý Tài khoản Khách hàng và Phân quyền Quản trị.
+[P922][Style:Heading 4] 3.3.6 Quản lý Promotion và Reward
+[P927][Style:Normal] Hình 6.22. Hướng dẫn Tạo Mã giảm giá và Cấu hình Chương trình Điểm thưởng.
+[P929][Style:Heading 4] 3.3.7 Kiểm duyệt Review và Communication
+[P934][Style:Normal] Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.
+[P936][Style:Heading 3] 3.4 Hỗ trợ và Troubleshooting
+[P937][Style:Normal] Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.
+[P938][Style:Heading 1] Phụ lục A. Minh chứng và Checklist hoàn thành
+[P944][Style:Normal] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)

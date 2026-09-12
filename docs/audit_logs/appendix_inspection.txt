@@ -1,0 +1,46 @@
+[P938][Heading 1] Phụ lục A. Minh chứng và Checklist hoàn thành
+[P939][Normal] Các mục sau được để dưới dạng placeholder rõ ràng để hai thành viên được phân công có thể hoàn thiện báo cáo Word mà không phải đoán phần còn thiếu.
+[P940][Normal] 
+[P941][Normal] Đề xuất bàn giao cho hai người
+[P942][Normal] 
+[P943][Normal] 
+[P944][Normal] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)
+[P945][Normal] 
+
+=== TABLE 118 (rows=15, cols=4) ===
+Row 0: ['ID', 'Hạng mục evidence', 'Report location', 'Status / chèn tại đây']
+Row 1: ['A01', 'Logo trường/bộ chính thức', 'Bìa báo cáo', 'PENDING - [CẦN BỔ SUNG: Chèn file ảnh logo chính thức của Trường]']
+Row 2: ['A02', 'Họ tên, MSSV, GVHD và Mã lớp môn học', 'Bìa / Chương I', 'DONE - Đã chuẩn hóa 5 thành viên & GVHD Nguyễn Văn Chiến']
+Row 3: ['A03', 'Use-case và System Context Diagram', 'Chương III / IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ Use-Case tổng thể]']
+Row 4: ['A04', 'System Architecture Diagram (Hệ thống)', 'Chương IV', 'DONE - Đã có diagram Figure 1.1 / Hinh_4.1 (sẵn sàng nhúng)']
+Row 5: ['A05', 'Frontend Component & Route Architecture', 'Chương IV', 'DONE - Đã có diagram Hinh_4.2 (sẵn sàng nhúng)']
+Row 6: ['A06', 'Backend Layered Architecture Diagram', 'Chương IV', 'DONE - Đã có diagram Figure 1.1.1 (sẵn sàng nhúng)']
+Row 7: ['A07', 'Sơ đồ luồng AI RAG và Phân loại Intent', 'Chương IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý RAG & Groq AI]']
+Row 8: ['A08', 'Database ERD và Schema Design', 'Chương IV', 'PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 17 bảng PostgreSQL]']
+Row 9: ['A09', 'Screenshot Giao diện Customer Storefront', 'Chương III / VI', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 8 màn hình luồng khách hàng]']
+Row 10: ['A10', 'Screenshot Giao diện Quản trị Admin Portal', 'Chương III / VI', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 7 màn hình cổng quản trị]']
+Row 11: ['A11', 'Minh chứng kết quả Kiểm thử (Unit, API, E2E)', 'Chương V', 'DONE - 299 Unit TCs, 421 API Assertions, 20 E2E Checks']
+Row 12: ['A12', 'Minh chứng JaCoCo Code Coverage', 'Chương V', 'PENDING - [CẦN BỔ SUNG EVIDENCE: Ảnh chụp báo cáo JaCoCo HTML]']
+Row 13: ['A13', 'Báo cáo Kiểm thử chấp nhận người dùng (UAT)', 'Chương V', 'PENDING - [CẦN BỔ SUNG: Biên bản ký duyệt nghiệm thu UAT]']
+Row 14: ['A14', 'Deployment URL, Health Check & Docker evidence', 'Chương II / IV / VI', 'PENDING - [CẦN BỔ SUNG: URL Production & Ảnh Docker PS]']
+
+=== TABLE 119 (rows=3, cols=3) ===
+Row 0: ['Owner', 'Complete next', 'Acceptance criteria']
+Row 1: ['Nhóm Phụ trách 1: Yêu cầu, Kiến trúc & Giao diện (Đỉnh, Phú, Tài)', '1. Chèn ảnh Logo trường và ảnh chụp giao diện Storefront / Admin vào Chương III và Chương VI. 2. Bổ sung diagram Use-Case tổng thể, sơ đồ luồng AI RAG và sơ đồ ERD vào Chương IV. 3. Kiểm tra định dạng lề và cập nhật lại Mục lục Word (TOC) trước khi xuất PDF.', 'Hoàn thiện 100% hình ảnh minh chứng kiến trúc và giao diện hệ thống.']
+Row 2: ['Nhóm Phụ trách 2: Kiểm thử, Minh chứng & Triển khai (Thiên Văn, Vân Anh)', '1. Chụp ảnh báo cáo JaCoCo HTML (đạt 37.57% toàn hệ thống, >85% core service) đính kèm Mục 5.3. 2. Thực hiện buổi đánh giá UAT với người dùng thử nghiệm và bổ sung biên bản vào Mục 5.8. 3. Điền URL triển khai chính thức và ảnh chụp trạng thái Docker/Health Check vào Chương II & VI.', 'Đầy đủ minh chứng thực tế từ test suite, độ bao phủ mã và trạng thái triển khai.']
+
+=== TABLE 120 (rows=1, cols=1) ===
+Row 0: ['Final review: Sau khi cả hai owner hoàn thành, mở file Word, update table of contents và field, proofread toàn bộ figure/table caption, verify page number, xóa placeholder còn lại và export PDF cuối.']
+
+=== TABLE 121 (rows=11, cols=6) ===
+Row 0: ['STT', 'Hạng mục cần bổ sung', 'Vị trí trong Báo cáo', 'Mức độ ưu tiên', 'Người phụ trách', 'Hành động thực hiện']
+Row 1: ['1', 'Chèn ảnh Logo chính thức của Trường', 'Trang bìa (Cover)', 'Critical', 'Phan Văn Đỉnh', 'Chèn file ảnh logo độ phân giải cao vào đầu trang bìa.']
+Row 2: ['2', 'Nhúng các sơ đồ kiến trúc hệ thống chính thức', 'Chương IV (Mục 4.1, 4.2)', 'Critical', 'Lê Minh Tài / Huỳnh Anh Phú', 'Chèn các ảnh đã tạo: Figure 1.1 (System), Hinh 4.2 (Frontend), Figure 1.1.1 (Backend).']
+Row 3: ['3', 'Bổ sung ảnh chụp báo cáo JaCoCo HTML', 'Chương V (Mục 5.3)', 'Critical', 'Lê Minh Tài', 'Chụp ảnh màn hình từ target/site/jacoco/index.html minh chứng 37.57% tổng thể và >85% Service.']
+Row 4: ['4', 'Bổ sung ảnh chụp kết quả Kiểm thử E2E & API', 'Chương V (Mục 5.4, 5.5)', 'High', 'Huỳnh Anh Phú / Tạ Huy Thiên Văn', 'Chụp kết quả chạy Newman CLI (421 assertions) và CodeceptJS (20/20 checks PASS).']
+Row 5: ['5', 'Bổ sung biên bản nghiệm thu UAT', 'Chương V (Mục 5.8)', 'High', 'Phan Văn Đỉnh / Võ Ngọc Vân Anh', 'Tổ chức phiên kiểm thử thực tế với người dùng, lập bảng đánh giá và ghi nhận biên bản xác nhận.']
+Row 6: ['6', 'Chụp ảnh giao diện Customer Storefront & Admin', 'Chương III & Chương VI', 'High', 'Huỳnh Anh Phú / Võ Ngọc Vân Anh', 'Chụp 8 màn hình Storefront (Home, Search, Detail, Cart...) và 7 màn hình Admin Portal.']
+Row 7: ['7', 'Cập nhật Deployment URL và Health Check', 'Chương II & Chương VI', 'Medium', 'Lê Minh Tài', 'Điền đường dẫn production thực tế (hoặc domain staging) và chụp lệnh docker ps/curl health check.']
+Row 8: ['8', 'Bổ sung Sơ đồ luồng AI RAG & Intent', 'Chương IV (Mục 4.4)', 'Medium', 'Tạ Huy Thiên Văn', 'Vẽ sơ đồ quy trình RAG (User -> Intent Router -> PostgreSQL -> Groq API -> Markdown Result).']
+Row 9: ['9', 'Bổ sung Sơ đồ cơ sở dữ liệu ERD 17 bảng', 'Chương IV (Mục 4.3)', 'Medium', 'Lê Minh Tài', 'Export sơ đồ ERD trực tiếp từ PostgreSQL/DBeaver thể hiện khóa chính, khóa ngoại 17 bảng.']
+Row 10: ['10', 'Cập nhật Mục lục tự động Word (TOC) & Xuất PDF', 'Toàn bộ tài liệu', 'Low', 'Phan Văn Đỉnh', 'Mở file trên Microsoft Word, nhấn F9 / Update Entire Table of Contents, rà soát số trang và lưu bản PDF.']

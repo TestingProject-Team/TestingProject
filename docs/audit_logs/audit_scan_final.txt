@@ -1,0 +1,148 @@
+=== Target: [Hãy] (0 occurrences) ===
+
+=== Target: [Nhóm nên] (0 occurrences) ===
+
+=== Target: [Archive được cung cấp] (0 occurrences) ===
+
+=== Target: [source archive] (0 occurrences) ===
+
+=== Target: [Chèn screenshot] (0 occurrences) ===
+
+=== Target: [Mục 5.8] (0 occurrences) ===
+
+=== Target: [100% Toàn thời gian] (0 occurrences) ===
+
+=== Target: [REQ-AUTH] (0 occurrences) ===
+
+=== Target: [REQ-CAT] (0 occurrences) ===
+
+=== Target: [REQ-CART] (0 occurrences) ===
+
+=== Target: [REQ-ORD] (0 occurrences) ===
+
+=== Target: [REQ-REW] (0 occurrences) ===
+
+=== Target: [17 bảng] (0 occurrences) ===
+
+=== Target: [25 bảng] (0 occurrences) ===
+
+=== Target: [8080] (0 occurrences) ===
+
+=== Target: [8081] (2 occurrences) ===
+  [P817] Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8081 [CẦN XÁC MINH PORT TỪ application.propertie
+  [T72[R1C2]] 8081 (Local Dev & Docker) / 8082 (Docker Test Profile) [CẦN XÁC MINH PORT TỪ application.properties / application.yml /
+
+=== Target: [8082] (1 occurrences) ===
+  [T72[R1C2]] 8081 (Local Dev & Docker) / 8082 (Docker Test Profile) [CẦN XÁC MINH PORT TỪ application.properties / application.yml /
+
+=== Target: [sẵn sàng phục vụ người dùng thực tế] (0 occurrences) ===
+
+=== Target: [hoàn thành xuất sắc] (0 occurrences) ===
+
+=== Target: [CẦN BỔ SUNG] (105 occurrences) ===
+  [P944] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)
+  [T6[R1C2]] [CẦN BỔ SUNG: Benchmark system / URL / Evidence]
+  [T6[R2C2]] [CẦN BỔ SUNG: Benchmark system / URL / Evidence]
+  [T6[R3C2]] [CẦN BỔ SUNG: Benchmark payment gateway / Evidence]
+  [T6[R4C2]] [CẦN BỔ SUNG: Benchmark AI assistant / Evidence]
+  [T7[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo giao diện và luồng nghiệp vụ mua sách tại Fahasa/Tiki]
+  [T8[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo mô hình Sàn giao dịch & Gian hàng Shopee/Lazada]
+  [T9[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh giao diện cổng thanh toán trực tuyến mẫu (VNPAY/MoMo Sandbox)]
+  [T15[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh bảng Jira Scrum Board / Sprint Backlog thực tế của dự án]
+  [T16[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh quản lý Git Branch, Commit History và Pull Request trên GitHub]
+  [T17[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh GitHub Actions CI Workflow chạy tự động Build & Test thành công]
+  [T18[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh kết quả Smoke Test môi trường triển khai thực tế]
+  [T19[R1C3]] [CẦN BỔ SUNG: SETUP SCREENSHOT]
+  [T19[R2C3]] [CẦN BỔ SUNG: COLLECTION RUN]
+  [T19[R3C3]] [CẦN BỔ SUNG: ADMIN DEMO]
+  [T19[R4C3]] [CẦN BỔ SUNG: DEPLOYMENT LOG]
+  [T20[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh biên bản bàn giao / Ảnh chụp buổi đào tạo vận hành hệ thống]
+  [T21[R1C3]] [CẦN BỔ SUNG: LINK / VERSION]
+  [T21[R2C3]] [CẦN BỔ SUNG: LINK / VERSION]
+  [T21[R6C3]] [CẦN BỔ SUNG: RELEASE LINK]
+  [T21[R7C3]] [CẦN BỔ SUNG: FINAL DOC LINK]
+  [T23[R1C4]] [CẦN BỔ SUNG: CHANNEL]
+  [T23[R3C4]] [CẦN BỔ SUNG: CHANNEL]
+  [T23[R5C4]] [CẦN BỔ SUNG: LOCATION]
+  [T38[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Trợ lý tư vấn AI]
+  [T44[R1C3]] [CẦN XÁC MINH / CẦN BỔ SUNG EVIDENCE]
+  [T44[R3C3]] [CẦN XÁC MINH / CẦN BỔ SUNG EVIDENCE: Báo cáo quét lỗ hổng OWASP / Pentest]
+  [T44[R4C3]] [CẦN XÁC MINH / CẦN BỔ SUNG EVIDENCE: Đánh giá khảo sát trải nghiệm người dùng]
+  [T44[R6C3]] [CẦN BỔ SUNG: LOAD PLAN]
+  [T44[R7C3]] [CẦN BỔ SUNG: BROWSER MATRIX]
+  [T44[R8C3]] [CẦN BỔ SUNG: TRANSACTION TEST]
+  [T44[R9C3]] [CẦN BỔ SUNG: LOGGING REVIEW]
+  [T50[R0C0]] [CẦN BỔ SUNG DIAGRAM: Sơ đồ kiến trúc phân tầng Backend Spring Boot]
+  [T51[R0C0]] [CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý AI RAG và Phân loại Intent]
+  [T52[R1C2]] [CẦN BỔ SUNG: DEPLOYMENT URL VÀ SCREENSHOT]
+  [T52[R2C2]] [CẦN BỔ SUNG: HEALTH CHECK VÀ LOG]
+  [T52[R3C2]] [CẦN BỔ SUNG: SCHEMA HOẶC CONSOLE EVIDENCE]
+  [T52[R4C2]] [CẦN BỔ SUNG: ENVIRONMENT EVIDENCE ĐÃ CẤU HÌNH, KHÔNG KÈM KEY]
+  [T52[R5C2]] [CẦN BỔ SUNG: SANDBOX EVIDENCE]
+  [T53[R0C0]] [CẦN BỔ SUNG: PACKAGE DIAGRAM]
+  [T55[R0C0]] [CẦN BỔ SUNG: ENTITY RELATIONSHIP DIAGRAM]
+  [T57[R0C0]] [CẦN BỔ SUNG: LOGIN FLOW SCREENSHOT / SEQUENCE DIAGRAM]
+  [T58[R0C0]] [CẦN BỔ SUNG: PRODUCT LIST SCREENSHOT]
+  [T59[R0C0]] [CẦN BỔ SUNG: SEARCH FLOW SCREENSHOT]
+  [T60[R0C0]] [CẦN BỔ SUNG: PRODUCT DETAIL CLASS/SEQUENCE DIAGRAM]
+  [T61[R0C0]] [CẦN BỔ SUNG: CART FLOW SCREENSHOT]
+  [T62[R0C0]] [CẦN BỔ SUNG: CHECKOUT SEQUENCE DIAGRAM]
+  [T63[R0C0]] [CẦN BỔ SUNG: PAYMENT FLOW SCREENSHOT]
+  [T64[R0C0]] [CẦN BỔ SUNG: ORDER LIFECYCLE DIAGRAM]
+  [T65[R0C0]] [CẦN BỔ SUNG: REWARD FLOW SCREENSHOT]
+  [T66[R0C0]] [CẦN BỔ SUNG: AI SEQUENCE DIAGRAM]
+  [T67[R0C0]] [CẦN BỔ SUNG: ADMIN CATALOGUE SCREENSHOT]
+  [T68[R0C0]] [CẦN BỔ SUNG: ADMIN ORDER SCREENSHOT]
+  [T69[R0C0]] [CẦN BỔ SUNG: ADMIN CONTENT SCREENSHOT]
+  [T78[R15C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh kết quả chạy 299 Unit Tests bằng lệnh `mvn test` trên Terminal/IntelliJ IDEA]
+  [T79[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh giao diện báo cáo HTML tổng quan của JaCoCo Code Coverage (index.html)]
+  [T80[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chi tiết độ bao phủ mã nguồn (Statement & Branch Coverage) của các Service cốt lõi trên giao
+  [T81[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh màn hình Terminal thực thi bộ kiểm thử API toàn diện bằng Newman CLI]
+  [T82[R7C0]] [CẦN BỔ SUNG EVIDENCE: Báo cáo kết quả kiểm thử API xuất từ Newman HTML Reporter hoặc Postman Collection Runner]
+  [T83[R21C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình kết quả chạy CodeceptJS trên Terminal hiển thị 20/20 kịch bản PASS]
+  [T84[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình giao diện ứng dụng thực tế trong quá trình robot tự động thao tác trình duyệt]
+  [T85[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh cấu trúc thư mục output/screenshots lưu trữ các ảnh chụp bằng chứng kiểm thử E2E]
+  [T86[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh Terminal thực thi lệnh `mvn checkstyle:check` đạt BUILD SUCCESS và 0 violation]
+  [T87[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh Terminal thực thi lệnh `mvn spotbugs:check` đạt BUILD SUCCESS và 0 bugs found]
+  [T88[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh giao diện SonarQube Dashboard hiển thị trạng thái Quality Gate PASSED]
+  [T89[R7C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh giao diện GitHub Actions CI/CD hiển thị toàn bộ workflow kiểm thử tự động đạt trạng thái SUCC
+  [T92[R2C2]] [CẦN BỔ SUNG: DEPLOYMENT URL]
+  [T92[R3C2]] [CẦN BỔ SUNG: DEPLOYMENT URL]
+  [T92[R4C2]] [CẦN BỔ SUNG: SCHEMA / MIGRATION]
+  [T92[R6C2]] [CẦN BỔ SUNG: FOLDER CUỐI]
+  [T92[R7C2]] [CẦN BỔ SUNG: LINK CUỐI]
+  [T94[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh cấu hình file .env và application-local.properties]
+  [T95[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh docker compose up -d và Docker Desktop]
+  [T96[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh console log Spring Boot Started Application in X seconds]
+  [T97[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh Postman / Browser kiểm tra Swagger UI hoặc API /actuator/health]
+  [T98[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh terminal lệnh npm run dev sẵn sàng truy cập Localhost]
+  [T99[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình trang chủ với trạng thái đã đăng nhập tài khoản]
+  [T99[R1C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình cài đặt và khởi chạy Local]
+  [T100[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình ứng dụng trên Domain Production]
+  [T101[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh Dashboard Cloud / Server Log / Swagger Production UP]
+  [T102[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Đăng ký & Đăng nhập Khách hàng]
+  [T103[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Luồng Khám phá Trang chủ, Danh mục & Tìm kiếm Sách]
+  [T104[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Chi tiết sản phẩm & Quản lý Danh sách yêu thích (Wishlist)]
+  [T105[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Thao tác Giỏ hàng & Điền thông tin Đặt hàng]
+  [T106[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cổng thanh toán Trực tuyến & Lịch sử Theo dõi Đơn hàng]
+  [T107[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Viết đánh giá sản phẩm và Xem bình luận]
+  [T108[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Tích điểm thưởng Y-Point & Áp dụng Kho Voucher]
+  [T109[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Cửa sổ Chatbot YiYi AI Assistant]
+  [T110[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Đăng nhập Quản trị & Bảng điều khiển Dashboard Doanh thu]
+  [T111[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Giao diện Quản trị Kho Sách và Tồn kho]
+  [T112[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản trị Danh mục Thể loại & Banner Marketing]
+  [T113[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh sách Đơn hàng & Xử lý Vận chuyển]
+  [T114[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Danh sách Người dùng & Phân quyền RBAC]
+  [T115[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Quản lý Mã Coupon Khuyến mãi & Điểm Y-Point]
+  [T116[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Kiểm duyệt Đánh giá Bình luận & Quản lý Thư Liên hệ]
+  [T118[R1C3]] PENDING - [CẦN BỔ SUNG: Chèn file ảnh logo chính thức của Trường]
+  [T118[R3C3]] PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ Use-Case tổng thể]
+  [T118[R7C3]] PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ luồng xử lý RAG & Groq AI]
+  [T118[R8C3]] PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 21 bảng thực thể [CẦN XÁC MINH DATABASE SCHEMA] PostgreSQL]
+  [T118[R9C3]] PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 8 màn hình luồng khách hàng]
+  [T118[R10C3]] PENDING - [CẦN BỔ SUNG EVIDENCE: Chụp 7 màn hình cổng quản trị]
+  [T118[R12C3]] PENDING - [CẦN BỔ SUNG EVIDENCE: Ảnh chụp báo cáo JaCoCo HTML]
+  [T118[R13C3]] PENDING - [CẦN BỔ SUNG: Biên bản ký duyệt nghiệm thu UAT]
+  [T118[R14C3]] PENDING - [CẦN BỔ SUNG: URL Production & Ảnh Docker PS]
+  [T121[R0C1]] Hạng mục cần bổ sung
+

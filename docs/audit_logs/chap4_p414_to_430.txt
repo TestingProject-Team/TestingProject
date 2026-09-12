@@ -1,0 +1,17 @@
+[P414][Heading 3] 3.1 Login và JWT Authentication
+[P415][Normal] • Cấu trúc Class Diagram tham chiếu: AuthController -> AuthService -> JwtService, UserRepository, PasswordEncoder -> User, Role.
+[P416][Normal] • Mô tả Sequence Flow: Client gửi POST /api/auth/login {email, password} -> JwtAuthFilter bỏ qua permitAll -> AuthController gọi AuthService.login() -> AuthService tìm user theo email -> PasswordEncoder so khớp hash BCrypt -> JwtService sinh Bearer Token kèm claims role -> Trả về HTTP 200 {token, user} -> Client lưu AuthContext và localStorage.
+[P417][Normal] Mục tiêu: Authenticate, issue JWT, attach token through frontend request handling.
+[P418][Normal] Actor(s): Customer/Admin
+[P419][Normal] Điều kiện tiên quyết: Valid credentials; user record exists.
+[P420][Normal] Luồng chính
+[P421][Normal] Gửi email và password.
+[P422][Normal] Backend validate credential và role.
+[P423][Normal] Backend trả về token và user information.
+[P424][Normal] Frontend lưu session và redirect đến surface phù hợp.
+[P425][Normal] Luồng thay thế và ngoại lệ
+[P426][Normal] Credential không hợp lệ trả về error an toàn.
+[P427][Normal] Token hết hạn/không hợp lệ sẽ deny protected request.
+[P428][Normal] Tiêu chí nghiệm thu: User/role đúng được trả về và behavior của protected endpoint được verify.
+[P429][Normal] Hình 4.7. Sơ đồ lớp (Class Diagram) và Tuần tự luồng Xác thực JWT.
+[P430][Heading 3] 3.2 Xem Product List

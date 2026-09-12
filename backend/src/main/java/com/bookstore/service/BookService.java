@@ -149,17 +149,19 @@ public class BookService {
                 
                 java.util.Optional<Book> existingOpt = bookRepository.findFirstByTitle(newBook.getTitle().trim());
                 if (existingOpt.isPresent()) {
-                    Book existing = existingOpt.get();
-                    if (newBook.getAuthor() != null && !newBook.getAuthor().isEmpty()) existing.setAuthor(newBook.getAuthor());
-                    if (newBook.getPublisher() != null && !newBook.getPublisher().isEmpty()) existing.setPublisher(newBook.getPublisher());
-                    if (newBook.getDescription() != null && !newBook.getDescription().isEmpty()) existing.setDescription(newBook.getDescription());
-                    if (newBook.getPrice() != null && newBook.getPrice().compareTo(java.math.BigDecimal.ZERO) > 0) existing.setPrice(newBook.getPrice());
-                    if (newBook.getOldPrice() != null) existing.setOldPrice(newBook.getOldPrice());
-                    if (newBook.getDiscount() != null) existing.setDiscount(newBook.getDiscount());
-                    if (newBook.getStockQuantity() != null) existing.setStockQuantity(newBook.getStockQuantity());
-                    if (newBook.getCategory() != null && newBook.getCategory().getId() != null && newBook.getCategory().getId() != 0) existing.setCategory(newBook.getCategory());
-                    if (newBook.getImageUrl() != null && !newBook.getImageUrl().isEmpty()) existing.setImageUrl(newBook.getImageUrl());
-                    bookRepository.save(existing);
+                    Book existing = existingOpt.orElse(null);
+                    if (existing != null) {
+                        if (newBook.getAuthor() != null && !newBook.getAuthor().isEmpty()) existing.setAuthor(newBook.getAuthor());
+                        if (newBook.getPublisher() != null && !newBook.getPublisher().isEmpty()) existing.setPublisher(newBook.getPublisher());
+                        if (newBook.getDescription() != null && !newBook.getDescription().isEmpty()) existing.setDescription(newBook.getDescription());
+                        if (newBook.getPrice() != null && newBook.getPrice().compareTo(java.math.BigDecimal.ZERO) > 0) existing.setPrice(newBook.getPrice());
+                        if (newBook.getOldPrice() != null) existing.setOldPrice(newBook.getOldPrice());
+                        if (newBook.getDiscount() != null) existing.setDiscount(newBook.getDiscount());
+                        if (newBook.getStockQuantity() != null) existing.setStockQuantity(newBook.getStockQuantity());
+                        if (newBook.getCategory() != null && newBook.getCategory().getId() != null && newBook.getCategory().getId() != 0) existing.setCategory(newBook.getCategory());
+                        if (newBook.getImageUrl() != null && !newBook.getImageUrl().isEmpty()) existing.setImageUrl(newBook.getImageUrl());
+                        bookRepository.save(existing);
+                    }
                 } else {
                     bookRepository.save(newBook);
                 }

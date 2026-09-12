@@ -1,6 +1,7 @@
 package com.bookstore.config;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import javax.crypto.Mac;
@@ -10,11 +11,32 @@ import java.util.Random;
 
 @Configuration
 public class VNPayConfig {
-    public static final String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static final String vnp_ReturnUrl = "http://localhost:5173/payment-result"; // Thay đổi nếu deploy
-    public static final String vnp_TmnCode = "CGXZLS0Z"; // Thay bằng mã TMN của bạn
-    public static final String secretKey = "***REMOVED_VNPAY_HASH_SECRET***"; // Thay bằng Secret Key của bạn
-    public static final String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+    public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+    public static String vnp_ReturnUrl = "http://localhost:5173/payment-result";
+    public static String vnp_TmnCode = "CGXZLS0Z";
+    public static String secretKey = "***REMOVED_VNPAY_HASH_SECRET***";
+    public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
+
+    @Value("${vnpay.tmnCode:CGXZLS0Z}")
+    public void setTmnCode(String tmnCode) {
+        if (tmnCode != null && !tmnCode.trim().isEmpty()) {
+            VNPayConfig.vnp_TmnCode = tmnCode.trim();
+        }
+    }
+
+    @Value("${vnpay.hashSecret:***REMOVED_VNPAY_HASH_SECRET***}")
+    public void setSecretKey(String hashSecret) {
+        if (hashSecret != null && !hashSecret.trim().isEmpty()) {
+            VNPayConfig.secretKey = hashSecret.trim();
+        }
+    }
+
+    @Value("${vnpay.url:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}")
+    public void setPayUrl(String url) {
+        if (url != null && !url.trim().isEmpty()) {
+            VNPayConfig.vnp_PayUrl = url.trim();
+        }
+    }
 
     public static String hmacSHA512(final String key, final String data) {
         try {
@@ -23,8 +45,8 @@ public class VNPayConfig {
             }
             final Mac hmac512 = Mac.getInstance("HmacSHA512");
             byte[] hmacKeyBytes = key.getBytes(StandardCharsets.UTF_8);
-            final SecretKeySpec secretKey = new SecretKeySpec(hmacKeyBytes, "HmacSHA512");
-            hmac512.init(secretKey);
+            final SecretKeySpec secretKeySpec = new SecretKeySpec(hmacKeyBytes, "HmacSHA512");
+            hmac512.init(secretKeySpec);
             byte[] dataBytes = data.getBytes(StandardCharsets.UTF_8);
             byte[] result = hmac512.doFinal(dataBytes);
             StringBuilder sb = new StringBuilder(2 * result.length);

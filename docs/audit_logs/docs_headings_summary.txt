@@ -1,0 +1,145 @@
+[10] (normal) I. Giới thiệu dự án
+[11] (normal) 1. Tổng quan
+[12] (normal) 1.1 Thông tin dự án
+[13] (normal) 1.2 Nhóm dự án
+[14] (normal) 2. Bối cảnh sản phẩm
+[15] (normal) 3. Hệ thống hiện có và tham chiếu thị trường
+[16] (normal) 4. Cơ hội kinh doanh
+[17] (normal) 5. Tầm nhìn sản phẩm phần mềm
+[18] (normal) 6. Phạm vi và giới hạn dự án
+[19] (normal) II. Kế hoạch quản lý dự án
+[20] (normal) 1. Tổng quan
+[21] (normal) 2. Phương pháp quản lý
+[22] (normal) 3. Sản phẩm bàn giao của dự án
+[23] (normal) 4. Phân công trách nhiệm
+[24] (normal) 5. Trao đổi trong dự án
+[25] (normal) 6. Quản lý cấu hình
+[26] (normal) III. Đặc tả yêu cầu phần mềm
+[27] (normal) 1. Tổng quan sản phẩm
+[28] (normal) 2. Yêu cầu người dùng
+[29] (normal) 3. Yêu cầu chức năng
+[30] (normal) 4. Yêu cầu phi chức năng
+[31] (normal) 5. Phụ lục yêu cầu
+[32] (normal) IV. Mô tả thiết kế phần mềm
+[33] (normal) 1. Thiết kế hệ thống
+[34] (normal) 2. Thiết kế Database
+[35] (normal) 3. Thiết kế chi tiết
+[36] (normal) V. Tài liệu kiểm thử phần mềm
+[37] (normal) 1. Phạm vi kiểm thử
+[38] (normal) 2. Chiến lược kiểm thử
+[39] (normal) 3. Kế hoạch kiểm thử
+[40] (normal) 4. Test Case
+[41] (normal) 5. Báo cáo kiểm thử
+[42] (normal) VI. Gói phát hành và hướng dẫn người dùng
+[43] (normal) 1. Gói sản phẩm bàn giao
+[44] (normal) 2. Hướng dẫn cài đặt
+[45] (normal) 3. Hướng dẫn sử dụng
+[55] (Heading 1) I. Giới thiệu dự án
+[56] (Heading 2) 1. Tổng quan
+[57] (Heading 3) 1.1 Thông tin dự án
+[61] (Heading 3) 1.2 Nhóm dự án
+[64] (Heading 2) 2. Bối cảnh sản phẩm
+[72] (Heading 2) 3. Hệ thống hiện có và tham chiếu thị trường
+[75] (Heading 2) 4. Cơ hội kinh doanh
+[82] (Heading 2) 5. Tầm nhìn sản phẩm phần mềm
+[88] (Heading 2) 6. Phạm vi và giới hạn dự án
+[89] (Heading 3) 6.1 Major Features
+[91] (Heading 3) 6.2 Giới hạn và nội dung loại trừ
+[97] (Heading 1) II. Kế hoạch quản lý dự án
+[98] (Heading 2) 1. Tổng quan
+[99] (Heading 3) 1.1 Phạm vi và ước lượng
+[102] (Heading 3) 1.2 Mục tiêu dự án
+[109] (Heading 3) 1.3 Rủi ro dự án
+[111] (Heading 2) 2. Phương pháp quản lý
+[112] (Heading 3) 2.1 Quy trình dự án
+[120] (Heading 3) 2.2 Quản lý chất lượng
+[126] (Heading 3) 2.3 Kế hoạch đào tạo
+[128] (Heading 2) 3. Sản phẩm bàn giao của dự án
+[130] (Heading 2) 4. Phân công trách nhiệm
+[132] (Heading 2) 5. Trao đổi trong dự án
+[134] (Heading 2) 6. Quản lý cấu hình
+[135] (Heading 3) 6.1 Quản lý tài liệu
+[140] (Heading 3) 6.2 Quản lý Source Code
+[145] (Heading 3) 6.3 Công cụ và hạ tầng
+[147] (Heading 1) III. Đặc tả yêu cầu phần mềm
+[148] (Heading 2) 1. Tổng quan sản phẩm
+[156] (Heading 2) 2. Yêu cầu người dùng
+[157] (Heading 3) 2.1 Actor của hệ thống
+[159] (Heading 3) 2.2 Use Case
+[161] (Heading 2) 3. Yêu cầu chức năng
+[163] (Heading 3) 3.1 Tổng quan chức năng hệ thống
+[166] (Heading 3) 3.2 Web Application
+[167] (Heading 4) 3.2.1 Ứng dụng Customer (Customer Application)
+[272] (Heading 4) 3.2.2 Cổng Administration (Administration Portal)
+[338] (Heading 2) 4. Yêu cầu phi chức năng
+[340] (Heading 3) 4.1 External Interface
+[342] (Heading 3) 4.2 Thuộc tính chất lượng
+[348] (Heading 2) 5. Phụ lục yêu cầu
+[349] (Heading 3) 5.1 Business Rule
+[351] (Heading 3) 5.2 Yêu cầu chung
+[359] (Heading 3) 5.3 Danh sách Application Message
+[361] (Heading 1) IV. Mô tả thiết kế phần mềm
+[362] (Heading 2) 1. Thiết kế hệ thống
+[365] (Heading 3) 1.1 System Architecture
+[372] (Heading 4) 1.1.1 Frontend Architecture
+[375] (Heading 4) 1.1.2 Backend Architecture
+[378] (Heading 4) 1.1.3 AI Assistant Architecture
+[381] (Heading 4) 1.1.4 Deployment Architecture
+[384] (Heading 3) 1.2 Package Diagram
+[387] (Heading 2) 2. Thiết kế Database
+[391] (Heading 3) 2.1 Ghi chú về Data Integrity và Transaction
+[397] (Heading 2) 3. Thiết kế chi tiết
+[398] (Heading 3) 3.1 Login và JWT Authentication
+[412] (Heading 3) 3.2 Xem Product List
+[425] (Heading 3) 3.3 Search và Filter
+[438] (Heading 3) 3.4 Product Detail và Review
+[451] (Heading 3) 3.5 Quản lý Cart (Cart Management)
+[464] (Heading 3) 3.6 Checkout và COD
+[477] (Heading 3) 3.7 Payment Online (Online Payment)
+[490] (Heading 3) 3.8 Order và Return
+[503] (Heading 3) 3.9 Y-Point và Membership
+[516] (Heading 3) 3.10 Chat YiYi AI
+[529] (Heading 3) 3.11 Catalogue Admin
+[541] (Heading 3) 3.12 Xử lý Admin Order
+[554] (Heading 3) 3.13 Admin Promotion và Content
+[566] (Heading 1) V. Tài liệu kiểm thử phần mềm
+[567] (Heading 2) 1. Phạm vi kiểm thử
+[568] (Heading 3) 1.1 Kiểm thử trong phạm vi
+[576] (Heading 3) 1.2 Kiểm thử ngoài phạm vi
+[582] (Heading 3) 1.3 Ràng buộc và giả định
+[587] (Heading 2) 2. Chiến lược kiểm thử
+[588] (Heading 3) 2.1 Loại kiểm thử
+[590] (Heading 3) 2.2 Cấp độ kiểm thử
+[595] (Heading 3) 2.3 Công cụ hỗ trợ
+[597] (Heading 2) 3. Kế hoạch kiểm thử
+[598] (Heading 3) 3.1 Nhân sự
+[600] (Heading 3) 3.2 Test Environment
+[602] (Heading 3) 3.3 Test Milestone
+[604] (Heading 2) 4. Test Case
+[606] (Heading 2) 5. Báo cáo kiểm thử
+[611] (Heading 1) VI. Gói phát hành và hướng dẫn người dùng
+[612] (Heading 2) 1. Gói sản phẩm bàn giao
+[614] (Heading 2) 2. Hướng dẫn cài đặt
+[615] (Heading 2) 2.1 System Requirement
+[617] (Heading 2) 2.2 Hướng dẫn cài đặt
+[627] (Heading 2) 3. Hướng dẫn sử dụng
+[628] (Heading 3) 3.1 Tổng quan
+[630] (Heading 3) 3.2 Customer Workflow
+[631] (Heading 4) 3.2.1 Register và Login
+[637] (Heading 4) 3.2.2 Browse và Search
+[643] (Heading 4) 3.2.3 Product và Wishlist
+[649] (Heading 4) 3.2.4 Cart và Checkout
+[656] (Heading 4) 3.2.5 Payment và Order Tracking
+[662] (Heading 4) 3.2.6 Review và Community
+[668] (Heading 4) 3.2.7 Y-Point và Coupon
+[674] (Heading 4) 3.2.8 YiYi AI
+[680] (Heading 3) 3.3 Admin/Manager Workflow
+[681] (Heading 4) 3.3.1 Admin Login và Dashboard
+[687] (Heading 4) 3.3.2 Quản lý Book
+[693] (Heading 4) 3.3.3 Quản lý Category và Banner
+[699] (Heading 4) 3.3.4 Quản lý Order
+[706] (Heading 4) 3.3.5 Quản lý User và Role
+[713] (Heading 4) 3.3.6 Quản lý Promotion và Reward
+[719] (Heading 4) 3.3.7 Kiểm duyệt Review và Communication
+[725] (Heading 3) 3.4 Hỗ trợ và Troubleshooting
+[726] (Heading 1) Phụ lục A. Minh chứng và Checklist hoàn thành

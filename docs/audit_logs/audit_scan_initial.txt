@@ -1,0 +1,112 @@
+=== Target: [Hãy] (2 occurrences) ===
+  [P110] Phạm vi công việc được tổ chức thành các nhóm: khám phá sản phẩm, giao diện cửa hàng, quản trị, Backend services, tích h
+  [P398] README mô tả Frontend deployment trên Vercel, Backend deployment trên Render, PostgreSQL/Supabase làm cloud Database và
+
+=== Target: [Nhóm nên] (2 occurrences) ===
+  [P80] Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalo
+  [P180] Module map sau đây chuyển archive triển khai thành các nhóm yêu cầu. Nhóm nên sử dụng các ID này khi đính kèm screenshot
+
+=== Target: [Archive] (12 occurrences) ===
+  [P80] Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalo
+  [P102] Archive được cung cấp không có tên sinh viên chính thức, thông tin supervisor, project code cuối cùng, yêu cầu đã phê du
+  [P110] Phạm vi công việc được tổ chức thành các nhóm: khám phá sản phẩm, giao diện cửa hàng, quản trị, Backend services, tích h
+  [P180] Module map sau đây chuyển archive triển khai thành các nhóm yêu cầu. Nhóm nên sử dụng các ID này khi đính kèm screenshot
+  [P404] Database được mô hình hóa dưới dạng relational PostgreSQL schema. Source archive chứa 25 entity class và các repository
+  [P807] Lấy repository/archive và mở project root.
+  [P825] Hướng dẫn sử dụng này được tổ chức theo Actor. Mỗi bước dưới đây nên đi kèm screenshot từ UI cuối cùng. Archive được cun
+  [T3[R9C0]] Minh chứng từ archive được cung cấp
+  [T21[R3C3]] Archive được cung cấp
+  [T21[R5C3]] Archive được cung cấp
+  ... and 2 more
+
+=== Target: [archive] (12 occurrences) ===
+  [P80] Nhóm nên benchmark YiYi Book với trải nghiệm của các online bookstore và marketplace hiện có. Mục đích là so sánh catalo
+  [P102] Archive được cung cấp không có tên sinh viên chính thức, thông tin supervisor, project code cuối cùng, yêu cầu đã phê du
+  [P110] Phạm vi công việc được tổ chức thành các nhóm: khám phá sản phẩm, giao diện cửa hàng, quản trị, Backend services, tích h
+  [P180] Module map sau đây chuyển archive triển khai thành các nhóm yêu cầu. Nhóm nên sử dụng các ID này khi đính kèm screenshot
+  [P404] Database được mô hình hóa dưới dạng relational PostgreSQL schema. Source archive chứa 25 entity class và các repository
+  [P807] Lấy repository/archive và mở project root.
+  [P825] Hướng dẫn sử dụng này được tổ chức theo Actor. Mỗi bước dưới đây nên đi kèm screenshot từ UI cuối cùng. Archive được cun
+  [T3[R9C0]] Minh chứng từ archive được cung cấp
+  [T21[R3C3]] Archive được cung cấp
+  [T21[R5C3]] Archive được cung cấp
+  ... and 2 more
+
+=== Target: [chèn minh chứng] (0 occurrences) ===
+
+=== Target: [Chèn screenshot] (15 occurrences) ===
+  [P833] Chèn screenshot cho 3.2.1 Register và Login.
+  [P840] Chèn screenshot cho 3.2.2 Browse và Search.
+  [P847] Chèn screenshot cho 3.2.3 Product và Wishlist.
+  [P855] Chèn screenshot cho 3.2.4 Cart và Checkout.
+  [P862] Chèn screenshot cho 3.2.5 Payment và Order Tracking.
+  [P869] Chèn screenshot cho 3.2.6 Review và Community.
+  [P876] Chèn screenshot cho 3.2.7 Y-Point và Coupon.
+  [P883] Chèn screenshot cho 3.2.8 YiYi AI.
+  [P891] Chèn screenshot cho 3.3.1 Admin Login và Dashboard.
+  [P898] Chèn screenshot cho 3.3.2 Quản lý Book.
+  ... and 5 more
+
+=== Target: [Mục 5.8] (2 occurrences) ===
+  [T119[R2C1]] 1. Chụp ảnh báo cáo JaCoCo HTML (đạt 37.57% toàn hệ thống, >85% core service) đính kèm Mục 5.3.
+2. Thực hiện buổi đánh g
+  [T121[R5C2]] Chương V (Mục 5.8)
+
+=== Target: [100% Toàn thời gian] (5 occurrences) ===
+  [T71[R1C3]] 100% Toàn thời gian
+  [T71[R2C3]] 100% Toàn thời gian
+  [T71[R3C3]] 100% Toàn thời gian
+  [T71[R4C3]] 100% Toàn thời gian
+  [T71[R5C3]] 100% Toàn thời gian
+
+=== Target: [REQ-AUTH] (1 occurrences) ===
+  [T91[R1C0]] REQ-AUTH-01/02
+
+=== Target: [REQ-CAT] (1 occurrences) ===
+  [T91[R2C0]] REQ-CAT-01/02
+
+=== Target: [REQ-CART] (1 occurrences) ===
+  [T91[R3C0]] REQ-CART-01/02
+
+=== Target: [REQ-ORD] (1 occurrences) ===
+  [T91[R4C0]] REQ-ORD-01/03
+
+=== Target: [REQ-REW] (1 occurrences) ===
+  [T91[R5C0]] REQ-REW-01/02
+
+=== Target: [17 bảng] (3 occurrences) ===
+  [T118[R8C3]] PENDING - [CẦN BỔ SUNG DIAGRAM: Sơ đồ ERD 17 bảng PostgreSQL]
+  [T121[R9C1]] Bổ sung Sơ đồ cơ sở dữ liệu ERD 17 bảng
+  [T121[R9C5]] Export sơ đồ ERD trực tiếp từ PostgreSQL/DBeaver thể hiện khóa chính, khóa ngoại 17 bảng.
+
+=== Target: [25 bảng] (1 occurrences) ===
+  [T72[R2C3]] Lưu trữ 25 bảng thực thể và xử lý giao dịch nguyên tử ACID
+
+=== Target: [8080] (1 occurrences) ===
+  [P817] Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8080.
+
+=== Target: [8081] (1 occurrences) ===
+  [T72[R1C2]] 8081 (Local) / 8082 (Docker Test)
+
+=== Target: [8082] (1 occurrences) ===
+  [T72[R1C2]] 8081 (Local) / 8082 (Docker Test)
+
+=== Target: [sẵn sàng phục vụ người dùng thực tế] (1 occurrences) ===
+  [P787] Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng
+
+=== Target: [hoàn thành xuất sắc] (1 occurrences) ===
+  [P787] Hệ thống Nhà sách trực tuyến và Quản trị YiYi Book đã hoàn thành xuất sắc toàn bộ quy trình kiểm thử chất lượng đa tầng
+
+=== Target: [CẦN BỔ SUNG] (118 occurrences) ===
+  [P944] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)
+  [T6[R1C2]] [CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]
+  [T6[R2C2]] [CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]
+  [T6[R3C2]] [CẦN BỔ SUNG EVIDENCE: Minh chứng luồng thanh toán Sandbox]
+  [T6[R4C2]] [CẦN BỔ SUNG EVIDENCE: Bảng ghi chú đánh giá Benchmark]
+  [T7[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo giao diện và luồng nghiệp vụ mua sách tại Fahasa/Tiki]
+  [T8[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo mô hình Sàn giao dịch & Gian hàng Shopee/Lazada]
+  [T9[R0C0]] [CẦN BỔ SUNG EVIDENCE: Ảnh giao diện cổng thanh toán trực tuyến mẫu (VNPAY/MoMo Sandbox)]
+  [T12[R1C2]] [CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]
+  [T12[R1C3]] [CẦN BỔ SUNG: Ước lượng Person-Days]
+  ... and 108 more
+

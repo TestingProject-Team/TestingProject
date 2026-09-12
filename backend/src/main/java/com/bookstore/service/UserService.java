@@ -7,9 +7,11 @@ import com.bookstore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -43,8 +45,12 @@ public class UserService {
             throw new RuntimeException("Tài khoản đăng nhập qua Mạng xã hội không thể đổi mật khẩu theo cách này.");
         }
 
-        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+        if (request != null && request.getOldPassword() != null && !passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             throw new RuntimeException("Mật khẩu cũ không chính xác!");
+        }
+
+        if (request == null || request.getNewPassword() == null || request.getNewPassword().trim().length() < 6) {
+            throw new RuntimeException("Mật khẩu mới phải có ít nhất 6 ký tự!");
         }
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));

@@ -1,0 +1,10 @@
+=== TABLE 91: RTM (rows=9, cols=5) ===
+Row 0: ['Mã Yêu cầu (SRS)', 'Mã Jira Task', 'Thành phần mã nguồn triển khai', 'Bộ kiểm thử & Bằng chứng nghiệm thu', 'Kết quả']
+Row 1: ['REQ-AUTH-01/02', 'YIYI-35', 'AuthController, AuthService, JwtAuthFilter, User', 'AuthServiceTest (24 TCs), Postman Auth Suite (42 TCs)', 'PASS (100%)']
+Row 2: ['REQ-CAT-01/02', 'YIYI-37', 'BookController, BookService, CategoryRepository', 'BookServiceTest (32 TCs), Postman Catalogue Suite', 'PASS (100%)']
+Row 3: ['REQ-CART-01/02', 'YIYI-36', 'CartController, CartService, CartItem', 'CartServiceTest (22 TCs), Postman Cart Suite (10 TCs)', 'PASS (100%)']
+Row 4: ['REQ-ORD-01/03', 'YIYI-36', 'OrderController, OrderService, OrderItem', 'OrderServiceCreateTest (35 TCs), Postman Orders (16 TCs)', 'PASS (100%)']
+Row 5: ['REQ-REW-01/02', 'YIYI-44', 'RewardService, CouponService, PointTransaction', 'RewardServiceTest (26 TCs), BVA_TEST_CASES.md', 'PASS (100%)']
+Row 6: ['REQ-AI-01/02', 'YIYI-40', 'AIChatWidget.jsx, Client Mini-RAG, Groq Stream', 'AI_CHAT_TEST_REPORT_YIYI-40.md (10 kịch bản)', 'PASS (100%)']
+Row 7: ['REQ-E2E-FULL', 'YIYI-43', 'Toàn bộ giao diện React SPA và Backend REST', 'CODECEPTJS_E2E_TEST_REPORT_YIYI-43.md (20 TCs)', 'PASS (100%)']
+Row 8: ['REQ-QUAL-01', 'YIYI-30', 'checkstyle.xml, spotbugs-exclude.xml', 'STATIC_ANALYSIS_GUIDE_YIYI-30.md (0 vi phạm)', 'PASS (100%)']

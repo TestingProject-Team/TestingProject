@@ -165,10 +165,8 @@ public class PaymentController {
                 return ResponseEntity.badRequest().body(Map.of("message", "Error from MoMo: " + responseBody));
             }
         } catch (org.springframework.web.client.HttpStatusCodeException e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("message", "MoMo API Error: " + e.getResponseBodyAsString()));
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("message", "Failed to create MoMo URL: " + e.getMessage()));
         }
     }
@@ -218,7 +216,6 @@ public class PaymentController {
                 return ResponseEntity.badRequest().body(Map.of("message", "Error from ZaloPay: " + responseBody));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("message", "Failed to create ZaloPay URL: " + e.getMessage()));
         }
     }
@@ -275,7 +272,6 @@ public class PaymentController {
                 return ResponseEntity.badRequest().body(Map.of("status", "failed", "message", "Payment failed or cancelled"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("status", "error", "message", e.getMessage()));
         }
     }
@@ -409,7 +405,6 @@ public class PaymentController {
                 return ResponseEntity.badRequest().body(Map.of("status", "error", "message", "Invalid signature"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body(Map.of("status", "error", "message", "Internal server error"));
         }
     }
@@ -465,8 +460,7 @@ public class PaymentController {
                 return ResponseEntity.badRequest().build();
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(Map.of("status", "error", "message", "Internal server error"));
         }
     }
 }

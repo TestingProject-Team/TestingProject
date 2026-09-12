@@ -1,0 +1,148 @@
+=== PARAGRAPHS IN CHAPTER III (162 to 230) ===
+[P162][Heading 1] III. Đặc tả yêu cầu phần mềm
+[P163][Heading 2] 1. Tổng quan sản phẩm
+[P164][Normal] YiYi Book cung cấp hai application surface chính: giao diện cửa hàng dành cho khách hàng và cổng quản trị dành cho Administrator. Cả hai surface giao tiếp với Spring Boot Backend thông qua JSON REST API. Backend xử lý authentication, business rule, persistence, tích hợp thanh toán, thao tác thông báo và administrative authorization.
+[P165][Normal] Hình 3.1. Sơ đồ ngữ cảnh hệ thống (System Context Diagram).
+[P166][Normal] Hình 3.2. Sơ đồ Use Case tổng quát hệ thống (Overall Use Case Diagram).
+[P167][Normal] Giao diện cửa hàng: duyệt, tìm kiếm, mua hàng, đánh giá, quản lý profile và nhận hỗ trợ được cá nhân hóa.
+[P168][Normal] Cổng quản trị: quản lý dữ liệu sản phẩm, catalogue, đơn hàng, khuyến mãi, khách hàng, nội dung và vận hành.
+[P169][Normal] Backend services: cung cấp REST API và áp dụng business rule thông qua Spring service và repository.
+[P170][Normal] Database: lưu trữ user, book, category, cart, order, payment, reward, review, notification và configuration.
+[P171][Normal] External services: payment gateway, AI inference, email và cloud/deployment service.
+[P172][Heading 2] 2. Yêu cầu người dùng
+[P173][Heading 3] 2.1 Actor của hệ thống
+[P174][Normal] 
+[P175][Heading 3] 2.2 Use Case
+[P176][Normal] 
+[P177][Heading 2] 3. Yêu cầu chức năng
+[P178][Normal] 
+[P179][Heading 3] 3.1 Tổng quan chức năng hệ thống
+[P180][Normal] Module map sau đây chuyển archive triển khai thành các nhóm yêu cầu. Nhóm nên sử dụng các ID này khi đính kèm screenshot, API evidence, test case và các phần detailed design.
+[P181][Normal] 
+[P182][Heading 3] 3.2 Web Application
+[P183][Heading 4] 3.2.1 Ứng dụng Customer (Customer Application)
+[P184][Normal] FR-01 Register, Login và Session
+[P185][Normal] Mục tiêu: Tạo account hoặc sign in bằng email/password; JWT được lưu và đính kèm vào protected API call.
+[P186][Normal] Actor(s): Customer
+[P187][Normal] Điều kiện tiên quyết: Account tồn tại hoặc registration data hợp lệ.
+[P188][Normal] Luồng chính
+[P189][Normal] Mở page hoặc widget liên quan.
+[P190][Normal] Nhập data được yêu cầu hoặc chọn product/action mong muốn.
+[P191][Normal] Frontend gọi Backend hoặc service đã cấu hình.
+[P192][Normal] UI render state success, loading, empty hoặc error.
+[P193][Normal] Luồng thay thế và ngoại lệ
+[P194][Normal] Credential không hợp lệ, input sai định dạng và session hết hạn.
+[P195][Normal] Tiêu chí nghiệm thu: UI phải hiển thị validation và không được expose protected page nếu không có session hợp lệ.
+[P196][Normal] Hình 3.3. Giao diện chức năng Đăng ký, Đăng nhập và Xác thực (Authentication).
+[P197][Normal] FR-04 Home và Catalogue Discovery
+[P198][Normal] Mục tiêu: Hiển thị hero banner, flash sale, bestseller, category, featured item, book mới và publisher brand.
+[P199][Normal] Actor(s): Customer
+[P200][Normal] Điều kiện tiên quyết: Catalogue data khả dụng.
+[P201][Normal] Luồng chính
+[P202][Normal] Mở page hoặc widget liên quan.
+[P203][Normal] Nhập data được yêu cầu hoặc chọn product/action mong muốn.
+[P204][Normal] Frontend gọi Backend hoặc service đã cấu hình.
+[P205][Normal] UI render state success, loading, empty hoặc error.
+[P206][Normal] Luồng thay thế và ngoại lệ
+[P207][Normal] State empty, loading, API failure và banner không khả dụng.
+[P208][Normal] Tiêu chí nghiệm thu: State empty/loading/error phải dễ hiểu và không chặn thao tác.
+[P209][Normal] Hình 3.4. Giao diện Trang chủ và Khám phá Danh mục sách (Home & Catalogue).
+[P210][Normal] FR-05 Search và Filter
+[P211][Normal] Mục tiêu: Search theo keyword và browse theo category, price và sorting option.
+[P212][Normal] Actor(s): Customer
+[P213][Normal] Điều kiện tiên quyết: Customer đã nhập keyword hoặc chọn filter.
+[P214][Normal] Luồng chính
+[P215][Normal] Mở page hoặc widget liên quan.
+[P216][Normal] Nhập data được yêu cầu hoặc chọn product/action mong muốn.
+[P217][Normal] Frontend gọi Backend hoặc service đã cấu hình.
+[P218][Normal] UI render state success, loading, empty hoặc error.
+[P219][Normal] Luồng thay thế và ngoại lệ
+[P220][Normal] Không có kết quả, query sai định dạng và network failure.
+[P221][Normal] Tiêu chí nghiệm thu: No-result state phải giải thích cách mở rộng phạm vi search.
+[P222][Normal] Hình 3.5. Giao diện Tìm kiếm và Bộ lọc nâng cao (Search & Filter).
+[P223][Normal] FR-07 Product Detail và Review
+[P224][Normal] Mục tiêu: Xem thông tin product, image, stock, rating, review, comment và item liên quan.
+[P225][Normal] Actor(s): Customer
+[P226][Normal] Điều kiện tiên quyết: Product identifier hợp lệ tồn tại.
+[P227][Normal] Luồng chính
+[P228][Normal] Mở page hoặc widget liên quan.
+[P229][Normal] Nhập data được yêu cầu hoặc chọn product/action mong muốn.
+
+=== TABLES IN CHAPTER III (tables 26 to 45) ===
+
+--- TABLE 26 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 27 (rows=8, cols=3) ---
+Row 0: ['ID', 'Actor', 'Trách nhiệm']
+Row 1: ['ACT-01', 'Customer', 'Browse book, search, quản lý cart, checkout, pay, track order, review product, sử dụng point và chat với YiYi AI.']
+Row 2: ['ACT-02', 'Administrator', 'Quản lý product, category, order, user, promotion, reward, review, banner, notification, contact, newsletter và setting.']
+Row 3: ['ACT-03', 'Payment Gateway', 'Tạo payment URL và trả về payment status/callback data cho các payment method được hỗ trợ.']
+Row 4: ['ACT-04', 'Groq AI Service', 'Tạo assistant response dạng streaming từ conversation history và product context được cung cấp.']
+
+--- TABLE 28 (rows=21, cols=4) ---
+Row 0: ['ID', 'Use Case', 'Primary actor', 'Mục tiêu']
+Row 1: ['UC-01', 'Register account', 'Customer', 'Tạo user account bằng registration data hợp lệ']
+Row 2: ['UC-02', 'Login và logout', 'Customer/Admin', 'Nhận JWT session và truy cập protected workflow']
+Row 3: ['UC-03', 'Browse catalogue', 'Customer', 'Xem book theo category, latest, featured, best-selling hoặc discount']
+Row 4: ['UC-04', 'Search và filter book', 'Customer', 'Tìm product theo keyword, category, price và sort order']
+
+--- TABLE 29 (rows=29, cols=3) ---
+Row 0: ['ID', 'Nhóm', 'Yêu cầu']
+Row 1: ['FR-01', 'Authentication', 'Hệ thống phải hỗ trợ registration, login, xử lý JWT session và logout.']
+Row 2: ['FR-02', 'Role control', 'Hệ thống phải giới hạn thao tác Administrator cho role Administrator.']
+Row 3: ['FR-03', 'Profile', 'Customer phải view/update thông tin profile và change password.']
+Row 4: ['FR-04', 'Catalogue browsing', 'Hệ thống phải hiển thị view book, category, featured, latest, bestseller, combo và discounted.']
+
+--- TABLE 30 (rows=10, cols=3) ---
+Row 0: ['ID', 'Module', 'Implementation evidence']
+Row 1: ['M01', 'Auth và security', 'AuthController, SecurityConfig, JwtService, AuthContext']
+Row 2: ['M02', 'Catalogue', 'BookController, CategoryController, BannerController và product page']
+Row 3: ['M03', 'Cart và checkout', 'CartController, AddressController, OrderController và checkout page']
+Row 4: ['M04', 'Payment', 'PaymentController, gateway return page và mock gateway']
+
+--- TABLE 31 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 32 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 33 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 34 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 35 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 36 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 37 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 38 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh chụp màn hình Trợ lý tư vấn AI]']
+
+--- TABLE 39 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 40 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 41 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 42 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 43 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 44 (rows=10, cols=4) ---
+Row 0: ['ID', 'Thuộc tính', 'Yêu cầu', 'Minh chứng']
+Row 1: ['NFR-01', 'Performance', 'Các page catalogue và admin thông dụng phải load trong target do nhóm thống nhất ở environment mục tiêu.', '[CẦN BỔ SUNG: SỐ ĐO]']
+Row 2: ['NFR-02', 'Availability', 'Storefront phải tiếp tục sử dụng được khi AI tùy chọn hoặc external payment service không khả dụng.', 'Graceful fallback']
+Row 3: ['NFR-03', 'Security', 'Bắt buộc có authentication, authorization, secret handling, ownership check, input validation và error response an toàn.', '[CẦN BỔ SUNG EVIDENCE: Kiểm tra bổ sung]']
+Row 4: ['NFR-04', 'Usability', 'Các thao tác customer cốt lõi phải dễ hiểu trên layout desktop và mobile-width.', '[CẦN BỔ SUNG: UI REVIEW]']

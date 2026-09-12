@@ -48,9 +48,14 @@ public class AdminUserController {
 
     @org.springframework.transaction.annotation.Transactional
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        if (!userRepository.existsById(id)) {
+    public ResponseEntity<?> deleteUser(org.springframework.security.core.Authentication auth, @PathVariable Long id) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "User not found"));
+        }
+
+        if (auth != null && auth.getName().equals(userOpt.get().getUsername())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Không thể tự xóa tài khoản của chính mình!"));
         }
 
         try {
@@ -78,7 +83,6 @@ public class AdminUserController {
 
             return ResponseEntity.ok(Map.of("message", "Đã xóa người dùng thành công!"));
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("message", "Lỗi khi xóa: " + e.getMessage()));
         }

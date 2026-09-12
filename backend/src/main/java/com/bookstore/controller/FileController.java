@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -40,12 +41,18 @@ public class FileController {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
             }
 
-            // Generate unique filename to avoid overwriting
+            // Generate unique filename to avoid overwriting and validate extension
             String fileExtension = "";
             int dotIndex = fileName.lastIndexOf('.');
-            if(dotIndex >= 0) {
-                fileExtension = fileName.substring(dotIndex);
+            if (dotIndex >= 0) {
+                fileExtension = fileName.substring(dotIndex).toLowerCase();
             }
+
+            List<String> allowedExtensions = List.of(".jpg", ".jpeg", ".png", ".webp", ".gif", ".pdf");
+            if (!allowedExtensions.contains(fileExtension)) {
+                return ResponseEntity.badRequest().body(Map.of("message", "Chỉ cho phép tải lên định dạng hình ảnh (.jpg, .png, .webp, .gif) hoặc tài liệu PDF!"));
+            }
+
             String newFileName = UUID.randomUUID().toString() + fileExtension;
 
             Path targetLocation = this.fileStorageLocation.resolve(newFileName);

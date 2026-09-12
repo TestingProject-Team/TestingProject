@@ -1,0 +1,156 @@
+=== CHAPTER VI PARAGRAPHS (791 to 946) ===
+[P791][Heading 1] VI. Gói phát hành và hướng dẫn người dùng
+[P792][Heading 2] 1. Gói sản phẩm bàn giao
+[P793][Normal] 
+[P794][Heading 2] 2. Hướng dẫn cài đặt
+[P795][Heading 2] 2.1 System Requirement
+[P796][Normal] • Cấu hình phần cứng tối thiểu (Minimum Hardware Requirements):
+[P797][Normal] - Vi xử lý (CPU): Bộ xử lý Dual-Core 2.0 GHz trở lên (Intel Core i3 / AMD Ryzen 3 hoặc tương đương).
+[P798][Normal] - Bộ nhớ trong (RAM): Tối thiểu 8 GB RAM khả dụng (khuyến nghị phân bổ tối thiểu 4 GB cho Docker engine và Database).
+[P799][Normal] - Ổ đĩa cứng: Tối thiểu 10 GB dung lượng trống (ưu tiên ổ đĩa SSD để đảm bảo tốc độ đọc/ghi dữ liệu và build ứng dụng).
+[P800][Normal] - Kết nối mạng: Băng thông Internet tối thiểu 10 Mbps phục vụ tải thư viện và gọi API AI trực tuyến.
+[P801][Normal] • Cấu hình phần cứng khuyến nghị (Recommended Hardware Requirements):
+[P802][Normal] - Vi xử lý (CPU): Quad-Core 3.0 GHz trở lên (Intel Core i5/i7 thế hệ mới, AMD Ryzen 5/7 hoặc Apple Silicon M-series).
+[P803][Normal] - Bộ nhớ trong (RAM): 16 GB RAM hoặc cao hơn nhằm vận hành mượt mà đồng thời Backend, Frontend, Docker containers và bộ công cụ kiểm thử E2E Playwright/CodeceptJS.
+[P804][Normal] - Ổ đĩa cứng: 20 GB dung lượng trống trên ổ SSD NVMe tốc độ cao.
+[P805][Normal] 
+[P806][Heading 2] 2.2 Hướng dẫn cài đặt
+[P807][Normal] Lấy repository/archive và mở project root.
+[P808][Normal] Chuẩn bị PostgreSQL local hoặc khởi động các Docker Compose service được cung cấp.
+[P809][Normal] Tạo local environment configuration an toàn từ các example được cung cấp. Sử dụng placeholder local cho giá trị Database, JWT, email, payment và AI.
+[P810][Normal] Khởi động Backend bằng Maven wrapper và xác nhận health endpoint đã cấu hình.
+[P811][Normal] Cài đặt Frontend dependency và khởi động Vite development server.
+[P812][Normal] Mở Frontend URL, đăng ký/sử dụng test account an toàn và verify customer flow cốt lõi.
+[P813][Normal] Chạy Postman environment và collection liên quan; lưu report được tạo làm evidence.
+[P814][Normal] Đối với release build, chạy Frontend build, Backend package/build, container build và deployment smoke check.
+[P815][Normal] Hình 6.1. Minh chứng cấu hình biến môi trường hệ thống (.env và application.properties).
+[P816][Normal] Hình 6.2. Minh chứng khởi chạy PostgreSQL thành công qua Docker Container.
+[P817][Normal] Hình 6.3. Minh chứng Backend Spring Boot khởi động thành công trên cổng 8080.
+[P818][Normal] Hình 6.4. Minh chứng kiểm tra API Health Check trả về kết quả UP.
+[P819][Normal] Hình 6.5. Minh chứng Frontend Vite React khởi động thành công trên cổng 5173.
+[P820][Normal] Hình 6.6. Minh chứng đăng nhập thành công vào hệ thống cục bộ (Localhost:5173).
+[P821][Normal] Hình 6.7. Minh chứng giao diện Frontend triển khai trên Production.
+[P822][Normal] Hình 6.8. Minh chứng Backend và Cơ sở dữ liệu Cloud hoạt động trên Production.
+[P823][Heading 2] 3. Hướng dẫn sử dụng
+[P824][Heading 3] 3.1 Tổng quan
+[P825][Normal] Hướng dẫn sử dụng này được tổ chức theo Actor. Mỗi bước dưới đây nên đi kèm screenshot từ UI cuối cùng. Archive được cung cấp có cấu trúc page nhưng chưa có bộ screenshot cuối.
+[P826][Heading 3] 3.2 Customer Workflow
+[P827][Heading 4] 3.2.1 Register và Login
+[P828][Normal] Mở website YiYi Book.
+[P829][Normal] Chọn Register và điền các field bắt buộc.
+[P830][Normal] Mở Login và gửi credential hợp lệ.
+[P831][Normal] Xác nhận state header/profile hiển thị account đã authentication.
+[P832][Normal] Hình 6.9. Hướng dẫn Đăng ký tài khoản người dùng và Đăng nhập hệ thống.
+[P833][Normal] Chèn screenshot cho 3.2.1 Register và Login.
+[P834][Heading 4] 3.2.2 Browse và Search
+[P835][Normal] Mở Home hoặc một category.
+[P836][Normal] Sử dụng search theo keyword title/author/category.
+[P837][Normal] Áp dụng filter và sorting.
+[P838][Normal] Mở product detail page.
+[P839][Normal] Hình 6.10. Hướng dẫn Khám phá Trang chủ và Tìm kiếm Sách nâng cao.
+[P840][Normal] Chèn screenshot cho 3.2.2 Browse và Search.
+[P841][Heading 4] 3.2.3 Product và Wishlist
+[P842][Normal] Xem image, description, price, stock và review của product.
+[P843][Normal] Thêm product vào wishlist hoặc cart.
+[P844][Normal] Mở Profile/Wishlist để xác nhận item đã lưu.
+[P845][Normal] Xóa item khi không còn cần thiết.
+[P846][Normal] Hình 6.11. Hướng dẫn Xem Chi tiết Sách và Quản lý Danh sách yêu thích.
+[P847][Normal] Chèn screenshot cho 3.2.3 Product và Wishlist.
+[P848][Heading 4] 3.2.4 Cart và Checkout
+[P849][Normal] Mở cart.
+[P850][Normal] Cập nhật quantity hoặc xóa item.
+[P851][Normal] Chọn/thêm delivery address.
+[P852][Normal] Áp dụng coupon và Y-Point hợp lệ.
+[P853][Normal] Kiểm tra total và đặt order.
+[P854][Normal] Hình 6.12. Hướng dẫn Thao tác Giỏ hàng và Nhập địa chỉ Giao hàng.
+[P855][Normal] Chèn screenshot cho 3.2.4 Cart và Checkout.
+[P856][Heading 4] 3.2.5 Payment và Order Tracking
+[P857][Normal] Chọn COD hoặc payment method online/mock đã cấu hình.
+[P858][Normal] Hoàn thành hoặc hủy payment flow.
+[P859][Normal] Mở order history và order detail.
+[P860][Normal] Theo dõi status, xác nhận đã nhận hàng hoặc yêu cầu return/refund khi đủ điều kiện.
+[P861][Normal] Hình 6.13. Hướng dẫn Thanh toán Trực tuyến và Theo dõi Đơn hàng.
+[P862][Normal] Chèn screenshot cho 3.2.5 Payment và Order Tracking.
+[P863][Heading 4] 3.2.6 Review và Community
+[P864][Normal] Mở product đã mua/đủ điều kiện.
+[P865][Normal] Gửi rating, text và image tùy chọn.
+[P866][Normal] Like, comment hoặc report một review.
+[P867][Normal] Xác nhận moderation behavior nếu có.
+[P868][Normal] Hình 6.14. Hướng dẫn Đánh giá Sách và Bình luận chia sẻ.
+[P869][Normal] Chèn screenshot cho 3.2.6 Review và Community.
+[P870][Heading 4] 3.2.7 Y-Point và Coupon
+[P871][Normal] Mở khu vực coupon/reward.
+[P872][Normal] Xem point history.
+[P873][Normal] Redeem reward code hợp lệ hoặc đổi point đủ điều kiện.
+[P874][Normal] Xác nhận balance và transaction history.
+[P875][Normal] Hình 6.15. Hướng dẫn Tích điểm Thưởng Y-Points và Áp dụng Mã Voucher.
+[P876][Normal] Chèn screenshot cho 3.2.7 Y-Point và Coupon.
+[P877][Heading 4] 3.2.8 YiYi AI
+[P878][Normal] Mở AI widget.
+[P879][Normal] Yêu cầu recommendation hoặc so sánh product.
+[P880][Normal] Kiểm tra product context được phản ánh trong response.
+[P881][Normal] Nếu key không khả dụng, thực hiện theo hướng dẫn configuration và tiếp tục sử dụng cửa hàng.
+[P882][Normal] Hình 6.16. Hướng dẫn Tương tác và Tư vấn Sách thông minh qua Trợ lý AI.
+[P883][Normal] Chèn screenshot cho 3.2.8 YiYi AI.
+[P884][Heading 3] 3.3 Admin/Manager Workflow
+[P885][Heading 4] 3.3.1 Admin Login và Dashboard
+[P886][Normal] Đăng nhập bằng administrator account an toàn.
+[P887][Normal] Mở dashboard.
+[P888][Normal] Kiểm tra summary card, chart và operation đang chờ xử lý.
+[P889][Normal] Verify user không phải admin không thể truy cập portal.
+[P890][Normal] Hình 6.17. Hướng dẫn Đăng nhập Quản trị và Theo dõi Bảng điều khiển Tổng quan.
+[P891][Normal] Chèn screenshot cho 3.3.1 Admin Login và Dashboard.
+[P892][Heading 4] 3.3.2 Quản lý Book
+[P893][Normal] Mở Books.
+[P894][Normal] Tạo hoặc chỉnh sửa title, author, price, stock, category, image và flag.
+[P895][Normal] Sử dụng import template nếu phù hợp.
+[P896][Normal] Verify catalogue và search phía customer phản ánh thay đổi.
+[P897][Normal] Hình 6.18. Hướng dẫn Thêm mới, Chỉnh sửa và Quản trị Kho Sách.
+[P898][Normal] Chèn screenshot cho 3.3.2 Quản lý Book.
+[P899][Heading 4] 3.3.3 Quản lý Category và Banner
+[P900][Normal] Tạo hoặc chỉnh sửa category.
+[P901][Normal] Tạo/cập nhật banner image, title, link và position.
+[P902][Normal] Kiểm tra homepage sau khi publish.
+[P903][Normal] Xóa hoặc deactivate content đã cũ một cách an toàn.
+[P904][Normal] Hình 6.19. Hướng dẫn Cấu hình Danh mục Thể loại và Banner Khuyến mãi.
+[P905][Normal] Chèn screenshot cho 3.3.3 Quản lý Category và Banner.
+[P906][Heading 4] 3.3.4 Quản lý Order
+[P907][Normal] Mở order list.
+[P908][Normal] Kiểm tra order detail.
+[P909][Normal] Cập nhật shipping/status.
+[P910][Normal] Xử lý yêu cầu cancellation hoặc return/refund theo policy.
+[P911][Normal] Verify notification và view phía customer.
+[P912][Normal] Hình 6.20. Hướng dẫn Duyệt, Xử lý và Chuyển trạng thái Đơn hàng.
+[P913][Normal] Chèn screenshot cho 3.3.4 Quản lý Order.
+[P914][Heading 4] 3.3.5 Quản lý User và Role
+[P915][Normal] Mở Users.
+[P916][Normal] Kiểm tra thông tin account.
+[P917][Normal] Chỉ thay đổi role được hỗ trợ khi đã được authorization.
+[P918][Normal] Chỉ xóa test user trong environment an toàn.
+[P919][Normal] Retest protected endpoint.
+[P920][Normal] Hình 6.21. Hướng dẫn Quản lý Tài khoản Khách hàng và Phân quyền Quản trị.
+[P921][Normal] Chèn screenshot cho 3.3.5 Quản lý User và Role.
+[P922][Heading 4] 3.3.6 Quản lý Promotion và Reward
+[P923][Normal] Tạo hoặc cập nhật coupon.
+[P924][Normal] Tạo hoặc cập nhật reward voucher.
+[P925][Normal] Kiểm tra ngày active, limit và eligibility.
+[P926][Normal] Redeem bằng test account an toàn.
+[P927][Normal] Hình 6.22. Hướng dẫn Tạo Mã giảm giá và Cấu hình Chương trình Điểm thưởng.
+[P928][Normal] Chèn screenshot cho 3.3.6 Quản lý Promotion và Reward.
+[P929][Heading 4] 3.3.7 Kiểm duyệt Review và Communication
+[P930][Normal] Kiểm tra report/content.
+[P931][Normal] Edit, dismiss hoặc delete theo policy.
+[P932][Normal] Quản lý contact, notification, newsletter và site setting.
+[P933][Normal] Verify kết quả hiển thị phía customer.
+[P934][Normal] Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.
+[P935][Normal] Chèn screenshot cho 3.3.7 Kiểm duyệt Review và Communication.
+[P936][Heading 3] 3.4 Hỗ trợ và Troubleshooting
+[P937][Normal] Hình 6.23. Hướng dẫn Kiểm duyệt Bình luận, Đánh giá và Quản lý Liên hệ.
+[P938][Heading 1] Phụ lục A. Minh chứng và Checklist hoàn thành
+[P939][Normal] Các mục sau được để dưới dạng placeholder rõ ràng để hai thành viên được phân công có thể hoàn thiện báo cáo Word mà không phải đoán phần còn thiếu.
+[P940][Normal] 
+[P941][Normal] Đề xuất bàn giao cho hai người
+[P942][Normal] 
+[P943][Normal] 
+[P944][Normal] Bảng A.3. Bảng phân loại ưu tiên các hạng mục cần bổ sung (Remaining Items Priority Matrix)
+[P945][Normal] 

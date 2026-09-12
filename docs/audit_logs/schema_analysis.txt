@@ -1,0 +1,111 @@
+Total Enums: 4
+  Enum AuthProvider: ['LOCAL', 'GOOGLE', 'APPLE', 'FACEBOOK']
+  Enum DiscountType: ['PERCENTAGE', 'FIXED']
+  Enum Role: ['USER', 'ADMIN']
+  Enum ShippingStatus: ['PENDING', 'PROCESSING', 'SHIPPING', 'DELIVERED', 'CANCELLED', 'RETURNED']
+
+Total Entities / Tables: 21
+
+Entity Address -> Table 'addresses':
+  PK/Fields: ['id (PK)', 'recipientName', 'phone', 'street', 'ward', 'city']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+
+Entity Banner -> Table 'banners':
+  PK/Fields: ['id (PK)', 'imageUrl', 'title', 'linkUrl', 'position']
+  Relationships:
+
+Entity Book -> Table 'books':
+  PK/Fields: ['id (PK)', 'title', 'author', 'publisher', 'description', 'price', 'oldPrice', 'imageUrl']
+  Relationships:
+    - ManyToOne with Category (col: category_id)
+
+Entity Cart -> Table 'carts':
+  PK/Fields: ['id (PK)']
+  Relationships:
+    - OneToOne with User (col: user_id)
+
+Entity CartItem -> Table 'cart_items':
+  PK/Fields: ['id (PK)', 'quantity']
+  Relationships:
+    - ManyToOne with Cart (col: cart_id)
+    - ManyToOne with Book (col: book_id)
+
+Entity Category -> Table 'categories':
+  PK/Fields: ['id (PK)', 'name', 'description', 'imageUrl']
+  Relationships:
+    - OneToMany with List<Book> (col: None)
+
+Entity Contact -> Table 'contacts':
+  PK/Fields: ['id (PK)', 'fullName', 'phone', 'email', 'content', 'createdAt']
+  Relationships:
+
+Entity Coupon -> Table 'coupons':
+  PK/Fields: ['id (PK)', 'code', 'discountType', 'discountValue', 'expirationDate', 'maxDiscountAmount', 'userId', 'category', 'usageLimit']
+  Relationships:
+
+Entity NewsletterSubscriber -> Table 'newsletter_subscribers':
+  PK/Fields: ['id (PK)', 'email', 'subscribedAt']
+  Relationships:
+
+Entity Notification -> Table 'notifications':
+  PK/Fields: ['id (PK)', 'title', 'content', 'type', 'userId', 'createdAt']
+  Relationships:
+
+Entity Order -> Table 'orders':
+  PK/Fields: ['id (PK)', 'totalAmount', 'status', 'shippingAddress', 'phoneNumber', 'paymentMethod', 'customerNote', 'shippingPartner', 'trackingNumber', 'discountCouponCode', 'shippingCouponCode', 'returnReason', 'returnPhone', 'returnBank', 'returnDetails', 'createdAt']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+
+Entity OrderItem -> Table 'order_items':
+  PK/Fields: ['id (PK)', 'quantity', 'price']
+  Relationships:
+    - ManyToOne with Order (col: order_id)
+    - ManyToOne with Book (col: book_id)
+
+Entity PointTransaction -> Table 'point_transactions':
+  PK/Fields: ['id (PK)', 'action', 'previousBalance', 'transactionValue', 'newBalance', 'createdAt', 'description']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+
+Entity Review -> Table 'reviews':
+  PK/Fields: ['id (PK)', 'rating', 'comment', 'imageUrl', 'createdAt']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+    - ManyToOne with Book (col: book_id)
+    - OneToMany with List<ReviewComment> (col: None)
+
+Entity ReviewComment -> Table 'review_comments':
+  PK/Fields: ['id (PK)', 'content', 'createdAt']
+  Relationships:
+    - ManyToOne with Review (col: review_id)
+    - ManyToOne with User (col: user_id)
+
+Entity RewardVoucher -> Table 'reward_vouchers':
+  PK/Fields: ['id (PK)', 'code', 'rewardType', 'rewardValue', 'expirationDate']
+  Relationships:
+
+Entity SiteSetting -> Table 'site_settings':
+  PK/Fields: ['settingKey (PK)', 'settingValue']
+  Relationships:
+
+Entity User -> Table 'users':
+  PK/Fields: ['id (PK)', 'username', 'password', 'fullName', 'email', 'phone', 'gender', 'birthday', 'aiPreferences', 'providerId', 'role', 'createdAt']
+  Relationships:
+
+Entity UserReward -> Table 'user_rewards':
+  PK/Fields: ['id (PK)', 'redeemedAt']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+    - ManyToOne with RewardVoucher (col: voucher_id)
+
+Entity VatInvoice -> Table 'vat_invoices':
+  PK/Fields: ['id (PK)', 'type', 'companyName', 'companyAddress', 'taxCode', 'email']
+  Relationships:
+    - OneToOne with User (col: user_id)
+
+Entity Wishlist -> Table 'wishlists':
+  PK/Fields: ['id (PK)']
+  Relationships:
+    - ManyToOne with User (col: user_id)
+    - ManyToOne with Book (col: book_id)

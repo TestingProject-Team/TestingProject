@@ -1,0 +1,181 @@
+P10 [Normal]: I. Giới thiệu dự án
+P11 [Normal]: 1. Tổng quan
+P12 [Normal]: 1.1 Thông tin dự án
+P13 [Normal]: 1.2 Nhóm dự án
+P14 [Normal]: 2. Bối cảnh sản phẩm
+P15 [Normal]: 3. Hệ thống hiện có và tham chiếu thị trường
+P16 [Normal]: 4. Cơ hội kinh doanh
+P17 [Normal]: 5. Tầm nhìn sản phẩm phần mềm
+P18 [Normal]: 6. Phạm vi và giới hạn dự án
+P19 [Normal]: II. Kế hoạch quản lý dự án
+P20 [Normal]: 1. Tổng quan
+P21 [Normal]: 2. Phương pháp quản lý
+P22 [Normal]: 3. Sản phẩm bàn giao của dự án
+P23 [Normal]: 4. Phân công trách nhiệm
+P24 [Normal]: 5. Trao đổi trong dự án
+P25 [Normal]: 6. Quản lý cấu hình
+P26 [Normal]: III. Đặc tả yêu cầu phần mềm
+P27 [Normal]: 1. Tổng quan sản phẩm
+P28 [Normal]: 2. Yêu cầu người dùng
+P29 [Normal]: 3. Yêu cầu chức năng
+P30 [Normal]: 4. Yêu cầu phi chức năng
+P31 [Normal]: 5. Phụ lục yêu cầu
+P32 [Normal]: IV. Mô tả thiết kế phần mềm
+P33 [Normal]: 1. Thiết kế hệ thống
+P34 [Normal]: 2. Thiết kế Database
+P35 [Normal]: 3. Thiết kế chi tiết
+P36 [Normal]: V. Tài liệu kiểm thử phần mềm
+P37 [Normal]: 1. Scope (Phạm vi kiểm thử)
+P38 [Normal]: 2. Strategy (Chiến lược kiểm thử)
+P39 [Normal]: 3. Plan (Kế hoạch kiểm thử)
+P40 [Normal]: 4. Black-box Testing (Thiết kế Test Case phương pháp Hộp đen)
+P41 [Normal]: 5. White-box / Unit Testing (Kiểm thử Hộp trắng & Đơn vị)
+P42 [Normal]: 6. API Testing (Kiểm thử Giao diện Lập trình Ứng dụng)
+P49 [Normal]: VI. Gói phát hành và hướng dẫn người dùng
+P50 [Normal]: 1. Gói sản phẩm bàn giao
+P51 [Normal]: 2. Hướng dẫn cài đặt
+P52 [Normal]: 3. Hướng dẫn sử dụng
+P62 [Heading 1]: I. Giới thiệu dự án
+P63 [Heading 2]: 1. Tổng quan
+P64 [Heading 3]: 1.1 Thông tin dự án
+P68 [Heading 3]: 1.2 Nhóm dự án
+P71 [Heading 2]: 2. Bối cảnh sản phẩm
+P79 [Heading 2]: 3. Hệ thống hiện có và tham chiếu thị trường
+P85 [Heading 2]: 4. Cơ hội kinh doanh
+P92 [Heading 2]: 5. Tầm nhìn sản phẩm phần mềm
+P98 [Heading 2]: 6. Phạm vi và giới hạn dự án
+P99 [Heading 3]: 6.1 Major Features
+P101 [Heading 3]: 6.2 Giới hạn và nội dung loại trừ
+P107 [Heading 1]: II. Kế hoạch quản lý dự án
+P108 [Heading 2]: 1. Tổng quan
+P109 [Heading 3]: 1.1 Phạm vi và ước lượng
+P112 [Heading 3]: 1.2 Mục tiêu dự án
+P119 [Heading 3]: 1.3 Rủi ro dự án
+P121 [Heading 2]: 2. Phương pháp quản lý
+P122 [Heading 3]: 2.1 Quy trình dự án
+P134 [Heading 3]: 2.2 Quản lý chất lượng
+P140 [Heading 3]: 2.3 Kế hoạch đào tạo
+P143 [Heading 2]: 3. Sản phẩm bàn giao của dự án
+P145 [Heading 2]: 4. Phân công trách nhiệm
+P147 [Heading 2]: 5. Trao đổi trong dự án
+P149 [Heading 2]: 6. Quản lý cấu hình
+P150 [Heading 3]: 6.1 Quản lý tài liệu
+P155 [Heading 3]: 6.2 Quản lý Source Code
+P160 [Heading 3]: 6.3 Công cụ và hạ tầng
+P162 [Heading 1]: III. Đặc tả yêu cầu phần mềm
+P163 [Heading 2]: 1. Tổng quan sản phẩm
+P172 [Heading 2]: 2. Yêu cầu người dùng
+P173 [Heading 3]: 2.1 Actor của hệ thống
+P175 [Heading 3]: 2.2 Use Case
+P177 [Heading 2]: 3. Yêu cầu chức năng
+P179 [Heading 3]: 3.1 Tổng quan chức năng hệ thống
+P182 [Heading 3]: 3.2 Web Application
+P183 [Heading 4]: 3.2.1 Ứng dụng Customer (Customer Application)
+P288 [Heading 4]: 3.2.2 Cổng Administration (Administration Portal)
+P354 [Heading 2]: 4. Yêu cầu phi chức năng
+P356 [Heading 3]: 4.1 External Interface
+P358 [Heading 3]: 4.2 Thuộc tính chất lượng
+P364 [Heading 2]: 5. Phụ lục yêu cầu
+P365 [Heading 3]: 5.1 Business Rule
+P367 [Heading 3]: 5.2 Yêu cầu chung
+P375 [Heading 3]: 5.3 Danh sách Application Message
+P377 [Heading 1]: IV. Mô tả thiết kế phần mềm
+P378 [Heading 2]: 1. Thiết kế hệ thống
+P381 [Heading 3]: 1.1 System Architecture
+P388 [Heading 4]: 1.1.1 Frontend Architecture
+P391 [Heading 4]: 1.1.2 Backend Architecture
+P394 [Heading 4]: 1.1.3 AI Assistant Architecture
+P397 [Heading 4]: 1.1.4 Deployment Architecture
+P400 [Heading 3]: 1.2 Package Diagram
+P403 [Heading 2]: 2. Thiết kế Database
+P407 [Heading 3]: 2.1 Ghi chú về Data Integrity và Transaction
+P413 [Heading 2]: 3. Thiết kế chi tiết
+P414 [Heading 3]: 3.1 Login và JWT Authentication
+P430 [Heading 3]: 3.2 Xem Product List
+P443 [Heading 3]: 3.3 Search và Filter
+P458 [Heading 3]: 3.4 Product Detail và Review
+P471 [Heading 3]: 3.5 Quản lý Cart (Cart Management)
+P484 [Heading 3]: 3.6 Checkout và COD
+P499 [Heading 3]: 3.7 Payment Online (Online Payment)
+P514 [Heading 3]: 3.8 Order và Return
+P527 [Heading 3]: 3.9 Y-Point và Membership
+P540 [Heading 3]: 3.10 Chat YiYi AI
+P555 [Heading 3]: 3.11 Catalogue Admin
+P567 [Heading 3]: 3.12 Xử lý Admin Order
+P580 [Heading 3]: 3.13 Admin Promotion và Content
+P592 [Heading 1]: V. Tài liệu kiểm thử phần mềm
+P593 [Heading 2]: 1. Phạm vi kiểm thử
+P594 [Heading 3]: 1.1 In-Scope Testing (Kiểm thử trong phạm vi)
+P603 [Heading 3]: 1.2 Out-of-Scope Testing (Kiểm thử ngoài phạm vi)
+P609 [Heading 3]: 1.3 Constraints & Assumptions (Ràng buộc và giả định)
+P613 [Heading 2]: 2. Chiến lược kiểm thử
+P614 [Heading 3]: 2.1 Testing Types (Các loại kiểm thử)
+P620 [Heading 3]: 2.2 Test Levels (Các cấp độ kiểm thử)
+P627 [Heading 3]: 2.3 Testing Tools (Công cụ kiểm thử)
+P631 [Heading 2]: 3. Kế hoạch kiểm thử
+P632 [Heading 3]: 3.1 Human Resources (Nguồn lực nhân sự)
+P636 [Heading 3]: 3.2 Test Environment (Môi trường kiểm thử)
+P640 [Heading 3]: 3.3 Test Data (Dữ liệu kiểm thử)
+P645 [Heading 3]: 3.4 Entry & Exit Criteria (Tiêu chí Bắt đầu & Kết thúc)
+P649 [Heading 3]: 3.5 Test Milestones (Các cột mốc kiểm thử)
+P653 [Heading 2]: 4. Thiết kế Test Case bằng Black-box Testing
+P654 [Heading 3]: 4.1 Equivalence Partitioning (Phân vùng tương đương - EP)
+P658 [Heading 3]: 4.2 Boundary Value Analysis (Phân tích giá trị biên - BVA)
+P662 [Heading 3]: 4.3 Decision Table Testing (Bảng quyết định)
+P666 [Heading 3]: 4.4 State Transition Testing (Kiểm thử chuyển trạng thái)
+P672 [Heading 3]: 4.5 Use Case Testing (Kiểm thử theo Use Case)
+P677 [Heading 2]: 5. White-box / Unit Testing
+P678 [Heading 3]: 5.1 JUnit 5 & Mockito Test Implementation
+P683 [Heading 3]: 5.2 JaCoCo Code Coverage Report
+P690 [Heading 3]: 5.3 Statement & Branch Coverage Analysis
+P695 [Heading 2]: 6. API Testing
+P696 [Heading 3]: 6.1 Postman Collection Structure
+P703 [Heading 3]: 6.2 Newman Automation Execution
+P710 [Heading 3]: 6.3 API Test Result Summary
+P715 [Heading 2]: 7. End-to-End Testing
+P716 [Heading 3]: 7.1 CodeceptJS Test Design & Page Object Model
+P723 [Heading 3]: 7.2 E2E Test Execution & Scenarios
+P728 [Heading 3]: 7.3 Screenshots & Failure Evidence Plugin
+P734 [Heading 2]: 8. Static Analysis & Code Quality
+P735 [Heading 3]: 8.1 Checkstyle Java Standards
+P741 [Heading 3]: 8.2 SpotBugs Bytecode Analysis
+P746 [Heading 3]: 8.3 SonarQube & Flake8 Configuration
+P750 [Heading 2]: 9. Test Execution Report (Báo cáo thực thi)
+P751 [Heading 3]: 9.1 Test Execution Summary
+P756 [Heading 3]: 9.2 Pass / Fail / Blocked Statistics
+P760 [Heading 3]: 9.3 Coverage Summary Metrics
+P764 [Heading 2]: 10. Defect Management (Quản lý lỗi & Khiếm khuyết)
+P765 [Heading 3]: 10.1 Bug Tracking & Defect Life Cycle
+P773 [Heading 3]: 10.2 Resolved Defects Log (Nhật ký lỗi đã xử lý)
+P777 [Heading 3]: 10.3 Defect Status & Evidence Index
+P780 [Heading 2]: 11. Requirement Traceability Matrix (RTM)
+P781 [Heading 3]: 11.1 Chi tiết Ma trận Truy vết Yêu cầu
+P785 [Heading 2]: 12. Test Summary & Conclusion (Tổng kết & Kết luận)
+P786 [Heading 3]: 12.1 Đánh giá mức độ sẵn sàng sản phẩm
+P788 [Heading 3]: 12.2 Đề xuất và Định hướng nâng cấp tiếp theo
+P791 [Heading 1]: VI. Gói phát hành và hướng dẫn người dùng
+P792 [Heading 2]: 1. Gói sản phẩm bàn giao
+P794 [Heading 2]: 2. Hướng dẫn cài đặt
+P795 [Heading 2]: 2.1 System Requirement
+P806 [Heading 2]: 2.2 Hướng dẫn cài đặt
+P823 [Heading 2]: 3. Hướng dẫn sử dụng
+P824 [Heading 3]: 3.1 Tổng quan
+P826 [Heading 3]: 3.2 Customer Workflow
+P827 [Heading 4]: 3.2.1 Register và Login
+P834 [Heading 4]: 3.2.2 Browse và Search
+P841 [Heading 4]: 3.2.3 Product và Wishlist
+P848 [Heading 4]: 3.2.4 Cart và Checkout
+P856 [Heading 4]: 3.2.5 Payment và Order Tracking
+P863 [Heading 4]: 3.2.6 Review và Community
+P870 [Heading 4]: 3.2.7 Y-Point và Coupon
+P877 [Heading 4]: 3.2.8 YiYi AI
+P884 [Heading 3]: 3.3 Admin/Manager Workflow
+P885 [Heading 4]: 3.3.1 Admin Login và Dashboard
+P892 [Heading 4]: 3.3.2 Quản lý Book
+P899 [Heading 4]: 3.3.3 Quản lý Category và Banner
+P906 [Heading 4]: 3.3.4 Quản lý Order
+P914 [Heading 4]: 3.3.5 Quản lý User và Role
+P922 [Heading 4]: 3.3.6 Quản lý Promotion và Reward
+P929 [Heading 4]: 3.3.7 Kiểm duyệt Review và Communication
+P936 [Heading 3]: 3.4 Hỗ trợ và Troubleshooting
+P938 [Heading 1]: Phụ lục A. Minh chứng và Checklist hoàn thành

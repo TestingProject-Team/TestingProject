@@ -1,0 +1,12 @@
+P442: Hình 4.8. Sơ đồ tuần tự (Sequence Diagram) luồng Xem danh mục và Danh sách Sách.
+  [437] Render state loading, data, empty hoặc error.
+  [438] Cho phép navigation đến product detail.
+  [439] Luồng thay thế và ngoại lệ
+  [440] API failure, category rỗng hoặc category ID không hợp lệ.
+  [441] Tiêu chí nghiệm thu: Customer có thể tìm và mở product.
+  [442] Hình 4.8. Sơ đồ tuần tự (Sequence Diagram) luồng Xem danh mục và Danh sách Sách.
+  [443] 3.3 Search và Filter
+  [444] • Cấu trúc Class Diagram tham chiếu: BookController, CategoryController -> BookService, CategoryService -> BookRepository, CategoryRepository -> Book, Category.
+  [445] • Mô tả Sequence Flow: Client gửi GET /api/books?page=0&size=12&category=1&search=dac-nhan-tam -> BookController validate params -> BookService thực hiện truy vấn Specification lọc kết hợp tiêu chí -> BookRepository query Database PostgreSQL -> Trả về HTTP 200 Page<BookDTO> -> Client render lưới sản phẩm và phân trang.
+  [446] Mục tiêu: Trả về product khớp keyword và tiêu chí đã chọn.
+  [447] Actor(s): Customer

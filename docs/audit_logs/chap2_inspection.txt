@@ -1,0 +1,151 @@
+=== PARAGRAPHS IN CHAPTER II ===
+[P107][Heading 1] II. Kế hoạch quản lý dự án
+[P108][Heading 2] 1. Tổng quan
+[P109][Heading 3] 1.1 Phạm vi và ước lượng
+[P110][Normal] Phạm vi công việc được tổ chức thành các nhóm: khám phá sản phẩm, giao diện cửa hàng, quản trị, Backend services, tích hợp, đảm bảo chất lượng, triển khai và tài liệu. Archive cung cấp nhiều minh chứng triển khai, nhưng không bao gồm lịch trình ban đầu và ước lượng person-day. Hãy hoàn thiện các cột ngày tháng và công sức dự kiến dựa trên project board của nhóm.
+[P111][Normal] 
+[P112][Heading 3] 1.2 Mục tiêu dự án
+[P113][Normal] Bàn giao một nhà sách web có chức năng đầy đủ và customer journey rõ ràng.
+[P114][Normal] Cung cấp cổng quản trị cho các hoạt động hằng ngày về catalogue, đơn hàng, khuyến mãi và người dùng.
+[P115][Normal] Sử dụng mô hình authentication an toàn với role-based access cho các thao tác được bảo vệ.
+[P116][Normal] Hỗ trợ lưu trữ bền vững dữ liệu đơn hàng, giỏ hàng, đánh giá, địa chỉ, phần thưởng và thông báo.
+[P117][Normal] Cung cấp test assets bao phủ các scenario positive, negative, integration và authorization.
+[P118][Normal] Chuẩn bị quy trình deployment local và cloud có thể lặp lại bằng cấu hình dựa trên environment.
+[P119][Heading 3] 1.3 Rủi ro dự án
+[P120][Normal] 
+[P121][Heading 2] 2. Phương pháp quản lý
+[P122][Heading 3] 2.1 Quy trình dự án
+[P123][Normal] Quy trình được đề xuất là Agile workflow theo từng vòng lặp. Mỗi iteration nên bắt đầu bằng một nhóm nhỏ kết quả hướng đến người dùng, xác định acceptance criteria, triển khai các phần Frontend và Backend, kiểm thử API và UI, sau đó kết thúc bằng việc review minh chứng và các rủi ro chưa được xử lý.
+[P124][Normal] Backlog và làm rõ yêu cầu.
+[P125][Normal] Thiết kế user flow, API contract, data model và các trạng thái màn hình.
+[P126][Normal] Triển khai trên các branch nhỏ kèm review pull request.
+[P127][Normal] Unit test, API test, negative authorization test và kiểm thử UI thủ công.
+[P128][Normal] Integration, deployment smoke test, tài liệu và chuẩn bị demo.
+[P129][Normal] Hình 2.1. Sơ đồ quy trình phát triển phần mềm Agile/Scrum của dự án YiYi Book.
+[P130][Normal] Hình 2.2. Minh chứng quản trị công việc và phân chia Sprint trên Jira.
+[P131][Normal] Hình 2.3. Minh chứng quy trình Git Branching và Code Review trên GitHub.
+[P132][Normal] Hình 2.4. Minh chứng luồng tự động hóa kiểm thử liên tục (CI/CD Pipeline).
+[P133][Normal] Hình 2.5. Minh chứng kiểm thử chấp nhận và triển khai hệ thống.
+[P134][Heading 3] 2.2 Quản lý chất lượng
+[P135][Normal] Sử dụng cấu trúc code dễ đọc với các boundary rõ ràng cho controller, service, repository, entity, DTO, security và configuration.
+[P136][Normal] Chạy Backend unit test và API collection cho các scenario positive, negative và RBAC.
+[P137][Normal] Chạy kiểm tra lint/build của Frontend thông qua GitHub workflow hiện có.
+[P138][Normal] Review Database transaction, input validation, error handling, secret management và ownership check.
+[P139][Normal] Ghi nhận defect cùng các bước tái hiện, kết quả mong đợi, kết quả thực tế, mức độ nghiêm trọng, người phụ trách và minh chứng retest.
+[P140][Heading 3] 2.3 Kế hoạch đào tạo
+[P141][Normal] Hình 2.6. Minh chứng buổi chuyển giao công nghệ và đào tạo vận hành hệ thống.
+[P142][Normal] 
+[P143][Heading 2] 3. Sản phẩm bàn giao của dự án
+[P144][Normal] 
+[P145][Heading 2] 4. Phân công trách nhiệm
+[P146][Normal] 
+[P147][Heading 2] 5. Trao đổi trong dự án
+[P148][Normal] 
+[P149][Heading 2] 6. Quản lý cấu hình
+[P150][Heading 3] 6.1 Quản lý tài liệu
+[P151][Normal] Lưu báo cáo, screenshot, diagram, test export và release note trong workspace dùng chung với các folder rõ ràng.
+[P152][Normal] Sử dụng quy tắc đặt tên nhất quán, chẳng hạn YiYiBook_Report_v1.0.docx và YiYiBook_Report_v1.1.docx.
+[P153][Normal] Ghi nhận các thay đổi lớn trong change log và hoàn thiện phiên bản nộp chính thức.
+[P154][Normal] Sử dụng Notion để phân công công việc và quản lý evidence checklist, đồng thời giữ báo cáo Word làm tài liệu chính thức.
+[P155][Heading 3] 6.2 Quản lý Source Code
+[P156][Normal] Sử dụng branch main được bảo vệ cho code sẵn sàng release và các branch feature/fix ngắn hạn cho thay đổi.
+[P157][Normal] Review pull request trước khi merge và kèm test evidence cho các thay đổi nhạy cảm về security hoặc transaction.
+[P158][Normal] Không bao giờ commit API key thật, password Database, SMTP credential hoặc payment secret.
+[P159][Normal] Sử dụng GitHub workflow được cung cấp làm baseline cho Backend check, API test và static check.
+[P160][Heading 3] 6.3 Công cụ và hạ tầng
+[P161][Normal] 
+
+=== TABLES IN CHAPTER II ===
+
+--- TABLE 6 (rows=5, cols=3) ---
+Row 0: ['Nhóm tham chiếu', 'Nội dung cần so sánh', 'Minh chứng / Evidence yêu cầu']
+Row 1: ['Online bookstore', 'Cấu trúc catalogue, product detail, điều hướng author/category và promotion', '[CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]']
+Row 2: ['Marketplace', 'Search, filter, checkout, order tracking và tương tác review', '[CẦN BỔ SUNG EVIDENCE: Tên hệ thống, URL và ảnh chụp so sánh]']
+Row 3: ['Payment provider', 'Redirect, QR/payment result, callback và xử lý failure', '[CẦN BỔ SUNG EVIDENCE: Minh chứng luồng thanh toán Sandbox]']
+Row 4: ['Customer support / AI', 'FAQ, recommendation, response tone và bàn giao cho human support', '[CẦN BỔ SUNG EVIDENCE: Bảng ghi chú đánh giá Benchmark]']
+
+--- TABLE 7 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo giao diện và luồng nghiệp vụ mua sách tại Fahasa/Tiki]']
+
+--- TABLE 8 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh tham khảo mô hình Sàn giao dịch & Gian hàng Shopee/Lazada]']
+
+--- TABLE 9 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh giao diện cổng thanh toán trực tuyến mẫu (VNPAY/MoMo Sandbox)]']
+
+--- TABLE 10 (rows=1, cols=1) ---
+Row 0: ['Tầm nhìn sản phẩm: YiYi Book hướng đến trở thành một digital bookstore đáng tin cậy, thuận tiện và được cá nhân hóa, nơi customer có thể nhanh chóng tìm đúng sách còn doanh nghiệp có thể quản lý catalogue, order, promotion và customer relationship từ một hệ thống duy nhất.']
+
+--- TABLE 11 (rows=10, cols=3) ---
+Row 0: ['ID', 'Nhóm feature', 'Capability bao gồm']
+Row 1: ['F01', 'Authentication và profile', 'Register, login, JWT session, profile, password và role']
+Row 2: ['F02', 'Catalogue', 'Book, category, search, filter, view bestseller/latest/featured/discounted']
+Row 3: ['F03', 'Tương tác product', 'Product detail, image, rating, review, nested comment và wishlist']
+Row 4: ['F04', 'Cart và checkout', 'Cart bền vững, address, coupon, Y-Point, COD và online payment']
+
+--- TABLE 12 (rows=7, cols=4) ---
+Row 0: ['Workstream', 'Phạm vi', 'Lịch trình', 'Ước lượng']
+Row 1: ['Yêu cầu và phân tích', 'Actor, Use Case, business rule và acceptance criteria', '[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]', '[CẦN BỔ SUNG: Ước lượng Person-Days]']
+Row 2: ['Frontend storefront', 'Page, layout, search, cart, checkout, profile và policy', '[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]', '[CẦN BỔ SUNG: Ước lượng Person-Days]']
+Row 3: ['Admin portal', 'Dashboard, book, category, order, user, reward và content', '[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]', '[CẦN BỔ SUNG: Ước lượng Person-Days]']
+Row 4: ['Backend và Database', 'Controller, service, repository, entity và security', '[CẦN BỔ SUNG: Lịch trình từ Jira / Sprint Plan]', '[CẦN BỔ SUNG: Ước lượng Person-Days]']
+
+--- TABLE 13 (rows=11, cols=4) ---
+Row 0: ['ID', 'Rủi ro', 'Mức độ', 'Biện pháp giảm thiểu']
+Row 1: ['R-01', 'Thay đổi payment callback hoặc hành vi sandbox', 'Trung bình', 'Sử dụng mock return flow, tách gateway adapter và document test evidence']
+Row 2: ['R-02', 'Secret bị lộ trong source hoặc report', 'Cao', 'Sử dụng environment variable, rotate credential và redact log/document']
+Row 3: ['R-03', 'Endpoint authorization chưa đầy đủ', 'Cao', 'Review mọi controller mapping và thêm RBAC negative test']
+Row 4: ['R-04', 'Lỗi concurrency của stock/order', 'Cao', 'Sử dụng transaction, validate stock và test duplicate/parallel request']
+
+--- TABLE 14 (rows=1, cols=1) ---
+Row 0: ['']
+
+--- TABLE 15 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh bảng Jira Scrum Board / Sprint Backlog thực tế của dự án]']
+
+--- TABLE 16 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh quản lý Git Branch, Commit History và Pull Request trên GitHub]']
+
+--- TABLE 17 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh GitHub Actions CI Workflow chạy tự động Build & Test thành công]']
+
+--- TABLE 18 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh kết quả Smoke Test môi trường triển khai thực tế]']
+
+--- TABLE 19 (rows=5, cols=4) ---
+Row 0: ['Chủ đề', 'Đối tượng', 'Đầu ra đào tạo', 'Minh chứng']
+Row 1: ['Setup local', 'Tất cả thành viên', 'Chạy Database, Backend, Frontend và Docker path', '[CẦN BỔ SUNG: SETUP SCREENSHOT]']
+Row 2: ['API testing', 'QA và Backend', 'Chạy Postman/Newman và phân tích kết quả auth/status', '[CẦN BỔ SUNG: COLLECTION RUN]']
+Row 3: ['Content operations', 'Admin/documentation owner', 'Quản lý book, banner, coupon, user, review và setting', '[CẦN BỔ SUNG: ADMIN DEMO]']
+Row 4: ['Release process', 'Release owner', 'Build, environment variable và deployment smoke test', '[CẦN BỔ SUNG: DEPLOYMENT LOG]']
+
+--- TABLE 20 (rows=1, cols=1) ---
+Row 0: ['[CẦN BỔ SUNG EVIDENCE: Ảnh biên bản bàn giao / Ảnh chụp buổi đào tạo vận hành hệ thống]']
+
+--- TABLE 21 (rows=8, cols=4) ---
+Row 0: ['ID', 'Sản phẩm bàn giao', 'Mô tả', 'Vị trí / status']
+Row 1: ['D01', 'Đặc tả yêu cầu phần mềm (Software Requirements Specification)', 'Actor, Use Case, yêu cầu chức năng và phi chức năng', '[CẦN BỔ SUNG: LINK / VERSION]']
+Row 2: ['D02', 'Mô tả thiết kế phần mềm (Software Design Description)', 'Architecture, package structure, Database và flow chi tiết', '[CẦN BỔ SUNG: LINK / VERSION]']
+Row 3: ['D03', 'Source Code', 'Frontend, Backend, configuration, migration/seed data', 'Archive được cung cấp']
+Row 4: ['D04', 'API documentation', 'Endpoint được document, auth scheme và gap đã biết', 'backend/API_DOCUMENTATION.md']
+
+--- TABLE 22 (rows=6, cols=4) ---
+Row 0: ['Owner', 'Trách nhiệm chính', 'Phần báo cáo phụ trách', 'Trạng thái']
+Row 1: ['Phan Văn Đỉnh', 'Requirement, cấu trúc report, integration, RTM và final review', 'Chương I, Chương II, Phụ lục & Tổng hợp Báo cáo', 'Đã hoàn thành']
+Row 2: ['Huỳnh Anh Phú', 'Frontend Storefront UI/UX, Catalogue, Books API, Postman Tests', 'Chương III, Chương IV (Storefront), Chương V (API Tests)', 'Đã hoàn thành']
+Row 3: ['Lê Minh Tài', 'Backend Spring Boot Architecture, Database, Security, RBAC & Rewards', 'Chương IV (Backend Architecture & DB), Chương V (Unit Tests & JaCoCo)', 'Đã hoàn thành']
+Row 4: ['Tạ Huy Thiên Văn', 'Cart, Order, Sandbox Payment, Wishlist, CodeceptJS E2E Tests', 'Chương IV (E-Commerce Flow), Chương V (E2E Tests & Defect Log)', 'Đã hoàn thành']
+
+--- TABLE 23 (rows=6, cols=5) ---
+Row 0: ['Hình thức trao đổi', 'Thành phần', 'Tần suất', 'Mục đích', 'Kênh']
+Row 1: ['Stand-up', 'Tất cả thành viên', '2-3 lần mỗi tuần', 'Tiến độ, blocker và action tiếp theo', '[CẦN BỔ SUNG: CHANNEL]']
+Row 2: ['Code review', 'Developer + reviewer', 'Trước khi merge', 'Review logic, security, test và convention', 'GitHub Pull Request']
+Row 3: ['Test triage', 'QA + feature owner', 'Theo từng test cycle', 'Phân loại defect và verify fix', '[CẦN BỔ SUNG: CHANNEL]']
+Row 4: ['Document review', 'Report owner + supervisor', 'Hằng tuần / theo milestone', 'Kiểm tra tính đầy đủ và evidence', 'Notion / Word']
+
+--- TABLE 24 (rows=10, cols=2) ---
+Row 0: ['Category', 'Công cụ / hạ tầng']
+Row 1: ['Frontend', 'React, Vite, Tailwind CSS, React Router, Axios, Swiper']
+Row 2: ['Backend', 'Java 17, Spring Boot 3.2.4, Spring Security, JPA/Hibernate']
+Row 3: ['Database', 'PostgreSQL; Supabase được document như một cloud option']
+Row 4: ['Payment', 'VNPAY, MoMo, ZaloPay và QR/mock payment flow']

@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
+@Transactional
 public class NewsletterService {
 
     @Autowired
@@ -28,12 +30,14 @@ public class NewsletterService {
 
         Optional<NewsletterSubscriber> existing = repository.findByEmail(email);
         if (existing.isPresent()) {
-            NewsletterSubscriber sub = existing.get();
-            if (!sub.isActive()) {
-                sub.setActive(true);
-                repository.save(sub);
-            } else {
-                throw new IllegalStateException("Email này đã được đăng ký từ trước.");
+            NewsletterSubscriber sub = existing.orElse(null);
+            if (sub != null) {
+                if (!sub.isActive()) {
+                    sub.setActive(true);
+                    repository.save(sub);
+                } else {
+                    throw new IllegalStateException("Email này đã được đăng ký từ trước.");
+                }
             }
         } else {
             NewsletterSubscriber subscriber = new NewsletterSubscriber();

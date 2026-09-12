@@ -1,0 +1,7 @@
+=== TABLE 71 (rows=6, cols=4) ===
+Row 0: ['Thành viên', 'Vai trò chính', 'Phạm vi trách nhiệm kiểm thử', 'Mức độ cam kết']
+Row 1: ['Phan Văn Đỉnh', 'Test Lead / QA Engineer', 'Điều phối chiến lược kiểm thử, kiểm thử Giỏ hàng, Đơn hàng, Đánh giá, Khuyến mãi và ma trận truy vết RTM', '100% Toàn thời gian']
+Row 2: ['Lê Minh Tài', 'Scrum Master / Backend Tester', 'Điều phối Scrum Board Jira, kiểm thử phân quyền RBAC, Admin Portal, Loyalty Rewards và kiểm tra Code Review', '100% Toàn thời gian']
+Row 3: ['Huỳnh Anh Phú', 'API Tester / Backend Dev', 'Thiết kế và tự động hóa Test Cases cho Auth API, Catalogue, CRUD Sách, Banners và Category Management', '100% Toàn thời gian']
+Row 4: ['Tạ Huy Thiên Văn', 'E2E Tester / Frontend Dev', 'Thiết kế kịch bản E2E CodeceptJS, kiểm thử Giỏ hàng, Cổng thanh toán Sandbox, Wishlist và luồng Checkout', '100% Toàn thời gian']
+Row 5: ['Võ Ngọc Vân Anh', 'Quality & Security Tester', 'Phụ trách cấu hình Static Analysis (SonarQube, Checkstyle, SpotBugs), User Profile, Contact và Newsletter', '100% Toàn thời gian']

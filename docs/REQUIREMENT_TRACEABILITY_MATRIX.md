@@ -22,6 +22,7 @@ và lần kiểm thử ngày 17/08/2026.
 | Payment integration | `PaymentController` | Postman VNPay/MoMo/ZaloPay sandbox assertions | PASS có phụ thuộc ngoài |
 | Upload | `FileController` | Postman skip khi thiếu file local; negative no-file/no-auth | PARTIAL |
 | YIYI-30 — Static analysis (SonarQube, Checkstyle, SpotBugs, Flake8) | `checkstyle.xml`, `spotbugs-exclude.xml`, `sonar-project.properties`, `.flake8`, `docs/STATIC_ANALYSIS_GUIDE_YIYI-30.md` | Checkstyle 0 violations, SpotBugs 0 bugs, SonarQube & Flake8 configured | PASS |
+| YIYI-52 — White-box: Chạy JaCoCo và giải thích coverage report | `docs/JACOCO_COVERAGE_REPORT_YIYI-52.md`, `test-scripts/YIYI-52-jacoco-summary.json` | 300 tests PASS; Service Line Coverage 84.90%, Branch 70.35%; phân tích toàn diện coverage metrics | PASS |
 
 ## Khoảng trống và hành động tiếp theo
 

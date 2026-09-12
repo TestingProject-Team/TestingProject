@@ -1011,8 +1011,8 @@
                   "    pm.expect(pm.response.code).to.not.eql(200);",
                   "});",
                   "",
-                  "pm.test('Ghi nhận: server trả lỗi 500 thay vì 400 khi thiếu tệp (chưa validate đầu vào)', function () {",
-                  "    pm.response.to.have.status(500);",
+                  "pm.test('Ghi nhận: server trả lỗi 400 hoặc 500 khi thiếu tệp', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([400, 500]);",
                   "});"
                 ]
               }

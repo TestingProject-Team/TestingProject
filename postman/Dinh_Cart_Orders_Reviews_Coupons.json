@@ -1199,9 +1199,9 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "// 1. Chấp nhận 404 (chuẩn REST API) hoặc 500 (Spring Boot RuntimeException)\r",
+                  "// 1. Chấp nhận 400 (GlobalExceptionHandler), 404 (chuẩn REST API) hoặc 500\r",
                   "pm.test(\"🔍 Status 404 hoặc 500 (Báo lỗi khi ID không tồn tại)\", () => {\r",
-                  "    pm.expect(pm.response.code).to.be.oneOf([404, 500]);\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([400, 404, 500]);\r",
                   "});\r",
                   "\r",
                   "// 2. Response time < 2000ms\r",

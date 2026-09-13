@@ -7,7 +7,7 @@
   1. **Chức năng Authentication (Auth)**: Đăng ký (`/api/auth/register`) & Đăng nhập (`/api/auth/login`) - Bao phủ các trường `email`, `password`, `phone`.
   2. **Chức năng Books & Search**: Tìm kiếm sách (`/api/books/search`), Lọc/Phân trang sách (`keyword`, `price`, `page`, `size`).
 - **Thời gian hoàn thành & Nghiệm thu**: Hoàn tất trước ngày **26/08/2026**.
-- **Mã Sub-task & Branch Git**: `feature/YIYI-46` (Sub-task YIYI-46: Phân vùng tương đương Auth và Books/Search).
+- **Mã Task & Branch Git**: `feature/YIYI-53` (Task YIYI-53: Thiết kế và thực thi Equivalence Partitioning).
 
 ---
 

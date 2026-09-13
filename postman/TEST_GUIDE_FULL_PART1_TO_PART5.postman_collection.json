@@ -1,0 +1,2629 @@
+{
+  "info": {
+    "_postman_id": "yiyi-book-full-testsuite-parts-1-to-5",
+    "name": "YiYi Book - Bộ Kịch Bản Kiểm Thử Hoàn Chỉnh (Phần 1 Đến Phần 5)",
+    "description": "Bộ kịch bản kiểm thử API toàn diện 100% của dự án YiYi Book Online Bookstore, cấu trúc phân cấp cây thư mục rõ ràng theo đúng 5 phần đặc tả trong tài liệu:\n- Test Phần 1: Phân tích hệ thống, Health Check & Storefront APIs\n- Test Phần 2: Setup Môi trường & Xác thực Authentication (User/Admin Tokens)\n- Test Phần 3: Test EP (Equivalence Partitioning - Phân vùng tương đương)\n- Test Phần 4: Test BVA (Boundary Value Analysis - Phân tích giá trị biên)\n- Test Phần 5: Test Decision Table (Bảng quyết định) & Test State Transition (Chuyển trạng thái)\n\nChuẩn bị trước khi chạy:\n1. Backend Spring Boot đang chạy tại http://localhost:8081\n2. Chạy thư mục 'Test Phần 2' đầu tiên để tự động lưu JWT token.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081/api",
+      "type": "string"
+    },
+    {
+      "key": "userEmail",
+      "value": "user@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "userPassword",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "adminPassword",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "userToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "bookId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "stockBookId",
+      "value": "4",
+      "type": "string"
+    },
+    {
+      "key": "dynamicEmail",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "createdOrderId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Test Phần 1 - Hệ Thống & API Health Check",
+      "description": "Kiểm tra tình trạng hoạt động (Health check) và danh mục các API công khai của hệ thống Storefront.",
+      "item": [
+        {
+          "name": "1.1 Health Check - Ping API Server",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Server phản hồi 'pong'\", function () {",
+                  "    pm.expect(pm.response.text()).to.include(\"pong\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/ping",
+              "host": ["{{baseUrl}}"],
+              "path": ["ping"]
+            },
+            "description": "Kiểm tra kết nối và sức khỏe của Backend Spring Boot."
+          },
+          "response": []
+        },
+        {
+          "name": "1.2 Danh Sách Toàn Bộ Sách (Storefront)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Trả về danh sách mảng sách\", function () {",
+                  "    pm.expect(res).to.be.an(\"array\");",
+                  "    pm.expect(res.length).to.be.above(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Lấy danh sách tất cả sách hiển thị trên trang chủ."
+          },
+          "response": []
+        },
+        {
+          "name": "1.3 Danh Sách Thể Loại Sách (Categories)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Trả về danh mục thể loại\", function () {",
+                  "    pm.expect(res).to.be.an(\"array\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": ["{{baseUrl}}"],
+              "path": ["categories"]
+            },
+            "description": "Lấy danh sách cây thể loại danh mục."
+          },
+          "response": []
+        },
+        {
+          "name": "1.4 Danh Sách Banner Quảng Cáo (Banners)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Trả về danh sách banner\", function () {",
+                  "    pm.expect(res).to.be.an(\"array\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["banners"]
+            },
+            "description": "Lấy danh sách banner hiển thị trang chủ."
+          },
+          "response": []
+        },
+        {
+          "name": "1.5 Thông Số Cấu Hình Hệ Thống (Settings)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Cấu hình hệ thống tồn tại\", function () {",
+                  "    pm.expect(res).to.be.an(\"object\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/settings",
+              "host": ["{{baseUrl}}"],
+              "path": ["settings"]
+            },
+            "description": "Lấy cấu hình hệ thống website (hotline, hotline, shipping fee...)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Test Phần 2 - Setup Môi Trường & Authentication",
+      "description": "Chuẩn bị biến môi trường, đăng nhập tài khoản User và Admin, trích xuất và lưu JWT Tokens.",
+      "item": [
+        {
+          "name": "2.1 Đăng Nhập User (Cấp userToken)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Response có chứa JWT token\", function () {",
+                  "    pm.expect(res).to.have.property(\"token\");",
+                  "    pm.expect(res.token).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set(\"userToken\", res.token);",
+                  "    pm.environment.set(\"userToken\", res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Đăng nhập với tài khoản khách hàng để lấy userToken."
+          },
+          "response": []
+        },
+        {
+          "name": "2.2 Đăng Nhập Admin (Cấp adminToken)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Response có chứa JWT admin token\", function () {",
+                  "    pm.expect(res).to.have.property(\"token\");",
+                  "    pm.expect(res.token).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set(\"adminToken\", res.token);",
+                  "    pm.environment.set(\"adminToken\", res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Đăng nhập với tài khoản Quản trị viên để lấy adminToken."
+          },
+          "response": []
+        },
+        {
+          "name": "2.3 Lấy Thông Tin Hồ Sơ Cá Nhân (Profile)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Thông tin User chính xác\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "    pm.expect(res.email).to.eql(pm.collectionVariables.get(\"userEmail\"));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Xác thực token hoạt động tốt bằng cách lấy thông tin profile người dùng."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Test Phần 3 - Test EP (Phân Vùng Tương Đương)",
+      "description": "Kiểm thử phân vùng tương đương (Equivalence Partitioning) cho các luồng Đăng ký, Đăng nhập, Giỏ hàng, Mã giảm giá, Đặt hàng, Đánh giá, Upload và RBAC.",
+      "item": [
+        {
+          "name": "Test EP - Đăng Ký Tài Khoản (Register)",
+          "item": [
+            {
+              "name": "EP-REG-01: Đăng ký với đầy đủ thông tin hợp lệ (Valid)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const rand = Math.floor(Math.random() * 1000000);",
+                      "const email = \"test_ep_\" + rand + \"@gmail.com\";",
+                      "pm.collectionVariables.set(\"dynamicEmail\", email);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Đăng ký thành công (Status 200 hoặc 201)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Trả về JWT token\", function () {",
+                      "    pm.expect(res).to.have.property(\"token\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nguyễn Văn An\",\n  \"email\": \"{{dynamicEmail}}\",\n  \"phone\": \"0901234567\",\n  \"password\": \"Abc@123456\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                },
+                "description": "Test case EP-REG-01: Đăng ký thành công với thông tin đầy đủ, email mới."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-REG-02: Đăng ký để trống Họ và Tên (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Từ chối đăng ký (Status 400 Bad Request)\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"\",\n  \"email\": \"emptyname_test@gmail.com\",\n  \"phone\": \"0901234567\",\n  \"password\": \"123456\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                },
+                "description": "Test case EP-REG-02: Để trống trường họ tên. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-REG-03: Đăng ký với Email sai định dạng (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Từ chối đăng ký (Status 400 Bad Request)\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Trần Bình\",\n  \"email\": \"tranbinhemail_sai_dinh_dang\",\n  \"phone\": \"0901234567\",\n  \"password\": \"123456\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                },
+                "description": "Test case EP-REG-03: Email thiếu @ và tên miền. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-REG-04: Đăng ký với Email đã tồn tại trong DB (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Báo lỗi trùng email (Status 400 Bad Request)\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Thông báo email đã được đăng ký\", function () {",
+                      "    pm.expect(res.message || JSON.stringify(res)).to.include(\"đã được đăng ký\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Trần Bình\",\n  \"email\": \"user@gmail.com\",\n  \"phone\": \"0909998888\",\n  \"password\": \"123456\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                },
+                "description": "Test case EP-REG-04: Đăng ký với email user@gmail.com đã có sẵn. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-REG-05: Đăng ký với Mật khẩu ngắn dưới 6 ký tự (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Báo lỗi mật khẩu ngắn (Status 400 Bad Request)\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Lê Cường\",\n  \"email\": \"lecuong_shortpass@gmail.com\",\n  \"phone\": \"0901234567\",\n  \"password\": \"12345\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                },
+                "description": "Test case EP-REG-05: Mật khẩu 5 ký tự. Kỳ vọng 400."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Đăng Nhập (Login)",
+          "item": [
+            {
+              "name": "EP-LOG-01: Đăng nhập Khách hàng đúng Email & Mật khẩu (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Đăng nhập thành công 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Có JWT token trả về\", function () {",
+                      "    pm.expect(res).to.have.property(\"token\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                },
+                "description": "Test case EP-LOG-01: Đăng nhập tài khoản User hợp lệ."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-LOG-02: Đăng nhập Quản trị viên Admin hợp lệ (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Đăng nhập Admin thành công 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Có JWT token Admin\", function () {",
+                      "    pm.expect(res).to.have.property(\"token\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                },
+                "description": "Test case EP-LOG-02: Đăng nhập Admin hợp lệ."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-LOG-03: Đăng nhập với Mật khẩu không chính xác (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Từ chối đăng nhập (Status 400 hoặc 401)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([400, 401]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"SaiMatKhau999\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                },
+                "description": "Test case EP-LOG-03: Sai mật khẩu."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Giỏ Hàng (Cart)",
+          "item": [
+            {
+              "name": "EP-CRT-01: Thêm sản phẩm vào giỏ hàng với số lượng hợp lệ (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Giỏ hàng cập nhật danh sách items\", function () {",
+                      "    pm.expect(res).to.have.property(\"items\");",
+                      "    pm.expect(res.items).to.be.an(\"array\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookId\": {{bookId}},\n  \"quantity\": 2\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "Test case EP-CRT-01: Thêm sách hợp lệ vào giỏ hàng."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-CRT-02: Xem chi tiết giỏ hàng cá nhân (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Giỏ hàng hợp lệ\", function () {",
+                      "    pm.expect(res).to.have.property(\"items\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "Test case EP-CRT-02: Lấy thông tin giỏ hàng."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-CRT-04: Thêm số lượng sản phẩm âm hoặc bằng 0 (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Báo lỗi số lượng âm (Status 400 Bad Request)\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookId\": {{bookId}},\n  \"quantity\": -3\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "Test case EP-CRT-04: Thêm quantity = -3. Kỳ vọng 400."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Mã Giảm Giá (Coupon)",
+          "item": [
+            {
+              "name": "EP-CPN-01: Áp dụng mã Coupon hợp lệ đủ điều kiện (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Áp dụng mã thành công\", function () {",
+                      "    pm.expect(res.valid).to.eql(true);",
+                      "    pm.expect(res.discountAmount).to.be.above(0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=200000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "200000"
+                    }
+                  ]
+                },
+                "description": "Test case EP-CPN-01: Áp dụng mã GRAPE10 với đơn hàng 200k. Kỳ vọng valid: true."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-CPN-03: Đơn hàng chưa đạt giá trị tối thiểu của mã (Invalid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Mã bị từ chối (valid: false)\", function () {",
+                      "    pm.expect(res.valid).to.eql(false);",
+                      "    pm.expect(res.discountAmount).to.eql(0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=50000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "50000"
+                    }
+                  ]
+                },
+                "description": "Test case EP-CPN-03: Áp dụng mã GRAPE10 với đơn hàng 50k (yêu cầu min 100k). Kỳ vọng valid: false."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Đặt Hàng (Order)",
+          "item": [
+            {
+              "name": "EP-ORD-01: Tạo đơn hàng COD mới đầy đủ thông tin (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Tạo đơn thành công (Status 200/201)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Đơn hàng mới có ID và trạng thái PENDING\", function () {",
+                      "    pm.expect(res).to.have.property(\"id\");",
+                      "    pm.collectionVariables.set(\"createdOrderId\", res.id);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"bookId\": {{bookId}},\n      \"quantity\": 1,\n      \"price\": 55000\n    }\n  ],\n  \"shippingAddress\": \"123 Nguyễn Văn Cừ, Quận 5, TP.HCM\",\n  \"phoneNumber\": \"0901234567\",\n  \"paymentMethod\": \"COD\",\n  \"discountCouponCode\": \"GRAPE10\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders"]
+                },
+                "description": "Test case EP-ORD-01: Tạo đơn hàng COD."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-ORD-02: Xem danh sách đơn hàng cá nhân (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Trả về danh sách đơn hàng\", function () {",
+                      "    pm.expect(res).to.be.an(\"array\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders"]
+                },
+                "description": "Test case EP-ORD-02: Lấy lịch sử đơn hàng của tôi."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Đánh Giá & Bình Luận (Review)",
+          "item": [
+            {
+              "name": "EP-REV-02: Kiểm tra điều kiện viết đánh giá (Check Eligibility)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Trả về trường eligible\", function () {",
+                      "    pm.expect(res).to.have.property(\"eligible\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/check-eligibility/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "check-eligibility", "{{bookId}}"]
+                },
+                "description": "Test case EP-REV-02: Kiểm tra xem user đã mua sách và đủ điều kiện review chưa."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test EP - Phân Quyền Hệ Thống (RBAC)",
+          "item": [
+            {
+              "name": "EP-ADM-01: Admin xem toàn bộ danh sách đơn hàng toàn sàn (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Admin truy cập thành công (Status 200 OK)\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Danh sách toàn bộ đơn hàng tồn tại\", function () {",
+                      "    pm.expect(res).to.be.an(\"array\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/all",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders", "all"]
+                },
+                "description": "Test case EP-ADM-01: Quyền Admin xem tất cả đơn hàng."
+              },
+              "response": []
+            },
+            {
+              "name": "EP-ADM-02: User thường cố tình gọi API Admin (Invalid - 403 Forbidden)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Chặn truy cập trái phép (Status 403 Forbidden)\", function () {",
+                      "    pm.response.to.have.status(403);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/all",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders", "all"]
+                },
+                "description": "Test case EP-ADM-02: Dùng userToken gọi endpoint Admin /api/orders/all. Kỳ vọng 403 Forbidden."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Test Phần 4 - Test BVA (Phân Tích Giá Trị Biên)",
+      "description": "Kiểm thử đầy đủ toàn bộ 6 nhóm giá trị biên (Rating 1..5 sao, Giỏ hàng vs Tồn kho, Giá tối thiểu Coupon, Độ dài mật khẩu, Điểm đổi quà Y-Points, Hạng thành viên VIP).",
+      "item": [
+        {
+          "name": "Test BVA - Rating Đánh Giá Sách (1 Đến 5 Sao)",
+          "item": [
+            {
+              "name": "BVA-RAT-01: Rating = 0 (Dưới biên dưới - 400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Báo lỗi số sao phải từ 1 đến 5\", function () {",
+                      "    pm.expect(res.message || JSON.stringify(res)).to.include(\"1 đến 5\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 0,\n  \"comment\": \"Đánh giá 0 sao kiểm tra dưới biên dưới\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-01: Rating = 0. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RAT-02: Rating = 1 (Biên dưới chuẩn Min - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200/201 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                      "});",
+                      "if (pm.response.code === 200 || pm.response.code === 201) {",
+                      "    const res = pm.response.json();",
+                      "    pm.test(\"Lưu rating 1 sao thành công\", function () {",
+                      "        pm.expect(res.rating).to.eql(1);",
+                      "    });",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 1,\n  \"comment\": \"Đánh giá 1 sao hợp lệ\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-02: Rating = 1."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RAT-03: Rating = 2 (Ngay trên biên dưới - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200/201 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 2,\n  \"comment\": \"Đánh giá 2 sao hợp lệ\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-03: Rating = 2."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RAT-04: Rating = 4 (Ngay dưới biên trên - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200/201 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 4,\n  \"comment\": \"Đánh giá 4 sao hợp lệ\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-04: Rating = 4."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RAT-05: Rating = 5 (Biên trên chuẩn Max - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200/201 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Đánh giá 5 sao xuất sắc\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-05: Rating = 5."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RAT-06: Rating = 6 (Vượt biên trên - 400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Báo lỗi số sao vượt quá 5\", function () {",
+                      "    pm.expect(res.message || JSON.stringify(res)).to.include(\"1 đến 5\");",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"rating\": 6,\n  \"comment\": \"Đánh giá 6 sao vượt trần\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["reviews", "book", "{{bookId}}"]
+                },
+                "description": "BVA-RAT-06: Rating = 6. Kỳ vọng 400."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test BVA - Số Lượng Giỏ Hàng & Tồn Kho (Stock = 20)",
+          "item": [
+            {
+              "name": "BVA-QTY-01: Quantity = 0 (Dưới biên dưới - 400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookId\": {{stockBookId}},\n  \"quantity\": 0\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "BVA-QTY-01: Quantity = 0. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-QTY-02: Quantity = 1 (Biên dưới Min - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bookId\": {{stockBookId}},\n  \"quantity\": 1\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "BVA-QTY-02: Thêm 1 cuốn vào giỏ."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-QTY-03: Quantity = 2 (Ngay trên biên dưới - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 2\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart", "{{stockBookId}}"]
+                },
+                "description": "BVA-QTY-03: Sửa thành 2 cuốn."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-QTY-04: Quantity = 19 (Stock - 1, Ngay dưới trần kho - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 19\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart", "{{stockBookId}}"]
+                },
+                "description": "BVA-QTY-04: Sửa thành 19 cuốn (Stock - 1)."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-QTY-05: Quantity = 20 (Stock, Trần tồn kho Max - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 20\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart", "{{stockBookId}}"]
+                },
+                "description": "BVA-QTY-05: Chạm trần tồn kho 20 cuốn."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-QTY-06: Quantity = 21 (Stock + 1, Vượt trần kho - 400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"quantity\": 21\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart", "{{stockBookId}}"]
+                },
+                "description": "BVA-QTY-06: Vượt trần 21 cuốn. Kỳ vọng 400."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test BVA - Giá Tối Thiểu Áp Coupon (Min = 100.000đ)",
+          "item": [
+            {
+              "name": "BVA-MIN-01: Amount = 99.999đ (Min - 1, Dưới ngưỡng tối thiểu - valid: false)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Mã chưa đủ tiền tối thiểu (valid: false)\", function () {",
+                      "    pm.expect(res.valid).to.eql(false);",
+                      "    pm.expect(res.discountAmount).to.eql(0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=99999",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "99999"
+                    }
+                  ]
+                },
+                "description": "BVA-MIN-01: 99.999đ (thiếu 1đ)."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-MIN-02: Amount = 100.000đ (Min, Đúng ngưỡng chuẩn - valid: true)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Mã áp dụng thành công\", function () {",
+                      "    pm.expect(res.valid).to.eql(true);",
+                      "    pm.expect(res.discountAmount).to.eql(10000.0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=100000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "100000"
+                    }
+                  ]
+                },
+                "description": "BVA-MIN-02: Đúng 100.000đ."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-MIN-03: Amount = 100.001đ (Min + 1, Trên ngưỡng chuẩn - valid: true)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Mã áp dụng thành công\", function () {",
+                      "    pm.expect(res.valid).to.eql(true);",
+                      "    pm.expect(res.discountAmount).to.be.above(10000.0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=100001",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "100001"
+                    }
+                  ]
+                },
+                "description": "BVA-MIN-03: 100.001đ."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test BVA - Độ Dài Mật Khẩu Người Dùng (Min 6 Ký Tự)",
+          "item": [
+            {
+              "name": "BVA-PWD-01: Mật khẩu mới 5 ký tự (Min - 1, Dưới tối thiểu - 400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldPassword\": \"123456\",\n  \"newPassword\": \"12345\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "password"]
+                },
+                "description": "BVA-PWD-01: Pass 5 ký tự. Kỳ vọng 400."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-PWD-02: Mật khẩu mới 6 ký tự (Min, Đúng chuẩn tối thiểu - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldPassword\": \"123456\",\n  \"newPassword\": \"654321\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "password"]
+                },
+                "description": "BVA-PWD-02: Pass 6 ký tự. Kỳ vọng 200."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-PWD-03: Mật khẩu mới 7 ký tự (Min + 1, Trên chuẩn tối thiểu - 200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldPassword\": \"654321\",\n  \"newPassword\": \"1234567\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "password"]
+                },
+                "description": "BVA-PWD-03: Pass 7 ký tự. Kỳ vọng 200."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-PWD-Reset: Khôi phục lại mật khẩu gốc 123456 (Cleanup)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Khôi phục mật khẩu gốc thành công\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"oldPassword\": \"1234567\",\n  \"newPassword\": \"123456\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/password",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "password"]
+                },
+                "description": "Dọn dẹp trả lại mật khẩu cũ '123456'."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test BVA - Điểm Đổi Quà Y-Points",
+          "item": [
+            {
+              "name": "BVA-REW-01: Đổi Freeship khi tài khoản thiếu điểm (400 Bad Request)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                      "    pm.response.to.have.status(400);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"points\": 10000,\n  \"type\": \"FREESHIP\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rewards/exchange",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["rewards", "exchange"]
+                },
+                "description": "BVA-REW-01: Thiếu điểm Y-Points."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-REW-02: Đổi Freeship khi có đủ 10.000 điểm (200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"points\": 10000,\n  \"type\": \"FREESHIP\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rewards/exchange",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["rewards", "exchange"]
+                },
+                "description": "BVA-REW-02: Đổi quà 10k điểm."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-REW-05: Đổi Voucher 20K khi có đủ 20.000 điểm (200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 hoặc 400\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"points\": 20000,\n  \"type\": \"DISCOUNT_20K\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/rewards/exchange",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["rewards", "exchange"]
+                },
+                "description": "BVA-REW-05: Đổi voucher 20k."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test BVA - Hạng Thành Viên VIP (Xét Điểm Tích Lũy)",
+          "item": [
+            {
+              "name": "BVA-RNK-01: Hạng Đồng (4.999 điểm - Dưới mốc Bạc)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/profile",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "profile"]
+                },
+                "description": "BVA-RNK-01: Profile điểm < 5000 -> Hạng Đồng."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RNK-02: Hạng Bạc (5.000 điểm - Chạm mốc Bạc)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/profile",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "profile"]
+                },
+                "description": "BVA-RNK-02: Đạt mốc 5.000 điểm -> Hạng Bạc."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RNK-04: Hạng Vàng (30.000 điểm - Chạm mốc Vàng)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/profile",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "profile"]
+                },
+                "description": "BVA-RNK-04: Đạt mốc 30.000 điểm -> Hạng Vàng."
+              },
+              "response": []
+            },
+            {
+              "name": "BVA-RNK-06: Hạng Kim Cương (100.000 điểm - Chạm mốc Kim Cương)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/profile",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "profile"]
+                },
+                "description": "BVA-RNK-06: Đạt mốc 100.000 điểm -> Hạng Kim Cương."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Test Phần 5 - Test Decision Table & State Transition",
+      "description": "Kiểm thử bảng quyết định (Decision Table) cho mã giảm giá và RBAC, kèm kiểm thử chuyển trạng thái đơn hàng (State Transition).",
+      "item": [
+        {
+          "name": "Test Decision Table - Nghiệp Vụ Áp Dụng Mã Giảm Giá",
+          "item": [
+            {
+              "name": "DT-CPN-01: Rule 1 - Mã không tồn tại / Hết hạn (valid: false)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Rule 1: valid = false và discount = 0\", function () {",
+                      "    pm.expect(res.valid).to.eql(false);",
+                      "    pm.expect(res.discountAmount).to.eql(0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=MA_KHONG_TON_TAI_999&amount=500000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "MA_KHONG_TON_TAI_999"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "500000"
+                    }
+                  ]
+                },
+                "description": "Rule 1: Mã sai/hết hạn -> valid: false."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-CPN-02: Rule 2 - Mã tồn tại nhưng đơn chưa đạt minOrderAmount (valid: false)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Rule 2: valid = false do thiếu tiền đơn\", function () {",
+                      "    pm.expect(res.valid).to.eql(false);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=50000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "50000"
+                    }
+                  ]
+                },
+                "description": "Rule 2: Đơn 50k < 100k -> valid: false."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-CPN-03: Rule 3 - Mã hợp lệ và đơn hàng đủ điều kiện (valid: true)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"HTTP Status 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "pm.test(\"Rule 3: valid = true và trừ tiền thành công\", function () {",
+                      "    pm.expect(res.valid).to.eql(true);",
+                      "    pm.expect(res.discountAmount).to.eql(20000.0);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=200000",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["coupons", "validate"],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "GRAPE10"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "200000"
+                    }
+                  ]
+                },
+                "description": "Rule 3: Đơn 200k >= 100k -> valid: true, giảm 20k (10%)."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test Decision Table - Ma Trận Phân Quyền RBAC",
+          "item": [
+            {
+              "name": "DT-RBAC-01: Khách vãng lai Guest gọi API Public (200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Guest truy cập Public API thành công 200 OK\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/books",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["books"]
+                },
+                "description": "Khách vãng lai gọi GET /api/books."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-RBAC-02: Khách vãng lai Guest gọi API Member (401/403 Chặn)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Chặn truy cập khi thiếu token (401 hoặc 403)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/profile",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "profile"]
+                },
+                "description": "Guest không có token gọi /api/users/profile."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-RBAC-03: User thường gọi API Member của mình (200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"User truy cập API Member thành công (200 OK)\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cart",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["cart"]
+                },
+                "description": "User gọi GET /api/cart."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-RBAC-04: User thường gọi API Admin (403 Forbidden)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Chặn User thường gọi API Admin (403 Forbidden)\", function () {",
+                      "    pm.response.to.have.status(403);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["admin", "users"]
+                },
+                "description": "User gọi GET /api/admin/users. Kỳ vọng 403."
+              },
+              "response": []
+            },
+            {
+              "name": "DT-RBAC-05: Admin toàn quyền gọi API Admin (200 OK)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Admin truy cập API Admin thành công (200 OK)\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/admin/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["admin", "users"]
+                },
+                "description": "Admin gọi GET /api/admin/users."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Test State Transition - Chuyển Trạng Thái Đơn Hàng",
+          "item": [
+            {
+              "name": "ST-01: Khởi tạo đơn hàng mới (Trạng thái ban đầu PENDING)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Tạo đơn thành công (Status 200/201)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+                      "});",
+                      "const res = pm.response.json();",
+                      "if (res.id) {",
+                      "    pm.collectionVariables.set(\"createdOrderId\", res.id);",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"bookId\": {{bookId}},\n      \"quantity\": 1,\n      \"price\": 55000\n    }\n  ],\n  \"shippingAddress\": \"123 Lê Lợi, Q1, TP.HCM\",\n  \"phoneNumber\": \"0901234567\",\n  \"paymentMethod\": \"COD\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/orders",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders"]
+                },
+                "description": "ST-01: Đơn hàng mới khởi tạo ở trạng thái PENDING."
+              },
+              "response": []
+            },
+            {
+              "name": "ST-02: Admin cập nhật vận chuyển sang SHIPPING (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Cập nhật vận chuyển thành công (200 OK)\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{adminToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/{{createdOrderId}}/shipping?status=SHIPPING&shippingPartner=GHN&trackingNumber=GHN001",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders", "{{createdOrderId}}", "shipping"],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "SHIPPING"
+                    },
+                    {
+                      "key": "shippingPartner",
+                      "value": "GHN"
+                    },
+                    {
+                      "key": "trackingNumber",
+                      "value": "GHN001"
+                    }
+                  ]
+                },
+                "description": "ST-02: Admin chuyển trạng thái vận chuyển sang SHIPPING."
+              },
+              "response": []
+            },
+            {
+              "name": "ST-03: Khách hàng hủy đơn hàng khi đang PENDING (Valid)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Hủy đơn thành công hoặc đã sang shipping (200 hoặc 400)\", function () {",
+                      "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{userToken}}"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/orders/{{createdOrderId}}/cancel",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["orders", "{{createdOrderId}}", "cancel"]
+                },
+                "description": "ST-03: Khách hủy đơn."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

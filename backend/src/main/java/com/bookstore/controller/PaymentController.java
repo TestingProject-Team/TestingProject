@@ -78,35 +78,28 @@ public class PaymentController {
         Collections.sort(fieldNames);
         StringBuilder hashData = new StringBuilder();
         StringBuilder query = new StringBuilder();
-        try {
-            Iterator<String> itr = fieldNames.iterator();
-            while (itr.hasNext()) {
-                String fieldName = (String) itr.next();
-                String fieldValue = (String) vnp_Params.get(fieldName);
-                if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                    // Build hash data
-                    hashData.append(fieldName);
-                    hashData.append('=');
-                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    // Build query
-                    query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                    query.append('=');
-                    query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    if (itr.hasNext()) {
-                        query.append('&');
-                        hashData.append('&');
-                    }
+        Iterator<String> itr = fieldNames.iterator();
+        while (itr.hasNext()) {
+            String fieldName = itr.next();
+            String fieldValue = vnp_Params.get(fieldName);
+            if (org.springframework.util.StringUtils.hasLength(fieldValue)) {
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII));
+                if (itr.hasNext()) {
+                    query.append('&');
+                    hashData.append('&');
                 }
             }
-            String queryUrl = query.toString();
-            String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
-            queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-            String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-
-            return ResponseEntity.ok(Map.of("url", paymentUrl));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Error creating payment url"));
         }
+        String queryUrl = query.toString();
+        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
+        return ResponseEntity.ok(Map.of("url", paymentUrl));
     }
 
     @GetMapping("/momo/create-url")
@@ -250,7 +243,7 @@ public class PaymentController {
                 } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {
                     // Ignore concurrent modification exception (already processed by another thread)
                 } catch (Exception e) {
-                    if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {
+                    if (e.getCause() instanceof org.hibernate.StaleObjectStateException) {
                          // Ignore
                     } else {
                          throw e;
@@ -263,7 +256,7 @@ public class PaymentController {
                 } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {
                     // Ignore
                 } catch (Exception e) {
-                    if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {
+                    if (e.getCause() instanceof org.hibernate.StaleObjectStateException) {
                          // Ignore
                     } else {
                          throw e;
@@ -301,12 +294,8 @@ public class PaymentController {
             }
 
             String vnp_SecureHash = request.getParameter("vnp_SecureHash");
-            if (fields.containsKey("vnp_SecureHashType")) {
-                fields.remove("vnp_SecureHashType");
-            }
-            if (fields.containsKey("vnp_SecureHash")) {
-                fields.remove("vnp_SecureHash");
-            }
+            fields.remove("vnp_SecureHashType");
+            fields.remove("vnp_SecureHash");
 
             List<String> fieldNames = new ArrayList<>(fields.keySet());
             Collections.sort(fieldNames);
@@ -315,13 +304,11 @@ public class PaymentController {
             while (itr.hasNext()) {
                 String fieldName = (String) itr.next();
                 String fieldValue = (String) fields.get(fieldName);
-                if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                    hashData.append(fieldName);
-                    hashData.append('=');
-                    hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                    if (itr.hasNext()) {
-                        hashData.append('&');
-                    }
+                hashData.append(fieldName);
+                hashData.append('=');
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                if (itr.hasNext()) {
+                    hashData.append('&');
                 }
             }
 
@@ -334,15 +321,11 @@ public class PaymentController {
 
                 if ("00".equals(vnp_ResponseCode)) {
                     // Payment success
-                    try {
-                        orderService.confirmVNPayPayment(orderId, true);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, true);
                     return ResponseEntity.ok(Map.of("status", "success", "message", "Payment success", "orderId", orderId));
                 } else {
                     // Payment failed
-                    try {
-                        orderService.confirmVNPayPayment(orderId, false);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, false);
                     return ResponseEntity.badRequest().body(Map.of("status", "failed", "message", "Payment failed or cancelled"));
                 }
             } else {
@@ -391,14 +374,10 @@ public class PaymentController {
                 Long orderId = Long.parseLong(realOrderIdStr);
 
                 if ("0".equals(resultCode)) {
-                    try {
-                        orderService.confirmVNPayPayment(orderId, true);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, true);
                     return ResponseEntity.ok(Map.of("status", "success", "message", "Payment success", "orderId", orderId));
                 } else {
-                    try {
-                        orderService.confirmVNPayPayment(orderId, false);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, false);
                     return ResponseEntity.badRequest().body(Map.of("status", "failed", "message", message));
                 }
             } else {
@@ -447,13 +426,9 @@ public class PaymentController {
                 Long orderId = Long.parseLong(realOrderIdStr);
 
                 if ("0".equals(resultCode)) {
-                    try {
-                        orderService.confirmVNPayPayment(orderId, true);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, true);
                 } else {
-                    try {
-                        orderService.confirmVNPayPayment(orderId, false);
-                    } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {} catch (Exception e) { if (e.getCause() != null && e.getCause() instanceof org.hibernate.StaleObjectStateException) {} else { throw e; } }
+                    confirmPaymentSafely(orderId, false);
                 }
                 return ResponseEntity.ok().build();
             } else {
@@ -461,6 +436,18 @@ public class PaymentController {
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("status", "error", "message", "Internal server error"));
+        }
+    }
+
+    private void confirmPaymentSafely(Long orderId, boolean success) {
+        try {
+            orderService.confirmVNPayPayment(orderId, success);
+        } catch (org.springframework.orm.ObjectOptimisticLockingFailureException ignored) {
+            // Callback was already processed concurrently.
+        } catch (Exception exception) {
+            if (!(exception.getCause() instanceof org.hibernate.StaleObjectStateException)) {
+                throw exception;
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/**
+/*
  * Unit test cho UserService.
  *
  * Phạm vi kiểm thử:
@@ -278,6 +278,28 @@ class UserServiceTest {
 
             // Chốt lại hành vi hiện tại: hệ thống không chặn việc đặt lại mật khẩu cũ
             verify(userRepository).save(user);
+        }
+
+        @Test
+        @DisplayName("Ném lỗi khi request là null hoặc newPassword là null/ngắn hơn 6 ký tự")
+        void changePassword_newPasswordInvalid_nemLoi() {
+            when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+
+            assertThatThrownBy(() -> userService.changePassword(USERNAME, null))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("Mật khẩu mới phải có ít nhất 6 ký tự!");
+
+            ChangePasswordRequest reqNullNew = mock(ChangePasswordRequest.class);
+            when(reqNullNew.getNewPassword()).thenReturn(null);
+            assertThatThrownBy(() -> userService.changePassword(USERNAME, reqNullNew))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("Mật khẩu mới phải có ít nhất 6 ký tự!");
+
+            ChangePasswordRequest reqShort = mock(ChangePasswordRequest.class);
+            when(reqShort.getNewPassword()).thenReturn("  123 ");
+            assertThatThrownBy(() -> userService.changePassword(USERNAME, reqShort))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("Mật khẩu mới phải có ít nhất 6 ký tự!");
         }
     }
 }

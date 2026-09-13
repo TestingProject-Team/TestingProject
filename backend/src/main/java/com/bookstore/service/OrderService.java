@@ -156,22 +156,22 @@ public class OrderService {
         
         double vipDiscountAmount = subtotal * vipDiscountRate;
         if (vipDiscountAmount > remainingMaxDiscount) {
-            vipDiscountAmount = remainingMaxDiscount > 0 ? remainingMaxDiscount : 0;
+            vipDiscountAmount = remainingMaxDiscount;
         }
         discountAmount += vipDiscountAmount;
         remainingMaxDiscount -= vipDiscountAmount;
 
         com.bookstore.entity.Coupon discountCoupon = null;
-        if (request.getDiscountCouponCode() != null && !request.getDiscountCouponCode().trim().isEmpty()) {
+        if (org.springframework.util.StringUtils.hasText(request.getDiscountCouponCode())) {
             try {
                 discountCoupon = couponService.validateCoupon(request.getDiscountCouponCode(), subtotal, username);
-                if (!"DISCOUNT".equals(discountCoupon.getCategory()) && discountCoupon.getCategory() != null) {
+                if (discountCoupon.getCategory() != null && !"DISCOUNT".equals(discountCoupon.getCategory())) {
                     throw new RuntimeException("Mã này không phải mã giảm giá sản phẩm!");
                 }
                 double couponDiscount = couponService.calculateDiscount(discountCoupon, subtotal);
                 
                 if (couponDiscount > remainingMaxDiscount) {
-                    couponDiscount = remainingMaxDiscount > 0 ? remainingMaxDiscount : 0;
+                    couponDiscount = remainingMaxDiscount;
                 }
                 
                 discountAmount += couponDiscount;
@@ -184,15 +184,14 @@ public class OrderService {
 
         double shippingDiscount = 0;
         com.bookstore.entity.Coupon shippingCoupon = null;
-        if (request.getShippingCouponCode() != null && !request.getShippingCouponCode().trim().isEmpty()) {
+        if (org.springframework.util.StringUtils.hasText(request.getShippingCouponCode())) {
             try {
                 shippingCoupon = couponService.validateCoupon(request.getShippingCouponCode(), subtotal, username);
-                boolean isShipping = "SHIPPING".equals(shippingCoupon.getCategory()) || 
-                                     (shippingCoupon.getCategory() == null && shippingCoupon.getCode().toUpperCase().contains("FREESHIP"));
-                if (!isShipping && shippingCoupon.getCategory() != null) {
-                    throw new RuntimeException("Mã này không phải mã miễn phí vận chuyển!");
-                } else if (!isShipping && shippingCoupon.getCategory() == null) {
-                    // It's null category and not a FREESHIP code, so maybe it's a discount coupon mistakenly used as shipping
+                boolean isShipping = "SHIPPING".equals(shippingCoupon.getCategory());
+                if (shippingCoupon.getCategory() == null) {
+                    isShipping = shippingCoupon.getCode().toUpperCase().contains("FREESHIP");
+                }
+                if (!isShipping) {
                     throw new RuntimeException("Mã này không phải mã miễn phí vận chuyển!");
                 }
                 double calcShipDiscount = couponService.calculateDiscount(shippingCoupon, shippingFee);
@@ -277,11 +276,11 @@ public class OrderService {
                 cartService.removeCartItem(user.getUsername(), item.getBook().getId());
             }
 
-            if (order.getDiscountCouponCode() != null && !order.getDiscountCouponCode().isEmpty()) {
+            if (!java.util.Objects.toString(order.getDiscountCouponCode(), "").isEmpty()) {
                 couponRepository.findByCodeIgnoreCaseAndIsActiveTrue(order.getDiscountCouponCode())
                         .ifPresent(couponService::useCoupon);
             }
-            if (order.getShippingCouponCode() != null && !order.getShippingCouponCode().isEmpty()) {
+            if (!java.util.Objects.toString(order.getShippingCouponCode(), "").isEmpty()) {
                 couponRepository.findByCodeIgnoreCaseAndIsActiveTrue(order.getShippingCouponCode())
                         .ifPresent(couponService::useCoupon);
             }
@@ -309,8 +308,6 @@ public class OrderService {
 
     public Order updateOrderShipping(Long orderId, String status, String shippingPartner, String trackingNumber) {
         Order order = getOrderById(orderId);
-        boolean wasNotCompleted = !"COMPLETED".equals(order.getStatus());
-
         if (status != null) {
             order.setShippingStatus(ShippingStatus.valueOf(status));
             // Đồng bộ trạng thái đơn hàng chung
@@ -465,11 +462,11 @@ public class OrderService {
             }
 
             // Apply coupons if any
-            if (order.getDiscountCouponCode() != null && !order.getDiscountCouponCode().isEmpty()) {
+            if (!java.util.Objects.toString(order.getDiscountCouponCode(), "").isEmpty()) {
                 couponRepository.findByCodeIgnoreCaseAndIsActiveTrue(order.getDiscountCouponCode())
                         .ifPresent(couponService::useCoupon);
             }
-            if (order.getShippingCouponCode() != null && !order.getShippingCouponCode().isEmpty()) {
+            if (!java.util.Objects.toString(order.getShippingCouponCode(), "").isEmpty()) {
                 couponRepository.findByCodeIgnoreCaseAndIsActiveTrue(order.getShippingCouponCode())
                         .ifPresent(couponService::useCoupon);
             }

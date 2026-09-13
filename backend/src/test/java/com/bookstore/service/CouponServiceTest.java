@@ -176,6 +176,24 @@ public class CouponServiceTest {
     }
 
     @Test
+    void validateCoupon_NullExpirationAndUsageLimit_AreAccepted() {
+        testCoupon.setExpirationDate(null);
+        testCoupon.setUsageLimit(null);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
+
+        assertSame(testCoupon, couponService.validateCoupon("DISCOUNT20", 200000.0, null));
+    }
+
+    @Test
+    void validateCoupon_NegativeUsageLimit_IsRejected() {
+        testCoupon.setUsageLimit(-1);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
+
+        assertThrows(RuntimeException.class,
+                () -> couponService.validateCoupon("DISCOUNT20", 200000.0, null));
+    }
+
+    @Test
     void validateCoupon_UserSpecificCouponWithoutLogin_ThrowsExpectedMessage() {
         testCoupon.setUserId(1L);
         when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20"))
@@ -258,8 +276,168 @@ public class CouponServiceTest {
     }
 
     @Test
-    void useCoupon_NullInput_DoesNothing() {
-        assertDoesNotThrow(() -> couponService.useCoupon(null));
+    void getCouponUsageHistory_OrdersWithNullAndEmptyCoupons() {
+        when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
+        com.bookstore.entity.Order o1 = com.bookstore.entity.Order.builder()
+                .id(103L)
+                .status("PENDING")
+                .discountCouponCode("")
+                .shippingCouponCode(null)
+                .createdAt(LocalDateTime.now())
+                .build();
+        com.bookstore.entity.Order o2 = com.bookstore.entity.Order.builder()
+                .id(104L)
+                .status("PENDING")
+                .discountCouponCode(null)
+                .shippingCouponCode("")
+                .createdAt(LocalDateTime.now())
+                .build();
+        when(orderRepository.findByUserOrderByCreatedAtDesc(testUser)).thenReturn(List.of(o1, o2));
+
+        List<java.util.Map<String, Object>> history = couponService.getCouponUsageHistory("couponuser");
+        assertTrue(history.isEmpty());
+    }
+
+    @Test
+    void validateCoupon_UserNotFoundThrowsException() {
+        testCoupon.setUserId(1L);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
+        when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
+        when(orderRepository.countUsageByUser(testUser, "DISCOUNT20")).thenReturn(0L);
+
+        Coupon validatedWithUser = couponService.validateCoupon("DISCOUNT20", 200000.0, "couponuser");
+        assertNotNull(validatedWithUser);
+        assertEquals(1L, validatedWithUser.getUserId());
+    }
+
+    @Test
+    void calculateDiscount_PercentageWithNullOrZeroMaxDiscount() {
+        testCoupon.setMaxDiscountAmount(null);
+        Double discount1 = couponService.calculateDiscount(testCoupon, 100000.0);
+        assertEquals(20000.0, discount1);
+
+        testCoupon.setMaxDiscountAmount(0.0);
+        Double discount2 = couponService.calculateDiscount(testCoupon, 100000.0);
+        assertEquals(20000.0, discount2);
+    }
+
+    @Test
+    void useCoupon_WithNullUsageLimitDoesNothing() {
+        testCoupon.setUsageLimit(null);
+        couponService.useCoupon(testCoupon);
+        verify(couponRepository, never()).save(testCoupon);
+    }
+
+    @Test
+    void useCoupon_WithNullCouponDoesNothing() {
+        couponService.useCoupon(null);
         verifyNoInteractions(couponRepository);
+    }
+
+    @Test
+    void validateCoupon_UserSpecificCouponAndUserMissing_UsesFirstLookupFailure() {
+        testCoupon.setUserId(1L);
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
+        when(userRepository.findByUsername("missing")).thenReturn(Optional.empty());
+
+        RuntimeException error = assertThrows(RuntimeException.class,
+                () -> couponService.validateCoupon("DISCOUNT20", 200000.0, "missing"));
+        assertEquals("Không tìm thấy người dùng", error.getMessage());
+    }
+
+    @Test
+    void validateCoupon_GeneralCouponAndUserMissing_UsesUsageLookupFailure() {
+        when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("DISCOUNT20")).thenReturn(Optional.of(testCoupon));
+        when(userRepository.findByUsername("missing")).thenReturn(Optional.empty());
+
+        RuntimeException error = assertThrows(RuntimeException.class,
+                () -> couponService.validateCoupon("DISCOUNT20", 200000.0, "missing"));
+        assertEquals("Không tìm thấy người dùng", error.getMessage());
+    }
+
+    @Test
+    void getAllActiveCoupons_Success() {
+        when(couponRepository.findByIsActiveTrue()).thenReturn(List.of(testCoupon));
+        List<Coupon> active = couponService.getAllActiveCoupons();
+        assertEquals(1, active.size());
+    }
+
+    @Test
+    void getAvailableCouponsForUser_Scenarios() {
+        Coupon generalCoupon = Coupon.builder().id(1L).code("GEN").isActive(true).userId(null).build();
+        Coupon userCoupon = Coupon.builder().id(2L).code("USR").isActive(true).userId(1L).build();
+        Coupon otherUserCoupon = Coupon.builder().id(3L).code("OTH").isActive(true).userId(2L).build();
+
+        when(couponRepository.findByIsActiveTrue()).thenReturn(List.of(generalCoupon, userCoupon, otherUserCoupon));
+
+        // username null
+        List<Coupon> resNullUser = couponService.getAvailableCouponsForUser(null);
+        assertEquals(1, resNullUser.size());
+        assertEquals("GEN", resNullUser.get(0).getCode());
+
+        // username not found in DB
+        when(userRepository.findByUsername("notfound")).thenReturn(Optional.empty());
+        List<Coupon> resNotFound = couponService.getAvailableCouponsForUser("notfound");
+        assertEquals(1, resNotFound.size());
+
+        // valid user, one used, one unused
+        when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
+        when(orderRepository.countUsageByUser(testUser, "GEN")).thenReturn(0L);
+        when(orderRepository.countUsageByUser(testUser, "USR")).thenReturn(1L); // used already
+
+        List<Coupon> resValid = couponService.getAvailableCouponsForUser("couponuser");
+        assertEquals(1, resValid.size());
+        assertEquals("GEN", resValid.get(0).getCode());
+    }
+
+    @Test
+    void getCouponUsageHistory_Scenarios() {
+        assertThrows(RuntimeException.class, () -> couponService.getCouponUsageHistory(null));
+
+        when(userRepository.findByUsername("couponuser")).thenReturn(Optional.of(testUser));
+        com.bookstore.entity.Order o1 = com.bookstore.entity.Order.builder()
+                .id(101L)
+                .status("COMPLETED")
+                .discountCouponCode("DISCOUNT20")
+                .shippingCouponCode("SHIPFREE")
+                .createdAt(LocalDateTime.now())
+                .build();
+        com.bookstore.entity.Order o2 = com.bookstore.entity.Order.builder()
+                .id(102L)
+                .status("CANCELLED")
+                .discountCouponCode("DISC")
+                .build();
+        when(orderRepository.findByUserOrderByCreatedAtDesc(testUser)).thenReturn(List.of(o1, o2));
+
+        List<java.util.Map<String, Object>> history = couponService.getCouponUsageHistory("couponuser");
+        assertEquals(2, history.size());
+    }
+
+    @Test
+    void adminOperations_Crud() {
+        when(couponRepository.findAll()).thenReturn(List.of(testCoupon));
+        assertEquals(1, couponService.getAllCouponsAdmin().size());
+
+        when(couponRepository.save(any(Coupon.class))).thenAnswer(i -> i.getArgument(0));
+        Coupon created = couponService.createCoupon(testCoupon);
+        assertNotNull(created);
+
+        when(couponRepository.findById(10L)).thenReturn(Optional.of(testCoupon));
+        Coupon updateDetails = Coupon.builder()
+                .code("NEWCODE")
+                .discountType(DiscountType.FIXED)
+                .discountValue(50000.0)
+                .minOrderAmount(200000.0)
+                .isActive(false)
+                .build();
+        Coupon updated = couponService.updateCoupon(10L, updateDetails);
+        assertEquals("NEWCODE", updated.getCode());
+
+        when(couponRepository.findById(999L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> couponService.updateCoupon(999L, updateDetails));
+
+        doNothing().when(couponRepository).deleteById(10L);
+        couponService.deleteCoupon(10L);
+        verify(couponRepository).deleteById(10L);
     }
 }

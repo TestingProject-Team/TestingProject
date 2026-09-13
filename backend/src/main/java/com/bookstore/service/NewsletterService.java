@@ -30,14 +30,12 @@ public class NewsletterService {
 
         Optional<NewsletterSubscriber> existing = repository.findByEmail(email);
         if (existing.isPresent()) {
-            NewsletterSubscriber sub = existing.orElse(null);
-            if (sub != null) {
-                if (!sub.isActive()) {
-                    sub.setActive(true);
-                    repository.save(sub);
-                } else {
-                    throw new IllegalStateException("Email này đã được đăng ký từ trước.");
-                }
+            NewsletterSubscriber sub = existing.get();
+            if (!sub.isActive()) {
+                sub.setActive(true);
+                repository.save(sub);
+            } else {
+                throw new IllegalStateException("Email này đã được đăng ký từ trước.");
             }
         } else {
             NewsletterSubscriber subscriber = new NewsletterSubscriber();

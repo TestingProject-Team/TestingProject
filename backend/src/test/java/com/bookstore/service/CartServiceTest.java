@@ -129,12 +129,141 @@ public class CartServiceTest {
     }
 
     @Test
-    void clearCart_Success() {
-        CartItem item = CartItem.builder().id(50L).cart(testCart).book(testBook).quantity(2).build();
-        testCart.getItems().add(item);
+    void addToCart_BookStockQuantityNull() {
+        testBook.setStockQuantity(null);
+        CartRequest request = new CartRequest();
+        request.setBookId(100L);
+        request.setQuantity(2);
 
         when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
         when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(testCart));
+        when(bookRepository.findById(100L)).thenReturn(Optional.of(testBook));
+        when(cartRepository.save(any(Cart.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Cart result = cartService.addToCart("cartuser", request);
+        assertNotNull(result);
+    }
+
+    @Test
+    void updateCartItem_BookStockQuantityNull() {
+        testBook.setStockQuantity(null);
+        CartRequest validReq = new CartRequest();
+        validReq.setQuantity(5);
+
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(testCart));
+        when(bookRepository.findById(100L)).thenReturn(Optional.of(testBook));
+        when(cartRepository.save(any(Cart.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Cart result = cartService.updateCartItem("cartuser", 100L, validReq);
+        assertNotNull(result);
+    }
+
+    @Test
+    void getCartByUser_NotFound_ThrowsException() {
+        when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> cartService.getCartByUser("unknown"));
+    }
+
+    @Test
+    void getCartByUser_CartNotExists_CreatesNewCart() {
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(1L)).thenReturn(Optional.empty());
+        when(cartRepository.save(any(Cart.class))).thenAnswer(i -> i.getArgument(0));
+
+        Cart created = cartService.getCartByUser("cartuser");
+        assertNotNull(created);
+        assertEquals(testUser, created.getUser());
+    }
+
+    @Test
+    void addToCart_InvalidQuantityOrRequest_ThrowsException() {
+        CartRequest req1 = null;
+        CartRequest reqNullQty = new CartRequest();
+        reqNullQty.setQuantity(null);
+        CartRequest req2 = new CartRequest();
+        req2.setQuantity(0);
+
+        assertThrows(RuntimeException.class, () -> cartService.addToCart("cartuser", req1));
+        assertThrows(RuntimeException.class, () -> cartService.addToCart("cartuser", reqNullQty));
+        assertThrows(RuntimeException.class, () -> cartService.addToCart("cartuser", req2));
+    }
+
+    @Test
+    void addToCart_BookNotFound_ThrowsException() {
+        CartRequest req = new CartRequest();
+        req.setBookId(999L);
+        req.setQuantity(1);
+
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(testCart));
+        when(bookRepository.findById(999L)).thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class, () -> cartService.addToCart("cartuser", req));
+    }
+
+    @Test
+    void addToCart_StockExceeded_ThrowsException() {
+        testBook.setStockQuantity(5);
+        CartRequest req = new CartRequest();
+        req.setBookId(100L);
+        req.setQuantity(10);
+
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(testCart));
+        when(bookRepository.findById(100L)).thenReturn(Optional.of(testBook));
+
+        assertThrows(RuntimeException.class, () -> cartService.addToCart("cartuser", req));
+    }
+
+    @Test
+    void updateCartItem_Scenarios() {
+        // Invalid request or quantity < 0
+        assertThrows(RuntimeException.class, () -> cartService.updateCartItem("cartuser", 100L, null));
+        CartRequest reqNullQty = new CartRequest();
+        reqNullQty.setQuantity(null);
+        assertThrows(RuntimeException.class, () -> cartService.updateCartItem("cartuser", 100L, reqNullQty));
+        CartRequest negReq = new CartRequest();
+        negReq.setQuantity(-1);
+        assertThrows(RuntimeException.class, () -> cartService.updateCartItem("cartuser", 100L, negReq));
+
+        // Quantity == 0 calls removeCartItem
+        CartRequest zeroReq = new CartRequest();
+        zeroReq.setQuantity(0);
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(testCart));
+        when(cartRepository.save(any(Cart.class))).thenAnswer(i -> i.getArgument(0));
+
+        Cart resZero = cartService.updateCartItem("cartuser", 100L, zeroReq);
+        assertNotNull(resZero);
+
+        // Book not found
+        CartRequest validReq = new CartRequest();
+        validReq.setQuantity(2);
+        when(bookRepository.findById(999L)).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> cartService.updateCartItem("cartuser", 999L, validReq));
+
+        // Stock exceeded
+        testBook.setStockQuantity(2);
+        validReq.setQuantity(5);
+        when(bookRepository.findById(100L)).thenReturn(Optional.of(testBook));
+        assertThrows(RuntimeException.class, () -> cartService.updateCartItem("cartuser", 100L, validReq));
+
+        // Normal update
+        testBook.setStockQuantity(20);
+        validReq.setQuantity(5);
+        CartItem item = CartItem.builder().id(50L).cart(testCart).book(testBook).quantity(1).build();
+        testCart.getItems().add(item);
+
+        Cart updatedCart = cartService.updateCartItem("cartuser", 100L, validReq);
+        assertEquals(5, updatedCart.getItems().get(0).getQuantity());
+    }
+
+    @Test
+    void clearCart_RemovesAllItemsAndPersistsCart() {
+        testCart.getItems().add(CartItem.builder().cart(testCart).book(testBook).quantity(2).build());
+        when(userRepository.findByUsername("cartuser")).thenReturn(Optional.of(testUser));
+        when(cartRepository.findByUserId(testUser.getId())).thenReturn(Optional.of(testCart));
 
         cartService.clearCart("cartuser");
 

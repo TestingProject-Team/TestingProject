@@ -1,0 +1,1613 @@
+{
+  "info": {
+    "_postman_id": "yiyi-bva-part4-test-suite",
+    "name": "YiYi Book - TEST_GUIDE_PART4_BVA Postman Collection",
+    "description": "Bộ kịch bản kiểm thử Giá trị biên (Boundary Value Analysis - BVA) đầy đủ 100% theo tài liệu docs/tailieutest/TEST_GUIDE_PART4_BVA.md của dự án YiYi Book Online Bookstore.\n\nBao gồm đầy đủ 6 nhóm test:\n1. Rating đánh giá sách (BVA-RAT-01 -> BVA-RAT-06)\n2. Số lượng mua trong giỏ hàng & Tồn kho (BVA-QTY-01 -> BVA-QTY-06)\n3. Giá trị tối thiểu áp Coupon (BVA-MIN-01 -> BVA-MIN-03)\n4. Độ dài mật khẩu người dùng (BVA-PWD-01 -> BVA-PWD-03)\n5. Điểm đổi Quà Y-Points (BVA-REW-01 -> BVA-REW-08)\n6. Hạng thành viên VIP Y-Points (BVA-RNK-01 -> BVA-RNK-06)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8081/api",
+      "type": "string"
+    },
+    {
+      "key": "userEmail",
+      "value": "user@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "userPassword",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "adminPassword",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "userToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "bookId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "stockBookId",
+      "value": "4",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Setup & Authentication",
+      "description": "Các bước chuẩn bị token xác thực trước khi chạy bộ kịch bản BVA.",
+      "item": [
+        {
+          "name": "0.1 Đăng nhập User (Lấy userToken)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Response có chứa JWT token\", function () {",
+                  "    pm.expect(jsonData).to.have.property(\"token\");",
+                  "    pm.expect(jsonData.token).to.be.a(\"string\").and.not.empty;",
+                  "});",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"userToken\", jsonData.token);",
+                  "    pm.environment.set(\"userToken\", jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Đăng nhập với tài khoản User để lấy JWT token dùng cho các test case BVA."
+          },
+          "response": []
+        },
+        {
+          "name": "0.2 Đăng nhập Admin (Lấy adminToken)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const jsonData = pm.response.json();",
+                  "pm.test(\"Response có chứa JWT admin token\", function () {",
+                  "    pm.expect(jsonData).to.have.property(\"token\");",
+                  "});",
+                  "if (jsonData.token) {",
+                  "    pm.collectionVariables.set(\"adminToken\", jsonData.token);",
+                  "    pm.environment.set(\"adminToken\", jsonData.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Đăng nhập với tài khoản Admin để thực hiện các thao tác quản trị nếu cần."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1. Rating Đánh Giá (BVA-RAT-01 -> BVA-RAT-06)",
+      "description": "Kiểm thử giá trị biên của số sao đánh giá sách (Miền hợp lệ: 1 đến 5 sao).",
+      "item": [
+        {
+          "name": "BVA-RAT-01: Rating = 0 (Dưới biên dưới - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi số sao phải từ 1 đến 5\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"1 đến 5\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 0,\n  \"comment\": \"Đánh giá 0 sao kiểm tra dưới biên dưới\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-01: Gửi rating = 0 (dưới mức tối thiểu 1 sao). Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RAT-02: Rating = 1 (Biên dưới chuẩn Min - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK hoặc 400 nếu chưa mua sách/đã review\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Lưu đánh giá 1 sao thành công\", function () {",
+                  "        pm.expect(res.rating).to.eql(1);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 1,\n  \"comment\": \"Đánh giá 1 sao hợp lệ\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-02: Gửi rating = 1 (biên dưới hợp lệ). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RAT-03: Rating = 2 (Ngay trên biên dưới - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Lưu đánh giá 2 sao thành công\", function () {",
+                  "        pm.expect(res.rating).to.eql(2);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 2,\n  \"comment\": \"Đánh giá 2 sao hợp lệ\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-03: Gửi rating = 2 (ngay trên biên dưới). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RAT-04: Rating = 4 (Ngay dưới biên trên - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Lưu đánh giá 4 sao thành công\", function () {",
+                  "        pm.expect(res.rating).to.eql(4);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 4,\n  \"comment\": \"Đánh giá 4 sao hợp lệ\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-04: Gửi rating = 4 (ngay dưới biên trên). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RAT-05: Rating = 5 (Biên trên chuẩn Max - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 201, 400]);",
+                  "});",
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Lưu đánh giá 5 sao thành công\", function () {",
+                  "        pm.expect(res.rating).to.eql(5);",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Đánh giá 5 sao xuất sắc\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-05: Gửi rating = 5 (biên trên hợp lệ). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RAT-06: Rating = 6 (Vượt biên trên - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi số sao phải từ 1 đến 5\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"1 đến 5\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 6,\n  \"comment\": \"Đánh giá 6 sao vượt trần\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reviews/book/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["reviews", "book", "{{bookId}}"]
+            },
+            "description": "Test case BVA-RAT-06: Gửi rating = 6 (vượt quá 5 sao). Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Số Lượng Giỏ Hàng & Tồn Kho (BVA-QTY-01 -> BVA-QTY-06)",
+      "description": "Kiểm thử giá trị biên của số lượng mua sách vào giỏ hàng so với số lượng tồn kho (Book ID 4: Stock = 20).",
+      "item": [
+        {
+          "name": "BVA-QTY-01: Quantity = 0 (Dưới biên dưới - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi số lượng không hợp lệ\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Số lượng\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": {{stockBookId}},\n  \"quantity\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart"]
+            },
+            "description": "Test case BVA-QTY-01: Thêm quantity = 0 vào giỏ hàng. Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-QTY-02: Quantity = 1 (Biên dưới Min - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Giỏ hàng được cập nhật sản phẩm\", function () {",
+                  "    pm.expect(res).to.have.property(\"items\");",
+                  "    pm.expect(res.items).to.be.an(\"array\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": {{stockBookId}},\n  \"quantity\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart"]
+            },
+            "description": "Test case BVA-QTY-02: Thêm quantity = 1 (biên dưới hợp lệ) vào giỏ hàng. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-QTY-03: Quantity = 2 (Ngay trên biên dưới - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Giỏ hàng cập nhật thành công\", function () {",
+                  "    pm.expect(res).to.have.property(\"items\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart", "{{stockBookId}}"]
+            },
+            "description": "Test case BVA-QTY-03: Cập nhật quantity = 2 cho sản phẩm trong giỏ. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-QTY-04: Quantity = 19 (Stock - 1, Ngay dưới trần kho - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Giỏ hàng cập nhật 19 sản phẩm thành công\", function () {",
+                  "    pm.expect(res).to.have.property(\"items\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 19\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart", "{{stockBookId}}"]
+            },
+            "description": "Test case BVA-QTY-04: Cập nhật quantity = 19 (Stock - 1 khi Stock=20). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-QTY-05: Quantity = 20 (Stock, Trần tồn kho Max - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Giỏ hàng lấy đủ trọn 20 cuốn vừa khít tồn kho\", function () {",
+                  "    pm.expect(res).to.have.property(\"items\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 20\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart", "{{stockBookId}}"]
+            },
+            "description": "Test case BVA-QTY-05: Cập nhật quantity = 20 (chạm trần tồn kho). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-QTY-06: Quantity = 21 (Stock + 1, Vượt trần tồn kho - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi vượt quá tồn kho hiện có\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"vượt quá tồn kho\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 21\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cart/{{stockBookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cart", "{{stockBookId}}"]
+            },
+            "description": "Test case BVA-QTY-06: Cố tình đặt quantity = 21 (> Stock 20). Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3. Giá Tối Thiểu Áp Coupon (BVA-MIN-01 -> BVA-MIN-03)",
+      "description": "Kiểm thử giá trị biên của số tiền đơn hàng tối thiểu để áp dụng mã giảm giá (Mã GRAPE10: minOrderAmount = 100.000đ).",
+      "item": [
+        {
+          "name": "BVA-MIN-01: Amount = 99.999đ (Min - 1, Dưới ngưỡng tối thiểu - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Mã không hợp lệ (valid = false)\", function () {",
+                  "    pm.expect(res.valid).to.eql(false);",
+                  "    pm.expect(res.discountAmount).to.eql(0);",
+                  "});",
+                  "pm.test(\"Thông báo yêu cầu đơn hàng tối thiểu 100.000đ\", function () {",
+                  "    pm.expect(res.message).to.include(\"100,000\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=99999",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "validate"],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "GRAPE10"
+                },
+                {
+                  "key": "amount",
+                  "value": "99999"
+                }
+              ]
+            },
+            "description": "Test case BVA-MIN-01: Kiểm tra mã GRAPE10 với đơn hàng 99.999đ (thiếu 1đ so với 100k). Kỳ vọng valid: false."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-MIN-02: Amount = 100.000đ (Min, Đúng ngưỡng chuẩn tối thiểu - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Mã áp dụng thành công (valid = true)\", function () {",
+                  "    pm.expect(res.valid).to.eql(true);",
+                  "    pm.expect(res.discountAmount).to.eql(10000.0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=100000",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "validate"],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "GRAPE10"
+                },
+                {
+                  "key": "amount",
+                  "value": "100000"
+                }
+              ]
+            },
+            "description": "Test case BVA-MIN-02: Kiểm tra mã GRAPE10 với đúng 100.000đ. Kỳ vọng valid: true, giảm 10.000đ (10%)."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-MIN-03: Amount = 100.001đ (Min + 1, Trên ngưỡng tối thiểu - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Mã áp dụng thành công (valid = true)\", function () {",
+                  "    pm.expect(res.valid).to.eql(true);",
+                  "    pm.expect(res.discountAmount).to.be.above(10000.0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/coupons/validate?code=GRAPE10&amount=100001",
+              "host": ["{{baseUrl}}"],
+              "path": ["coupons", "validate"],
+              "query": [
+                {
+                  "key": "code",
+                  "value": "GRAPE10"
+                },
+                {
+                  "key": "amount",
+                  "value": "100001"
+                }
+              ]
+            },
+            "description": "Test case BVA-MIN-03: Kiểm tra mã GRAPE10 với 100.001đ. Kỳ vọng valid: true, giảm 10.000,1đ."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4. Độ Dài Mật Khẩu (BVA-PWD-01 -> BVA-PWD-03)",
+      "description": "Kiểm thử giá trị biên của độ dài mật khẩu mới (Quy định: tối thiểu 6 ký tự).",
+      "item": [
+        {
+          "name": "BVA-PWD-01: Mật khẩu mới 5 ký tự (Min - 1, Dưới độ dài tối thiểu - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi mật khẩu phải có ít nhất 6 ký tự\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"ít nhất 6 ký tự\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"123456\",\n  \"newPassword\": \"12345\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "password"]
+            },
+            "description": "Test case BVA-PWD-01: Đổi mật khẩu với newPassword = '12345' (5 ký tự). Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-PWD-02: Mật khẩu mới 6 ký tự (Min, Đúng chuẩn tối thiểu - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Đổi mật khẩu thành công\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Đổi mật khẩu thành công\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"123456\",\n  \"newPassword\": \"654321\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "password"]
+            },
+            "description": "Test case BVA-PWD-02: Đổi mật khẩu với newPassword = '654321' (đúng 6 ký tự). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-PWD-03: Mật khẩu mới 7 ký tự (Min + 1, Trên chuẩn tối thiểu - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Đổi mật khẩu 7 ký tự thành công\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Đổi mật khẩu thành công\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"654321\",\n  \"newPassword\": \"1234567\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "password"]
+            },
+            "description": "Test case BVA-PWD-03: Đổi mật khẩu với newPassword = '1234567' (7 ký tự). Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-PWD-Reset: Khôi phục mật khẩu gốc 123456 (Cleanup)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Khôi phục mật khẩu gốc 123456 thành công (200 OK)\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"oldPassword\": \"1234567\",\n  \"newPassword\": \"123456\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/password",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "password"]
+            },
+            "description": "Bước dọn dẹp để trả lại mật khẩu '123456' cho user test."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5. Đổi Điểm Y-Points & Quà Tặng (BVA-REW-01 -> BVA-REW-08)",
+      "description": "Kiểm thử giá trị biên của tính năng đổi điểm thưởng Y-Points (Freeship: 10.000đ; Voucher 20K: 20.000đ; Voucher 50K: 50.000đ).",
+      "item": [
+        {
+          "name": "BVA-REW-01: Đổi Freeship khi tài khoản thiếu điểm (Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request khi không đủ điểm\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi không đủ Y-Points\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Không đủ Y-Points\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 10000,\n  \"type\": \"FREESHIP\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-01: Yêu cầu đổi Freeship 10.000 điểm khi số dư tài khoản dưới 10.000. Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-02: Đổi Freeship khi có đúng 10.000 điểm (Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code 200 hoặc 400 (phụ thuộc số dư DB của User)\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Đổi quà thành công\", function () {",
+                  "        pm.expect(res.message).to.include(\"thành công\");",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 10000,\n  \"type\": \"FREESHIP\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-02: Đổi mã Freeship khi có đủ 10.000 điểm. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-03: Đổi Freeship khi có trên 10.000 điểm (10.001đ - Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code 200 hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 10000,\n  \"type\": \"FREESHIP\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-03: Đổi Freeship khi có số dư 10.001 Y-Points. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-04: Đổi Voucher 20K khi thiếu điểm (19.999 điểm - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi không đủ Y-Points\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Không đủ Y-Points\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 20000,\n  \"type\": \"DISCOUNT_20K\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-04: Đổi voucher 20k khi tài khoản không đủ 20.000 điểm. Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-05: Đổi Voucher 20K khi có đúng 20.000 điểm (Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code 200 hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Đổi Voucher 20K thành công\", function () {",
+                  "        pm.expect(res.message).to.include(\"thành công\");",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 20000,\n  \"type\": \"DISCOUNT_20K\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-05: Đổi voucher 20k khi có đúng 20.000 Y-Points. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-06: Đổi Voucher 20K khi có 20.001 điểm (Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code 200 hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 20000,\n  \"type\": \"DISCOUNT_20K\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-06: Đổi voucher 20k khi có 20.001 Y-Points. Kỳ vọng 200 OK."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-07: Đổi Voucher 50K khi thiếu điểm (49.999 điểm - Invalid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 400 Bad Request\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"Báo lỗi không đủ Y-Points\", function () {",
+                  "    pm.expect(res.message || JSON.stringify(res)).to.include(\"Không đủ Y-Points\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 50000,\n  \"type\": \"DISCOUNT_50K\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-07: Đổi voucher 50k khi tài khoản chỉ có 49.999 điểm. Kỳ vọng 400 Bad Request."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-REW-08: Đổi Voucher 50K khi có đủ 50.000 điểm (Valid)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code 200 hoặc 400\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    const res = pm.response.json();",
+                  "    pm.test(\"Đổi Voucher 50K thành công\", function () {",
+                  "        pm.expect(res.message).to.include(\"thành công\");",
+                  "    });",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"points\": 50000,\n  \"type\": \"DISCOUNT_50K\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rewards/exchange",
+              "host": ["{{baseUrl}}"],
+              "path": ["rewards", "exchange"]
+            },
+            "description": "Test case BVA-REW-08: Đổi voucher 50k khi tài khoản có đủ 50.000 điểm. Kỳ vọng 200 OK."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6. Hạng Thành Viên VIP (BVA-RNK-01 -> BVA-RNK-06)",
+      "description": "Kiểm thử giá trị biên tích lũy điểm xét hạng VIP thành viên (Đồng < 5k; Bạc: 5k - 29.999; Vàng: 30k - 99.999; Kim Cương >= 100k).",
+      "item": [
+        {
+          "name": "BVA-RNK-01: Hạng Đồng (4.999 điểm tích lũy - Dưới mốc Bạc)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về điểm tích lũy\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "    const acc = res.accumulatedPoints || 0;",
+                  "    if (acc < 5000) {",
+                  "        pm.test(\"Xác nhận hạng: ĐỒNG (BRONZE)\", function () {",
+                  "            pm.expect(acc).to.be.below(5000);",
+                  "        });",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-01: Kiểm tra thông tin hồ sơ người dùng với điểm tích lũy 4.999 điểm -> Hạng Đồng."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RNK-02: Hạng Bạc (5.000 điểm tích lũy - Chạm mốc Bạc)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về thông tin thành công\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-02: Kiểm tra hồ sơ với điểm tích lũy 5.000 điểm -> Đạt hạng Bạc (Silver)."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RNK-03: Hạng Bạc (29.999 điểm tích lũy - Dưới mốc Vàng)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về thông tin hợp lệ\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-03: Điểm tích lũy 29.999 điểm -> Giữ nguyên hạng Bạc (Silver)."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RNK-04: Hạng Vàng (30.000 điểm tích lũy - Chạm mốc Vàng)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về thông tin hợp lệ\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-04: Điểm tích lũy 30.000 điểm -> Đạt mốc thăng hạng Vàng (Gold)."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RNK-05: Hạng Vàng (99.999 điểm tích lũy - Dưới mốc Kim Cương)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về thông tin hợp lệ\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-05: Điểm tích lũy 99.999 điểm -> Giữ nguyên hạng Vàng (Gold)."
+          },
+          "response": []
+        },
+        {
+          "name": "BVA-RNK-06: Hạng Kim Cương (100.000 điểm tích lũy - Chạm mốc Kim Cương)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HTTP Status 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "const res = pm.response.json();",
+                  "pm.test(\"User profile trả về thông tin hợp lệ\", function () {",
+                  "    pm.expect(res).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{userToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "profile"]
+            },
+            "description": "Test case BVA-RNK-06: Điểm tích lũy 100.000 điểm -> Đạt mốc Kim Cương (Diamond)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

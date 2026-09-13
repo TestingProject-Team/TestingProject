@@ -310,11 +310,11 @@ class OrderServiceRewardTest {
         }
 
         @Test
-        @DisplayName("Tài khoản có các trường điểm null vẫn xử lý được, không ném NullPointerException")
-        void confirmOrderReceived_truongDiemNull_khongLoi() {
+        @DisplayName("User với totalSpent / yPoints / accumulatedPoints null được khởi tạo về 0 trước khi tính")
+        void confirmOrderReceived_allPointsNull_initBranches() {
+            user.setTotalSpent(null);
             user.setYPoints(null);
             user.setAccumulatedPoints(null);
-            user.setTotalSpent(null);
 
             Order order = taoDonHang("SHIPPED", ShippingStatus.DELIVERED, 100_000.0);
             when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
@@ -323,9 +323,9 @@ class OrderServiceRewardTest {
 
             orderService.confirmOrderReceived(1L, USERNAME);
 
+            assertThat(user.getTotalSpent()).isEqualTo(100_000.0);
             assertThat(user.getYPoints()).isEqualTo(500);
             assertThat(user.getAccumulatedPoints()).isEqualTo(500);
-            assertThat(user.getTotalSpent()).isEqualTo(100_000.0);
         }
 
         @Test
@@ -502,6 +502,17 @@ class OrderServiceRewardTest {
                     .hasMessage("Bạn không có quyền huỷ đơn hàng này!");
 
             verifyNoInteractions(bookRepository, userRepository, pointTransactionRepository);
+        }
+
+        @Test
+        @DisplayName("Huỷ đơn có pointsUsed null thì không hoàn điểm")
+        void userCancelOrder_nullPointsUsed() {
+            Order order = taoDonHang("PENDING", ShippingStatus.PENDING, 200_000.0);
+            order.setPointsUsed(null);
+            when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+
+            orderService.userCancelOrder(1L, USERNAME);
+            verifyNoInteractions(pointTransactionRepository);
         }
     }
 }

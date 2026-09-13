@@ -38,6 +38,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -87,6 +88,15 @@ class ReviewServiceTest {
 
     private User user;
     private Book book;
+
+    @Test
+    void getReviewEligibilityReason_WhenRepositoryFails_ReturnsErrorReason() {
+        when(userRepository.findByUsername(USERNAME)).thenThrow(new RuntimeException("database unavailable"));
+
+        Map<String, Object> result = reviewService.getReviewEligibilityReason(USERNAME, BOOK_ID);
+
+        assertThat(result).containsEntry("eligible", false).containsEntry("reason", "ERROR");
+    }
 
     @BeforeEach
     void setUp() {
@@ -455,14 +465,95 @@ class ReviewServiceTest {
         }
 
         @Test
-        @DisplayName("Trả về INVALID khi không tìm thấy người dùng")
-        void eligibility_userKhongTonTai() {
-            when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.empty());
+        @DisplayName("Trả về INVALID khi không tìm thấy user hoặc không tìm thấy book")
+        void eligibility_userOrBookNotFound() {
+            when(userRepository.findByUsername("invalidUser")).thenReturn(Optional.empty());
             when(bookRepository.findById(BOOK_ID)).thenReturn(Optional.of(book));
+            Map<String, Object> ketQua1 = reviewService.getReviewEligibilityReason("invalidUser", BOOK_ID);
+            assertThat(ketQua1).containsEntry("eligible", false).containsEntry("reason", "INVALID");
 
-            Map<String, Object> ketQua = reviewService.getReviewEligibilityReason(USERNAME, BOOK_ID);
+            when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+            when(bookRepository.findById(999L)).thenReturn(Optional.empty());
+            Map<String, Object> ketQua2 = reviewService.getReviewEligibilityReason(USERNAME, 999L);
+            assertThat(ketQua2).containsEntry("eligible", false).containsEntry("reason", "INVALID");
+        }
 
-            assertThat(ketQua).containsEntry("eligible", false).containsEntry("reason", "INVALID");
+        @Test
+        @DisplayName("Xoá đánh giá khi averageRating hoặc reviewCount của book là null")
+        void deleteReview_nullReviewCountAndAvg() {
+            book.setReviewCount(null);
+            book.setAverageRating(null);
+            Review review = taoDanhGia(5, "Hay");
+            when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+
+            reviewService.deleteReview(1L);
+            assertThat(book.getReviewCount()).isZero();
+            assertThat(book.getAverageRating()).isEqualTo(0.0);
+            verify(reviewRepository).delete(review);
+        }
+
+        @Test
+        @DisplayName("Ném lỗi khi updateReview hoặc likeReview hoặc reportReview hoặc dismissReport không tìm thấy review")
+        void reviewNotFound_lambdas() {
+            when(reviewRepository.findById(999L)).thenReturn(Optional.empty());
+
+            assertThrows(RuntimeException.class, () -> reviewService.updateReview(999L, "comment", 5));
+            assertThrows(RuntimeException.class, () -> reviewService.likeReview(999L, USERNAME));
+            assertThrows(RuntimeException.class, () -> reviewService.reportReview(999L));
+            assertThrows(RuntimeException.class, () -> reviewService.dismissReport(999L));
+        }
+
+        @Test
+        @DisplayName("Ném lỗi khi likeReview không tìm thấy user")
+        void likeReview_userNotFound() {
+            Review review = taoDanhGia(5, "Good");
+            when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+            when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+
+            assertThrows(RuntimeException.class, () -> reviewService.likeReview(1L, "unknown"));
+        }
+
+        @Test
+        @DisplayName("Ném lỗi khi addComment không tìm thấy user")
+        void addComment_userNotFound() {
+            Review review = taoDanhGia(5, "Good");
+            when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+            when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+
+            assertThrows(RuntimeException.class, () -> reviewService.addComment(1L, "unknown", "Nice"));
+        }
+
+        @Test
+        @DisplayName("Update review với rating null khi reviewCount book là null")
+        void updateReview_ratingChange_nullBookCounts() {
+            book.setReviewCount(null);
+            book.setAverageRating(null);
+            Review review = taoDanhGia(3, "Tạm");
+            when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+            when(reviewRepository.save(review)).thenReturn(review);
+
+            Review updated = reviewService.updateReview(1L, "Updated", 4);
+            assertThat(updated.getRating()).isEqualTo(4);
+            assertThat(updated.getComment()).isEqualTo("Updated");
+        }
+
+        @Test
+        @DisplayName("Like review với likesCount null ban đầu")
+        void likeReview_initialNullLikesCount() {
+            Review review = taoDanhGia(5, "Sách hay");
+            review.setLikesCount(null);
+            when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
+            when(userRepository.findByUsername(USERNAME)).thenReturn(Optional.of(user));
+            when(reviewRepository.save(review)).thenReturn(review);
+
+            Review ketQua = reviewService.likeReview(1L, USERNAME);
+            assertThat(ketQua.getLikesCount()).isEqualTo(1);
+
+            // Now unlike when likesCount is null
+            review.getLikedByUsers().add(user);
+            review.setLikesCount(null);
+            Review unliked = reviewService.likeReview(1L, USERNAME);
+            assertThat(unliked.getLikesCount()).isEqualTo(0);
         }
     }
 
@@ -859,6 +950,20 @@ class ReviewServiceTest {
             reviewService.autoReviewUnreviewedOrders();
 
             verifyNoInteractions(reviewRepository, userRepository, bookRepository);
+        }
+
+        @Test
+        @DisplayName("Gặp ngoại lệ khi auto-review vẫn xử lý tiếp và bắt lỗi")
+        void autoReview_gapNgoaiLe_batLoiVaTiepTuc() {
+            Order order = taoDonHoanThanh();
+            when(orderRepository.findByStatusAndCreatedAtBefore(eq("COMPLETED"), any(LocalDateTime.class)))
+                    .thenReturn(List.of(order));
+            when(orderRepository.countUserDeliveredPurchases(user, book, ShippingStatus.DELIVERED))
+                    .thenReturn(1L);
+            when(reviewRepository.countByUserIdAndBookId(1L, BOOK_ID)).thenReturn(0L);
+            when(userRepository.findByUsername(USERNAME)).thenThrow(new RuntimeException("DB error"));
+
+            org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> reviewService.autoReviewUnreviewedOrders());
         }
     }
 }

@@ -313,6 +313,18 @@ class OrderServiceTest {
         }
 
         @Test
+        void userReturnOrder_NullRequest_StillMarksOrderReturned() {
+            Order order = taoDonHang(1L, "COMPLETED", ShippingStatus.DELIVERED);
+            when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+            when(user.getUsername()).thenReturn(USERNAME);
+
+            orderService.userReturnOrder(1L, USERNAME, null);
+
+            assertThat(order.getStatus()).isEqualTo("RETURNED");
+            verify(orderRepository).save(order);
+        }
+
+        @Test
         @DisplayName("adminApproveReturn chuyển đơn RETURNED sang REFUNDED")
         void adminApproveReturn_thanhCong() {
             Order order = taoDonHang(1L, "RETURNED", ShippingStatus.DELIVERED);
@@ -415,6 +427,18 @@ class OrderServiceTest {
         }
 
         @Test
+        void confirmVNPayPayment_EmptyCouponCodes_DoNotQueryCoupons() {
+            Order order = taoDonHang(1L, "PENDING_PAYMENT", ShippingStatus.PENDING);
+            order.setDiscountCouponCode("");
+            order.setShippingCouponCode("");
+            when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+
+            orderService.confirmVNPayPayment(1L, true);
+
+            verifyNoInteractions(couponRepository, couponService);
+        }
+
+        @Test
         @DisplayName("Bỏ qua khi đơn hàng không còn ở trạng thái chờ thanh toán")
         void confirmVNPayPayment_khongPhaiChoThanhToan_boQua() {
             Order order = taoDonHang(1L, "COMPLETED", ShippingStatus.DELIVERED);
@@ -444,19 +468,23 @@ class OrderServiceTest {
     class DoiPhuongThucThanhToanTests {
 
         @Test
-        @DisplayName("Đổi sang COD: đơn về PENDING, xoá giỏ hàng và tiêu coupon")
+        @DisplayName("Đổi sang COD: đơn về PENDING, xoá giỏ hàng và tiêu coupon cả discount và shipping")
         void updatePaymentMethod_sangCOD_thanhCong() {
             Order order = taoDonHang(1L, "PENDING_PAYMENT", ShippingStatus.PENDING);
             order.setPaymentMethod("VNPAY");
             themSanPham(order, 5L, 1);
             order.setDiscountCouponCode("SALE50");
+            order.setShippingCouponCode("SHIP30");
 
             Coupon coupon = Coupon.builder().code("SALE50").build();
+            Coupon shipCoupon = Coupon.builder().code("SHIP30").build();
 
             when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
             when(user.getUsername()).thenReturn(USERNAME);
             when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("SALE50"))
                     .thenReturn(Optional.of(coupon));
+            when(couponRepository.findByCodeIgnoreCaseAndIsActiveTrue("SHIP30"))
+                    .thenReturn(Optional.of(shipCoupon));
             gaLapSaveOrder();
 
             Order ketQua = orderService.updatePaymentMethod(1L, "COD", USERNAME);
@@ -465,6 +493,24 @@ class OrderServiceTest {
             assertThat(ketQua.getStatus()).isEqualTo("PENDING");
             verify(cartService).removeCartItem(USERNAME, 5L);
             verify(couponService).useCoupon(coupon);
+            verify(couponService).useCoupon(shipCoupon);
+        }
+
+        @Test
+        @DisplayName("Đổi sang COD: coupon rỗng thì không gọi couponService")
+        void updatePaymentMethod_sangCOD_couponRong() {
+            Order order = taoDonHang(1L, "PENDING_PAYMENT", ShippingStatus.PENDING);
+            order.setPaymentMethod("VNPAY");
+            order.setDiscountCouponCode("");
+            order.setShippingCouponCode("");
+
+            when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+            when(user.getUsername()).thenReturn(USERNAME);
+            gaLapSaveOrder();
+
+            Order ketQua = orderService.updatePaymentMethod(1L, "COD", USERNAME);
+            assertThat(ketQua.getStatus()).isEqualTo("PENDING");
+            verify(couponService, never()).useCoupon(any());
         }
 
         @Test
@@ -570,6 +616,17 @@ class OrderServiceTest {
             orderService.cancelExpiredPendingPaymentOrders();
 
             verify(orderRepository, never()).findById(anyLong());
+        }
+
+        @Test
+        @DisplayName("Job tự động bắt ngoại lệ khi confirmVNPayPayment gặp lỗi")
+        void cancelExpiredPendingPaymentOrders_gapNgoaiLe_tiepTuc() {
+            Order donQuaHan = taoDonHang(1L, "PENDING_PAYMENT", ShippingStatus.PENDING);
+            when(orderRepository.findByStatusAndCreatedAtBefore(eq("PENDING_PAYMENT"), any(LocalDateTime.class)))
+                    .thenReturn(List.of(donQuaHan));
+            when(orderRepository.findById(1L)).thenThrow(new RuntimeException("DB error"));
+
+            org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> orderService.cancelExpiredPendingPaymentOrders());
         }
     }
 }

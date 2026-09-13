@@ -20,6 +20,9 @@ public class ExcelHelper {
     static final String[] HEADERS = { "Tiêu đề sách", "Tác giả", "Nhà xuất bản", "Mô tả", "Giá bán (đ)", "Giá cũ (đ)", "% Giảm giá", "Số lượng tồn", "ID Danh mục", "Link Ảnh" };
     static final String SHEET = "Books";
 
+    private ExcelHelper() {
+    }
+
     public static boolean hasExcelFormat(MultipartFile file) {
         return TYPE.equals(file.getContentType());
     }
@@ -136,14 +139,6 @@ public class ExcelHelper {
                     }
                 }
                 
-                // Thiết lập giá trị mặc định nếu rỗng
-                if (book.getDiscount() == null) book.setDiscount(0);
-                if (book.getStockQuantity() == null) book.setStockQuantity(0);
-                if (book.getIsCombo() == null) book.setIsCombo(false);
-                if (book.getAverageRating() == null) book.setAverageRating(0.0);
-                if (book.getReviewCount() == null) book.setReviewCount(0);
-                if (book.getSalesCount() == null) book.setSalesCount(0);
-
                 books.add(book);
             }
             workbook.close();

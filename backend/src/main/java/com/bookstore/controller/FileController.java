@@ -34,7 +34,8 @@ public class FileController {
     @PostMapping
     public ResponseEntity<Map<String, String>> uploadFile(@RequestParam("file") MultipartFile file) {
         String originalName = file.getOriginalFilename();
-        String fileName = (originalName != null) ? StringUtils.cleanPath(originalName) : UUID.randomUUID().toString();
+        String fileName = StringUtils.cleanPath(java.util.Objects.requireNonNullElse(
+                originalName, UUID.randomUUID().toString()));
 
         try {
             if (fileName.contains("..")) {

@@ -445,6 +445,32 @@ class OrderServiceCreateTest {
 
             assertThat(ketQua.getDiscountAmount()).isEqualTo(20_000.0);
         }
+
+        @Test
+        @DisplayName("Kiểm tra các nhánh mã vận chuyển category null / không chứa FREESHIP")
+        void createOrder_shippingCoupon_branches() {
+            gaLapLuongCoBan();
+            taoSach(10L, 100_000, 100_000.0, 10, 0);
+            themDongHang(10L, 2, 100_000.0);
+
+            // Category null, code not FREESHIP
+            Coupon nonShipCoupon = Coupon.builder().code("DISC10").category(null).build();
+            when(couponService.validateCoupon("DISC10", 200000.0, USERNAME)).thenReturn(nonShipCoupon);
+
+            request.setShippingCouponCode("DISC10");
+            assertThatThrownBy(() -> orderService.createOrder(USERNAME, request))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessageContaining("Mã này không phải mã miễn phí vận chuyển!");
+
+            // Category DISCOUNT (not SHIPPING)
+            Coupon discCategoryCoupon = Coupon.builder().code("FREESHIP").category("DISCOUNT").build();
+            when(couponService.validateCoupon("FREESHIP", 200000.0, USERNAME)).thenReturn(discCategoryCoupon);
+
+            request.setShippingCouponCode("FREESHIP");
+            assertThatThrownBy(() -> orderService.createOrder(USERNAME, request))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessageContaining("Mã này không phải mã miễn phí vận chuyển!");
+        }
     }
 
     // ==================== MÃ GIẢM GIÁ ====================
@@ -471,6 +497,23 @@ class OrderServiceCreateTest {
             assertThat(ketQua.getDiscountAmount()).isEqualTo(50_000.0);
             assertThat(ketQua.getTotalAmount()).isEqualTo(180_000.0);
             verify(couponService).useCoupon(coupon);
+        }
+
+        @Test
+        void createOrder_DiscountCouponWithNullCategory_RemainsBackwardCompatible() {
+            gaLapLuongCoBan();
+            taoSach(10L, 100_000, 100_000.0, 10, 0);
+            themDongHang(10L, 2, 100_000.0);
+            gaLapSaveOrder();
+            Coupon legacyCoupon = taoCoupon("LEGACY", null);
+            request.setDiscountCouponCode("LEGACY");
+            when(couponService.validateCoupon("LEGACY", 200000.0, USERNAME)).thenReturn(legacyCoupon);
+            when(couponService.calculateDiscount(legacyCoupon, 200000.0)).thenReturn(10000.0);
+
+            Order result = orderService.createOrder(USERNAME, request);
+
+            assertThat(result.getDiscountAmount()).isEqualTo(10000.0);
+            verify(couponService).useCoupon(legacyCoupon);
         }
 
         @Test
@@ -646,20 +689,65 @@ class OrderServiceCreateTest {
         }
 
         @Test
-        @DisplayName("Không dùng điểm thì không trừ điểm và không ghi giao dịch")
-        void createOrder_khongDungDiem_khongGhiGiaoDich() {
-            user.setYPoints(50_000);
+        @DisplayName("User with null accumulated points defaults to 0")
+        void createOrder_nullAccumulatedPoints() {
+            user.setAccumulatedPoints(null);
             gaLapLuongCoBan();
             taoSach(10L, 100_000, 100_000.0, 10, 0);
             themDongHang(10L, 2, 100_000.0);
             gaLapSaveOrder();
-            request.setSpentPoints(0);
 
             Order ketQua = orderService.createOrder(USERNAME, request);
+            assertThat(ketQua.getDiscountAmount()).isEqualTo(0.0);
+        }
 
-            assertThat(ketQua.getPointsUsed()).isZero();
-            assertThat(user.getYPoints()).isEqualTo(50_000);
-            verifyNoInteractions(pointTransactionRepository);
+        @Test
+        @DisplayName("User with null YPoints throws exception when attempting to spend points")
+        void createOrder_nullYPoints_throwsException() {
+            user.setYPoints(null);
+            gaLapLuongCoBan();
+            taoSach(10L, 100_000, 100_000.0, 10, 0);
+            themDongHang(10L, 2, 100_000.0);
+            request.setSpentPoints(100);
+
+            assertThatThrownBy(() -> orderService.createOrder(USERNAME, request))
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessage("Bạn không đủ Y-Point để thanh toán!");
+        }
+
+        @Test
+        @DisplayName("Points discount capped by max points by total amount")
+        void createOrder_pointsCappedByTotal() {
+            user.setYPoints(500_000);
+            user.setAccumulatedPoints(0);
+            gaLapLuongCoBan();
+            // Subtotal 100k, oldPrice 200k -> remainingMaxDiscount = 0
+            taoSach(10L, 100_000, 200_000.0, 10, 0);
+            themDongHang(10L, 1, 100_000.0);
+            request.setShippingFee(0.0);
+            request.setSpentPoints(50_000);
+            gaLapSaveOrder();
+
+            Order ketQua = orderService.createOrder(USERNAME, request);
+            assertThat(ketQua.getPointsUsed()).isEqualTo(0);
+        }
+
+        @Test
+        @DisplayName("Order with null items / zero spent points doesn't trigger points deduction")
+        void createOrder_nullOrZeroSpentPoints() {
+            user.setYPoints(100_000);
+            gaLapLuongCoBan();
+            taoSach(10L, 100_000, 100_000.0, 10, 0);
+            themDongHang(10L, 1, 100_000.0);
+            request.setSpentPoints(0);
+            gaLapSaveOrder();
+
+            Order ketQua1 = orderService.createOrder(USERNAME, request);
+            assertThat(ketQua1.getPointsUsed()).isZero();
+
+            request.setSpentPoints(null);
+            Order ketQua2 = orderService.createOrder(USERNAME, request);
+            assertThat(ketQua2.getPointsUsed()).isZero();
         }
     }
 }

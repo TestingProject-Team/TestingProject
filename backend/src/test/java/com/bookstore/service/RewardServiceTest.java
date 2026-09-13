@@ -211,4 +211,168 @@ public class RewardServiceTest {
 
         assertEquals("Lỗi: mã đã hết hạn.", exception.getMessage());
     }
+
+    @Test
+    void redeemVoucher_UserNotFound_ThrowsException() {
+        when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> rewardService.redeemVoucher("unknown", "CODE"));
+    }
+
+    @Test
+    void redeemVoucher_VoucherNotFound_ThrowsException() {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(rewardVoucherRepository.findByCode("INVALID")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> rewardService.redeemVoucher("testuser", "INVALID"));
+    }
+
+    @Test
+    void redeemVoucher_AlreadyUsed_ThrowsException() {
+        RewardVoucher voucher = RewardVoucher.builder()
+                .id(10L)
+                .code("USED")
+                .isActive(true)
+                .build();
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(rewardVoucherRepository.findByCode("USED")).thenReturn(Optional.of(voucher));
+        when(userRewardRepository.existsByUserIdAndVoucherId(1L, 10L)).thenReturn(true);
+
+        assertThrows(RuntimeException.class, () -> rewardService.redeemVoucher("testuser", "USED"));
+    }
+
+    @Test
+    void redeemVoucher_Success_FreeShip() {
+        RewardVoucher voucher = RewardVoucher.builder()
+                .id(11L)
+                .code("FREESHIP_VOUCHER")
+                .isActive(true)
+                .rewardType("FREESHIP")
+                .rewardValue(2)
+                .build();
+
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(rewardVoucherRepository.findByCode("FREESHIP_VOUCHER")).thenReturn(Optional.of(voucher));
+        when(userRewardRepository.existsByUserIdAndVoucherId(1L, 11L)).thenReturn(false);
+
+        rewardService.redeemVoucher("testuser", "FREESHIP_VOUCHER");
+
+        assertEquals(2, testUser.getFreeShipCoupons());
+    }
+
+    @Test
+    void getHistory_Success() {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(pointTransactionRepository.findByUserIdOrderByCreatedAtDesc(1L)).thenReturn(java.util.List.of());
+
+        java.util.List<PointTransaction> history = rewardService.getHistory("testuser");
+        assertNotNull(history);
+    }
+
+    @Test
+    void getHistory_UserNotFound_ThrowsException() {
+        when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> rewardService.getHistory("unknown"));
+    }
+
+    @Test
+    void exchangePoints_UserNotFound_ThrowsException() {
+        when(userRepository.findByUsername("unknown")).thenReturn(Optional.empty());
+        assertThrows(RuntimeException.class, () -> rewardService.exchangePoints("unknown", 1000, "FREESHIP"));
+    }
+
+    @Test
+    void exchangePoints_UnknownRewardType_ThrowsException() {
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        RuntimeException error = assertThrows(RuntimeException.class,
+                () -> rewardService.exchangePoints("testuser", 1000, "UNKNOWN"));
+
+        assertEquals("Loại quà không hợp lệ.", error.getMessage());
+    }
+
+    @Test
+    void exchangePoints_Discount50k_SuccessAndFailure() {
+        testUser.setYPoints(60000);
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        // Invalid points != 50000
+        assertThrows(RuntimeException.class, () -> rewardService.exchangePoints("testuser", 40000, "DISCOUNT_50K"));
+
+        // Valid points == 50000
+        rewardService.exchangePoints("testuser", 50000, "DISCOUNT_50K");
+        assertEquals(10000, testUser.getYPoints());
+        verify(couponRepository).save(any(Coupon.class));
+    }
+
+    @Test
+    void redeemVoucher_NullUserPointsAndFreeShip() {
+        testUser.setYPoints(null);
+        testUser.setFreeShipCoupons(null);
+
+        RewardVoucher voucher = RewardVoucher.builder()
+                .id(12L)
+                .code("POINTS_NULL")
+                .isActive(true)
+                .rewardType("POINTS")
+                .rewardValue(100)
+                .build();
+
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(rewardVoucherRepository.findByCode("POINTS_NULL")).thenReturn(Optional.of(voucher));
+        when(userRewardRepository.existsByUserIdAndVoucherId(1L, 12L)).thenReturn(false);
+
+        rewardService.redeemVoucher("testuser", "POINTS_NULL");
+        assertEquals(100, testUser.getYPoints());
+
+        // Now test freeship when null
+        RewardVoucher shipVoucher = RewardVoucher.builder()
+                .id(13L)
+                .code("SHIP_NULL")
+                .isActive(true)
+                .rewardType("FREESHIP")
+                .rewardValue(3)
+                .build();
+        testUser.setFreeShipCoupons(null);
+        when(rewardVoucherRepository.findByCode("SHIP_NULL")).thenReturn(Optional.of(shipVoucher));
+        when(userRewardRepository.existsByUserIdAndVoucherId(1L, 13L)).thenReturn(false);
+
+        rewardService.redeemVoucher("testuser", "SHIP_NULL");
+        assertEquals(3, testUser.getFreeShipCoupons());
+    }
+
+    @Test
+    void redeemVoucher_Success_OtherRewardType() {
+        RewardVoucher voucher = RewardVoucher.builder()
+                .id(14L)
+                .code("OTHER_TYPE")
+                .isActive(true)
+                .rewardType("OTHER")
+                .rewardValue(5)
+                .build();
+
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+        when(rewardVoucherRepository.findByCode("OTHER_TYPE")).thenReturn(Optional.of(voucher));
+        when(userRewardRepository.existsByUserIdAndVoucherId(1L, 14L)).thenReturn(false);
+
+        rewardService.redeemVoucher("testuser", "OTHER_TYPE");
+        assertEquals(30000, testUser.getYPoints());
+    }
+
+    @Test
+    void exchangePoints_NullUserPointsAndFreeship() {
+        testUser.setYPoints(null);
+        testUser.setFreeShipCoupons(null);
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        assertThrows(RuntimeException.class, () -> rewardService.exchangePoints("testuser", 10000, "FREESHIP"));
+    }
+
+    @Test
+    void exchangePoints_Success_Freeship_WhenUserFreeShipCouponsNull() {
+        testUser.setYPoints(30000);
+        testUser.setFreeShipCoupons(null);
+        when(userRepository.findByUsername("testuser")).thenReturn(Optional.of(testUser));
+
+        rewardService.exchangePoints("testuser", 10000, "FREESHIP");
+        assertEquals(1, testUser.getFreeShipCoupons());
+    }
 }

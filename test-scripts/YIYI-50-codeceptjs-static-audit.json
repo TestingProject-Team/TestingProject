@@ -1,0 +1,43 @@
+﻿{
+    "suite":  "YIYI-50: CodeceptJS E2E Static Verification Audit",
+    "auditType":  "Static Code Analysis (NOT Browser E2E Execution)",
+    "executedAt":  "2026-08-26T12:04:17+07:00",
+    "scenariosFound":  17,
+    "checks":  [
+                   {
+                       "id":  "CHK-CFG-001",
+                       "name":  "Full CodeceptJS Configuration, Steps file, and CustomHelper",
+                       "status":  "VERIFIED",
+                       "checkType":  "StaticCodeCheck",
+                       "note":  ""
+                   },
+                   {
+                       "id":  "CHK-POM-001",
+                       "name":  "Verified 4 Page Objects: authPage, productPage, cartPage, aiChatPage",
+                       "status":  "VERIFIED",
+                       "checkType":  "StaticCodeCheck",
+                       "note":  ""
+                   },
+                   {
+                       "id":  "CHK-FILE-01_auth_test.js",
+                       "name":  "File e2e\\tests\\01_auth_test.js contains 5 defined scenarios",
+                       "status":  "VERIFIED",
+                       "checkType":  "StaticCodeCheck",
+                       "note":  ""
+                   },
+                   {
+                       "id":  "CHK-FILE-02_search_and_ai_chat_test.js",
+                       "name":  "File e2e\\tests\\02_search_and_ai_chat_test.js contains 6 defined scenarios",
+                       "status":  "VERIFIED",
+                       "checkType":  "StaticCodeCheck",
+                       "note":  ""
+                   },
+                   {
+                       "id":  "CHK-FILE-03_cart_and_checkout_test.js",
+                       "name":  "File e2e\\tests\\03_cart_and_checkout_test.js contains 6 defined scenarios",
+                       "status":  "VERIFIED",
+                       "checkType":  "StaticCodeCheck",
+                       "note":  ""
+                   }
+               ]
+}
